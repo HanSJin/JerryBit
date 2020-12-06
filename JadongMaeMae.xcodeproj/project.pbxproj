@@ -17,6 +17,15 @@
 		CE4A6AC0257D3392007A2C65 /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6ABF257D3392007A2C65 /* Authorization.swift */; };
 		CE4A6ACC257D34D6007A2C65 /* secretKey in Resources */ = {isa = PBXBuildFile; fileRef = CE4A6ACA257D34D6007A2C65 /* secretKey */; };
 		CE4A6ACD257D34D6007A2C65 /* accessKey in Resources */ = {isa = PBXBuildFile; fileRef = CE4A6ACB257D34D6007A2C65 /* accessKey */; };
+		CE4A6AD1257D3912007A2C65 /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6AD0257D3912007A2C65 /* Print.swift */; };
+		CE4A6AD6257D3C49007A2C65 /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6AD5257D3C49007A2C65 /* ServiceContainer.swift */; };
+		CE4A6AD9257D3C90007A2C65 /* ServicePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6AD8257D3C90007A2C65 /* ServicePool.swift */; };
+		CE4A6AFB257D3EAE007A2C65 /* AccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6AFA257D3EAE007A2C65 /* AccountsService.swift */; };
+		CE4A6AFF257D3F0C007A2C65 /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6AFE257D3F0C007A2C65 /* RestClient.swift */; };
+		CE4A6B11257D3FD6007A2C65 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B10257D3FD6007A2C65 /* AccountModel.swift */; };
+		CE4A6B16257D401B007A2C65 /* GetMyAccountsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B15257D401B007A2C65 /* GetMyAccountsResponse.swift */; };
+		CE4A6B19257D40BC007A2C65 /* RestAPIClientBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B18257D40BC007A2C65 /* RestAPIClientBuilder.swift */; };
+		CE4A6B1C257D40F7007A2C65 /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */; };
 		F28F860B937F7E71602EEE6F /* Pods_JadongMaeMae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4B312E03543165026DAE562 /* Pods_JadongMaeMae.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +45,15 @@
 		CE4A6ABF257D3392007A2C65 /* Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorization.swift; sourceTree = "<group>"; };
 		CE4A6ACA257D34D6007A2C65 /* secretKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = secretKey; sourceTree = SOURCE_ROOT; };
 		CE4A6ACB257D34D6007A2C65 /* accessKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = accessKey; sourceTree = SOURCE_ROOT; };
+		CE4A6AD0257D3912007A2C65 /* Print.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Print.swift; sourceTree = "<group>"; };
+		CE4A6AD5257D3C49007A2C65 /* ServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
+		CE4A6AD8257D3C90007A2C65 /* ServicePool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePool.swift; sourceTree = "<group>"; };
+		CE4A6AFA257D3EAE007A2C65 /* AccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsService.swift; sourceTree = "<group>"; };
+		CE4A6AFE257D3F0C007A2C65 /* RestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
+		CE4A6B10257D3FD6007A2C65 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
+		CE4A6B15257D401B007A2C65 /* GetMyAccountsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyAccountsResponse.swift; sourceTree = "<group>"; };
+		CE4A6B18257D40BC007A2C65 /* RestAPIClientBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPIClientBuilder.swift; sourceTree = "<group>"; };
+		CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,15 +106,14 @@
 		CE4A6A69257D2A32007A2C65 /* JadongMaeMae */ = {
 			isa = PBXGroup;
 			children = (
+				CE4A6A78257D2A34007A2C65 /* Info.plist */,
+				CE4A6A6A257D2A32007A2C65 /* AppDelegate.swift */,
+				CE4A6B20257D422A007A2C65 /* Resources */,
+				CE4A6AD3257D3C2B007A2C65 /* Service */,
 				CE4A6AC2257D33D4007A2C65 /* Authorization */,
 				CE4A6AB9257D32C9007A2C65 /* Controllers */,
 				CE4A6AB1257D328D007A2C65 /* Utils */,
-				CE4A6A6A257D2A32007A2C65 /* AppDelegate.swift */,
-				CE4A6A6E257D2A32007A2C65 /* ViewController.swift */,
-				CE4A6A70257D2A32007A2C65 /* Main.storyboard */,
-				CE4A6A73257D2A34007A2C65 /* Assets.xcassets */,
-				CE4A6A75257D2A34007A2C65 /* LaunchScreen.storyboard */,
-				CE4A6A78257D2A34007A2C65 /* Info.plist */,
+				CE4A6B1E257D4206007A2C65 /* View */,
 			);
 			path = JadongMaeMae;
 			sourceTree = "<group>";
@@ -105,6 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				CE4A6AB5257D32C4007A2C65 /* Device+Ext.swift */,
+				CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */,
+				CE4A6AD0257D3912007A2C65 /* Print.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -125,6 +144,86 @@
 				CE4A6ACA257D34D6007A2C65 /* secretKey */,
 			);
 			path = Authorization;
+			sourceTree = "<group>";
+		};
+		CE4A6AD3257D3C2B007A2C65 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				CE4A6AD4257D3C39007A2C65 /* Service Container */,
+				CE4A6AFD257D3F02007A2C65 /* Client */,
+				CE4A6AF9257D3E9D007A2C65 /* REST Services */,
+				CE4A6B14257D4008007A2C65 /* Response Models */,
+				CE4A6B0F257D3FC7007A2C65 /* Models */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		CE4A6AD4257D3C39007A2C65 /* Service Container */ = {
+			isa = PBXGroup;
+			children = (
+				CE4A6AD5257D3C49007A2C65 /* ServiceContainer.swift */,
+				CE4A6AD8257D3C90007A2C65 /* ServicePool.swift */,
+			);
+			path = "Service Container";
+			sourceTree = "<group>";
+		};
+		CE4A6AF9257D3E9D007A2C65 /* REST Services */ = {
+			isa = PBXGroup;
+			children = (
+				CE4A6AFA257D3EAE007A2C65 /* AccountsService.swift */,
+			);
+			path = "REST Services";
+			sourceTree = "<group>";
+		};
+		CE4A6AFD257D3F02007A2C65 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				CE4A6AFE257D3F0C007A2C65 /* RestClient.swift */,
+				CE4A6B18257D40BC007A2C65 /* RestAPIClientBuilder.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		CE4A6B0F257D3FC7007A2C65 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE4A6B10257D3FD6007A2C65 /* AccountModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE4A6B14257D4008007A2C65 /* Response Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE4A6B15257D401B007A2C65 /* GetMyAccountsResponse.swift */,
+			);
+			path = "Response Models";
+			sourceTree = "<group>";
+		};
+		CE4A6B1E257D4206007A2C65 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE4A6B1F257D420E007A2C65 /* Main */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE4A6B1F257D420E007A2C65 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				CE4A6A70257D2A32007A2C65 /* Main.storyboard */,
+				CE4A6A6E257D2A32007A2C65 /* ViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		CE4A6B20257D422A007A2C65 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CE4A6A73257D2A34007A2C65 /* Assets.xcassets */,
+				CE4A6A75257D2A34007A2C65 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,10 +343,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE4A6A6F257D2A32007A2C65 /* ViewController.swift in Sources */,
+				CE4A6AD1257D3912007A2C65 /* Print.swift in Sources */,
+				CE4A6AFB257D3EAE007A2C65 /* AccountsService.swift in Sources */,
+				CE4A6B1C257D40F7007A2C65 /* Dictionary+Ext.swift in Sources */,
+				CE4A6AD6257D3C49007A2C65 /* ServiceContainer.swift in Sources */,
 				CE4A6AB6257D32C4007A2C65 /* Device+Ext.swift in Sources */,
 				CE4A6A6B257D2A32007A2C65 /* AppDelegate.swift in Sources */,
 				CE4A6ABB257D32D9007A2C65 /* FileController.swift in Sources */,
 				CE4A6AC0257D3392007A2C65 /* Authorization.swift in Sources */,
+				CE4A6B11257D3FD6007A2C65 /* AccountModel.swift in Sources */,
+				CE4A6AFF257D3F0C007A2C65 /* RestClient.swift in Sources */,
+				CE4A6AD9257D3C90007A2C65 /* ServicePool.swift in Sources */,
+				CE4A6B16257D401B007A2C65 /* GetMyAccountsResponse.swift in Sources */,
+				CE4A6B19257D40BC007A2C65 /* RestAPIClientBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

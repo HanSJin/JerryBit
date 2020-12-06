@@ -11,6 +11,14 @@ import JWT
 class Authorization {
     
     static let shared = Authorization()
+    var jwtToken: String?
+    
+    var hasAccessToken: Bool {
+        jwtToken?.isEmpty ?? false
+    }
+    var accessToken: String {
+        "Bearer \(jwtToken ?? "")"
+    }
     
     func auth() {
         guard let accessKey = FileController().readFile(name: "accessKey"),
@@ -22,6 +30,7 @@ class Authorization {
         
         let claims = [ "access_key": accessKey, "nonce": nonce ]
         let token = JWT.encode(claims: claims, algorithm: .hs256(secretKey.data(using: .utf8)!))
+        jwtToken = token
         print("token:", token)
         print(printIpAddress())
     }

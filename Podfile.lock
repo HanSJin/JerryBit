@@ -1,16 +1,34 @@
 PODS:
+  - Alamofire (4.9.1)
   - JSONWebToken (2.2.0)
+  - RxCocoa (5.1.0):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.1.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.1.1)
 
 DEPENDENCIES:
+  - Alamofire (< 5.0)
   - JSONWebToken
+  - RxCocoa (= 5.1.0)
+  - RxSwift
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - JSONWebToken
+    - RxCocoa
+    - RxRelay
+    - RxSwift
 
 SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   JSONWebToken: 6fae32489632658d563dd6952a5c34020ea813e4
+  RxCocoa: 13d2a4d7546a34b8ececae8c281e4ea1dbb94f2b
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: 4cdc741eb62a7424901b72f3621c4a300115a562
+PODFILE CHECKSUM: 50f80bac05fa0655f8f4fdb4fe20b0e46583aee0
 
 COCOAPODS: 1.10.0
