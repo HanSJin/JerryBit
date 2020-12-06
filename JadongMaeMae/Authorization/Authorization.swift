@@ -14,7 +14,7 @@ class Authorization {
     var jwtToken: String?
     
     var hasAccessToken: Bool {
-        jwtToken?.isEmpty ?? false
+        !(jwtToken ?? "").isEmpty 
     }
     var accessToken: String {
         "Bearer \(jwtToken ?? "")"

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE4A6A6B257D2A32007A2C65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6A6A257D2A32007A2C65 /* AppDelegate.swift */; };
-		CE4A6A6F257D2A32007A2C65 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6A6E257D2A32007A2C65 /* ViewController.swift */; };
+		CE4A6A6F257D2A32007A2C65 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6A6E257D2A32007A2C65 /* MainViewController.swift */; };
 		CE4A6A72257D2A32007A2C65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4A6A70257D2A32007A2C65 /* Main.storyboard */; };
 		CE4A6A74257D2A34007A2C65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4A6A73257D2A34007A2C65 /* Assets.xcassets */; };
 		CE4A6A77257D2A34007A2C65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4A6A75257D2A34007A2C65 /* LaunchScreen.storyboard */; };
@@ -23,7 +23,6 @@
 		CE4A6AFB257D3EAE007A2C65 /* AccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6AFA257D3EAE007A2C65 /* AccountsService.swift */; };
 		CE4A6AFF257D3F0C007A2C65 /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6AFE257D3F0C007A2C65 /* RestClient.swift */; };
 		CE4A6B11257D3FD6007A2C65 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B10257D3FD6007A2C65 /* AccountModel.swift */; };
-		CE4A6B16257D401B007A2C65 /* GetMyAccountsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B15257D401B007A2C65 /* GetMyAccountsResponse.swift */; };
 		CE4A6B19257D40BC007A2C65 /* RestAPIClientBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B18257D40BC007A2C65 /* RestAPIClientBuilder.swift */; };
 		CE4A6B1C257D40F7007A2C65 /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */; };
 		F28F860B937F7E71602EEE6F /* Pods_JadongMaeMae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4B312E03543165026DAE562 /* Pods_JadongMaeMae.framework */; };
@@ -35,7 +34,7 @@
 		B50E94A1455BA046D84B36CA /* Pods-JadongMaeMae.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JadongMaeMae.debug.xcconfig"; path = "Target Support Files/Pods-JadongMaeMae/Pods-JadongMaeMae.debug.xcconfig"; sourceTree = "<group>"; };
 		CE4A6A67257D2A32007A2C65 /* JadongMaeMae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JadongMaeMae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4A6A6A257D2A32007A2C65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CE4A6A6E257D2A32007A2C65 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CE4A6A6E257D2A32007A2C65 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CE4A6A71257D2A32007A2C65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE4A6A73257D2A34007A2C65 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE4A6A76257D2A34007A2C65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,7 +50,6 @@
 		CE4A6AFA257D3EAE007A2C65 /* AccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsService.swift; sourceTree = "<group>"; };
 		CE4A6AFE257D3F0C007A2C65 /* RestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
 		CE4A6B10257D3FD6007A2C65 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
-		CE4A6B15257D401B007A2C65 /* GetMyAccountsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyAccountsResponse.swift; sourceTree = "<group>"; };
 		CE4A6B18257D40BC007A2C65 /* RestAPIClientBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPIClientBuilder.swift; sourceTree = "<group>"; };
 		CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,7 +150,6 @@
 				CE4A6AD4257D3C39007A2C65 /* Service Container */,
 				CE4A6AFD257D3F02007A2C65 /* Client */,
 				CE4A6AF9257D3E9D007A2C65 /* REST Services */,
-				CE4A6B14257D4008007A2C65 /* Response Models */,
 				CE4A6B0F257D3FC7007A2C65 /* Models */,
 			);
 			path = Service;
@@ -192,14 +189,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		CE4A6B14257D4008007A2C65 /* Response Models */ = {
-			isa = PBXGroup;
-			children = (
-				CE4A6B15257D401B007A2C65 /* GetMyAccountsResponse.swift */,
-			);
-			path = "Response Models";
-			sourceTree = "<group>";
-		};
 		CE4A6B1E257D4206007A2C65 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,7 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				CE4A6A70257D2A32007A2C65 /* Main.storyboard */,
-				CE4A6A6E257D2A32007A2C65 /* ViewController.swift */,
+				CE4A6A6E257D2A32007A2C65 /* MainViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -342,7 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE4A6A6F257D2A32007A2C65 /* ViewController.swift in Sources */,
+				CE4A6A6F257D2A32007A2C65 /* MainViewController.swift in Sources */,
 				CE4A6AD1257D3912007A2C65 /* Print.swift in Sources */,
 				CE4A6AFB257D3EAE007A2C65 /* AccountsService.swift in Sources */,
 				CE4A6B1C257D40F7007A2C65 /* Dictionary+Ext.swift in Sources */,
@@ -354,7 +343,6 @@
 				CE4A6B11257D3FD6007A2C65 /* AccountModel.swift in Sources */,
 				CE4A6AFF257D3F0C007A2C65 /* RestClient.swift in Sources */,
 				CE4A6AD9257D3C90007A2C65 /* ServicePool.swift in Sources */,
-				CE4A6B16257D401B007A2C65 /* GetMyAccountsResponse.swift in Sources */,
 				CE4A6B19257D40BC007A2C65 /* RestAPIClientBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

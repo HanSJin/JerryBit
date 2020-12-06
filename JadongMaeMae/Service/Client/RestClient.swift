@@ -35,9 +35,9 @@ class RestAPIClient {
         request: URLRequest,
         type: Response.Type) -> RestAPISingleResult<Response>
     {
-        print(" 🚀 [RestAPI Request]", request.httpMethod!, request.url!)
+        print("🚀 [RestAPI Request]", request.httpMethod!, request.url!)
         if let method = request.httpMethod, method == "POST", let body = request.httpBody {
-            print(" 🚀 [RestAPI Request Body]", String(data: body, encoding: .utf8) ?? "")
+            print("🚀 [RestAPI Request Body]", String(data: body, encoding: .utf8) ?? "")
         }
 
         return self.request(request: request, type: Response.self, responseTransform: { data -> Swift.Result<Response, ResponseError> in
@@ -68,14 +68,14 @@ class RestAPIClient {
 
                     switch response.map(responseTransform).result {
                     case Alamofire.Result.success(let successResult):
-                        print("  ✅ [RestAPI Response]", response.response?.statusCode ?? "-1", "\(responseString)", "\n")
+                        print("✅ [RestAPI Response]", response.response?.statusCode ?? "-1", "\(responseString)", "\n")
                         return singleEvent(.success(successResult))
                     case Alamofire.Result.failure(let error):
-                        print("  🆘 [RestAPI Response]", response.response?.statusCode ?? "-1", "\(responseString)...", "\n")
+                        print("🆘 [RestAPI Response]", response.response?.statusCode ?? "-1", "\(responseString)...", "\n")
                         return singleEvent(.success(.failure(ResponseError.requestError(error))))
                     }
                 }
-                )
+            )
             return Disposables.create()
         })
     }
