@@ -16,6 +16,7 @@ class MyAccountViewController: UIViewController {
         didSet { tableView.registerNib(cellIdentifier: MyAccountCell.identifier) }
     }
     @IBOutlet weak var ipLabel: UILabel!
+    @IBOutlet weak var totalAccount: UILabel!
     
     // Variables
     private let accountsService: AccountsService = ServiceContainer.shared.getService(key: .accounts)
@@ -51,11 +52,12 @@ extension MyAccountViewController {
 // MARK: - GlobalRunLoop
 extension MyAccountViewController: GlobalRunLoop {
     
-    var fps: Double { 5 }
+    var fps: Double { 3 }
     func runLoop() {
         requestMyAccount { [weak self] accountModels in
             self?.requestCurrentPrice(accountModels: accountModels)
         }
+        totalAccount.text = NumberFormatter.decimalFormat(Int(accountModels.map { $0.currentTotalPrice }.reduce(0.0) { Double($0) + Double($1) })) + " KRW"
     }
 }
 
@@ -103,10 +105,10 @@ extension MyAccountViewController {
             switch $0 {
             case .success(let tickerModels):
                 for accountModel in accountModels {
-//                    accountModel.updateQuoteTickerModel(tickerModels.first!)
                     accountModel.quoteTickerModel = tickerModels.filter { $0.market == "KRW-\(accountModel.currency!)" }.first
                 }
-                self?.accountModels = accountModels
+                let sortedAccoutModels = accountModels.sorted { $0.currentTotalPrice > $1.currentTotalPrice }
+                self?.accountModels = sortedAccoutModels
                 self?.tableView.reloadData()
             case .failure(let error):
                 print(error)

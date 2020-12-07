@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -72,8 +73,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1,000,000 KRW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cm7-F8-v0j">
-                        <rect key="frame" x="62.5" y="14.5" width="104" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1,000,000 KRW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cm7-F8-v0j">
+                        <rect key="frame" x="62.5" y="14" width="104" height="18"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                         <color key="textColor" systemColor="systemBlueColor"/>
                         <nil key="highlightedColor"/>
@@ -95,11 +96,11 @@
                     <constraint firstItem="0pN-jN-fZ1" firstAttribute="top" secondItem="YeC-sJ-lss" secondAttribute="bottom" constant="4.5" id="cHr-uY-IbA"/>
                     <constraint firstItem="kDZ-Mj-thl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="dh9-qD-AeQ"/>
                     <constraint firstAttribute="bottom" secondItem="6Y2-qQ-7j9" secondAttribute="bottom" id="fm9-aX-vhs"/>
-                    <constraint firstItem="cm7-F8-v0j" firstAttribute="centerY" secondItem="n38-iX-TAJ" secondAttribute="centerY" id="j0u-x0-dZk"/>
                     <constraint firstAttribute="trailing" secondItem="YeC-sJ-lss" secondAttribute="trailing" constant="20" id="j5r-In-kPj"/>
                     <constraint firstItem="hTv-qW-aF6" firstAttribute="leading" secondItem="8I0-lF-v21" secondAttribute="trailing" constant="4" id="lBT-zB-Mrh"/>
                     <constraint firstAttribute="trailing" secondItem="eYK-sh-4wt" secondAttribute="trailing" constant="20" id="nCa-4O-g1b"/>
                     <constraint firstItem="eYK-sh-4wt" firstAttribute="centerY" secondItem="xfA-eJ-aSM" secondAttribute="centerY" id="o3I-db-3eE"/>
+                    <constraint firstItem="cm7-F8-v0j" firstAttribute="bottom" secondItem="n38-iX-TAJ" secondAttribute="bottom" constant="-1.5" id="oJL-8K-xro"/>
                     <constraint firstItem="cm7-F8-v0j" firstAttribute="leading" secondItem="n38-iX-TAJ" secondAttribute="trailing" constant="4" id="pgp-Re-2hb"/>
                     <constraint firstItem="6Y2-qQ-7j9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="r0S-f4-muR"/>
                     <constraint firstItem="YeC-sJ-lss" firstAttribute="centerY" secondItem="n38-iX-TAJ" secondAttribute="centerY" id="rRp-CO-KCy"/>
@@ -116,7 +117,7 @@
                 <outlet property="currentPercentLabel" destination="YeC-sJ-lss" id="GFo-kU-zsW"/>
                 <outlet property="currentPriceLabel" destination="cm7-F8-v0j" id="0jV-Rj-LKd"/>
             </connections>
-            <point key="canvasLocation" x="136.95652173913044" y="122.20982142857142"/>
+            <point key="canvasLocation" x="136.95652173913044" y="121.875"/>
         </tableViewCell>
     </objects>
     <resources>

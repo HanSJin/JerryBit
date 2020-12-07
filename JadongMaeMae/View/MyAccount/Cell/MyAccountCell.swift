@@ -46,25 +46,21 @@ extension MyAccountCell {
         
         switch quoteTickerModel.changeType {
         case .EVEN: currentPriceLabel.textColor = .black
-        case .FALL: currentPriceLabel.textColor = .red
-        case .RISE: currentPriceLabel.textColor = .blue
+        case .FALL: currentPriceLabel.textColor = UIColor.myBlue
+        case .RISE: currentPriceLabel.textColor = UIColor.myRed
         }
         
-        if let balance = Double(accountModel.balance ?? "") {
-            currentAmountLabel.text = "\(NumberFormatter.decimalFormat(Int((quoteTickerModel.trade_price ?? 0) * balance))) KRW"
-        } else {
-            currentAmountLabel.text = "-"
-        }
+        currentAmountLabel.text = "\(NumberFormatter.decimalFormat(Int(accountModel.currentTotalPrice))) KRW"
         
         if let avg_buy_price = Double(accountModel.avg_buy_price ?? "0"), let trade_price = quoteTickerModel.trade_price {
             currentPercentLabel.text = String(format: "%.2f", ((trade_price / avg_buy_price) - 1) * 100) + " %"
             
             if avg_buy_price < trade_price {
-                currentPercentLabel.textColor = .blue
-                currentAmountLabel.textColor = .blue
+                currentPercentLabel.textColor = UIColor.myRed
+                currentAmountLabel.textColor = UIColor.myRed
             } else {
-                currentPercentLabel.textColor = .red
-                currentAmountLabel.textColor = .red
+                currentPercentLabel.textColor = UIColor.myBlue
+                currentAmountLabel.textColor = UIColor.myBlue
             }
         } else {
             currentPercentLabel.textColor = .black

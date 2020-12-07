@@ -42,6 +42,7 @@
 		CE96501D257E69B400C1AFC6 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96501C257E69B400C1AFC6 /* UITableView+Ext.swift */; };
 		CE965021257E92E800C1AFC6 /* QuoteTickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE965020257E92E800C1AFC6 /* QuoteTickerModel.swift */; };
 		CE965024257E9EFB00C1AFC6 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE965023257E9EFB00C1AFC6 /* NumberFormatter.swift */; };
+		CE96502F257EAAD900C1AFC6 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96502E257EAAD900C1AFC6 /* UIColor+Ext.swift */; };
 		F28F860B937F7E71602EEE6F /* Pods_JadongMaeMae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4B312E03543165026DAE562 /* Pods_JadongMaeMae.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,7 @@
 		CE96501C257E69B400C1AFC6 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		CE965020257E92E800C1AFC6 /* QuoteTickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteTickerModel.swift; sourceTree = "<group>"; };
 		CE965023257E9EFB00C1AFC6 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
+		CE96502E257EAAD900C1AFC6 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 				CE964FE8257E607200C1AFC6 /* String+Ext.swift */,
 				CE965023257E9EFB00C1AFC6 /* NumberFormatter.swift */,
 				CE96501C257E69B400C1AFC6 /* UITableView+Ext.swift */,
+				CE96502E257EAAD900C1AFC6 /* UIColor+Ext.swift */,
 				CE965012257E68F900C1AFC6 /* UITableViewCell+Ext.swift */,
 			);
 			path = Extensions;
@@ -478,6 +481,7 @@
 				CE4A6AFF257D3F0C007A2C65 /* RestClient.swift in Sources */,
 				CE4A6AD9257D3C90007A2C65 /* ServicePool.swift in Sources */,
 				CE4A6B19257D40BC007A2C65 /* RestAPIClientBuilder.swift in Sources */,
+				CE96502F257EAAD900C1AFC6 /* UIColor+Ext.swift in Sources */,
 				CE965006257E669A00C1AFC6 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -630,6 +634,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z7BMLJLG67;
 				INFOPLIST_FILE = JadongMaeMae/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -653,6 +658,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z7BMLJLG67;
 				INFOPLIST_FILE = JadongMaeMae/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

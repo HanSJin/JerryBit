@@ -46,7 +46,7 @@ class GlobalTimer {
     
     @objc private func timerTick() {
         tick += 1
-        guard tick < 1000 else { return }
+        // guard tick < 10000 else { return }
         guard let topVC = UIApplication.topViewController(), let runLooper = topVC as? GlobalRunLoop else { return }
         guard runLooper.fps > 0 else { return }
         if tick % Int(60 / runLooper.fps) == 0 {

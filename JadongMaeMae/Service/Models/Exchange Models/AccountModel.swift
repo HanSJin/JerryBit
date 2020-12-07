@@ -41,6 +41,10 @@ class AccountModel: Decodable {
     let unit_currency: String?
     
     var quoteTickerModel: QuoteTickerModel?
+    
+    var currentTotalPrice: Double {
+        (quoteTickerModel?.trade_price ?? 0.0) * (Double(balance ?? "0.0") ?? 0.0)
+    }
 //    private enum CodingKeys: String, CodingKey {
 //        case currency
 //    }
