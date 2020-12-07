@@ -34,18 +34,17 @@ import Foundation
 
 struct AccountModel: Decodable {
     
-    private enum CodingKeys: String, CodingKey {
-        case currency
-    }
-
     let currency: String?
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let currency = try container.decodeIfPresent(String.self, forKey: .currency)
-        self.init(currency: currency)
-    }
-    init(currency: String?) {
-        self.currency = currency
-    }
+    
+//    private enum CodingKeys: String, CodingKey {
+//        case currency
+//    }
+//    init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        let currency = try container.decodeIfPresent(String.self, forKey: .currency)
+//        self.init(currency: currency)
+//    }
+//    init(currency: String?) {
+//        self.currency = currency
+//    }
 }

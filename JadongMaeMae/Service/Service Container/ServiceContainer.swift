@@ -12,8 +12,11 @@ import Foundation
 extension ServiceContainer {
 
     enum ServiceKey {
-        // Rest API
+        // Exchange API
         case accounts
+        
+        // Quote API
+        case quote
     }
 }
 
@@ -26,6 +29,7 @@ class ServiceContainer {
     init() {
         do {
             try servicePool.register(key: .accounts, dependency: AccountsServiceImp())
+            try servicePool.register(key: .quote, dependency: QuoteServiceImp())
         } catch {
             fatalError("ServiceContainer: register Fail")
         }

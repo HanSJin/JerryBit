@@ -7,6 +7,7 @@ end
 
 def utils
   pod 'JSONWebToken'
+  # pod 'base64url', '~> 1.0'
 end
 
 def rx

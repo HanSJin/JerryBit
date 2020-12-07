@@ -7,13 +7,9 @@
 
 import Foundation
 
-// MARK: - AppStoreLookUpService
-
 protocol AccountsService {
     func getMyAccounts() -> RestAPISingleResult<[AccountModel]>
 }
-
-// MARK: - AppStoreLookUpServiceImp
 
 class AccountsServiceImp: AccountsService {
 

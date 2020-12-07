@@ -73,9 +73,11 @@ class RestAPIClientBuilder {
 
     func build(headerType: HeaderType = .json) -> URLRequest {
         var defaultHeaders: [String: String] = [:]
-
-        if Authorization.shared.hasAccessToken {
-            defaultHeaders["Authorization"] = Authorization.shared.accessToken
+        if queryItems.isEmpty {
+            defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: nil)
+        } else {
+            let queryString = queryItems.reduce("") { $0 + "\($1.name)=\($1.value!)&" }
+            defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: queryString)
         }
 
         let url = URL(string: endPoint)!.appendingPathComponent(path)
