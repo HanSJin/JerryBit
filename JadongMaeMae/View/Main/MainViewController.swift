@@ -1,72 +1,50 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  JadongMaeMae
 //
-//  Created by USER on 2020/12/07.
+//  Created by HanSJin on 2020/12/07.
 //
 
-import RxCocoa
-import RxSwift
 import UIKit
 
 class MainViewController: UIViewController {
 
-    // Outelts
-    @IBOutlet weak var testButton: UIButton!
-    
-    // Variables
-    private let accountsService: AccountsService = ServiceContainer.shared.getService(key: .accounts)
-    private let quoteService: QuoteService = ServiceContainer.shared.getService(key: .quote)
-    var disposeBag = DisposeBag()
+}
+
+// MARK: - Life Cycles
+extension MainViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpView()
+        let myAccountVC = UIStoryboard(name: "MyAccount", bundle: nil).instantiateInitialViewController() as! MyAccountViewController
+        open(to: myAccountVC)
     }
 }
 
+// MARK: - Private
 extension MainViewController {
     
-    func setUpView() {
-//        testButton.rx.tap
-//            .bind { [unowned self] in self.requestMyAccount() }
-//            .disposed(by: disposeBag)
-    }
-}
+    func open(to viewController: UIViewController) {
+        guard removeAllChildViewController() else { return }
 
-extension MainViewController: GlobalRunLoop {
-    
-    var fps: Double { 1 }
-    
-    func runLoop() {
-        requestMyAccount()
-    }
-}
+        addChild(viewController)
+        view.addSubview(viewController.view)
+        viewController.view.frame = view.bounds
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        viewController.didMove(toParent: self)
 
-extension MainViewController {
-    
-    private func requestMyAccount() {
-//        accountsService.getMyAccounts()
-//            .subscribe(onSuccess: { response in
-//                switch response {
-//                case .success(let result):
-//                    print(result)
-//                case .failure(let error):
-//                    print(error)
-//                }
-//        }) { error in
-//            print(error)
-//        }.disposed(by: self.disposeBag)
-        
-        quoteService.getMinuteCandle(market: "KRW-BTC", unit: 1, count: 200).subscribe {
-            switch $0 {
-            case .success(let quoteModels):
-                print(quoteModels)
-            case .failure(let error):
-                print(error)
-            }
-        } onError: {
-            print($0)
-        }.disposed(by: disposeBag)
+        viewController.view.alpha = 0.0
+        UIView.animate(withDuration: 0.5) {
+            viewController.view.alpha = 1.0
+        }
+    }
+
+    func removeAllChildViewController() -> Bool {
+        for childVC in children {
+            childVC.willMove(toParent: nil)
+            childVC.view.removeFromSuperview()
+            childVC.removeFromParent()
+        }
+        return true
     }
 }

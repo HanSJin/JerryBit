@@ -33,8 +33,12 @@ import Foundation
  */
 
 struct AccountModel: Decodable {
-    
     let currency: String?
+    let balance: String?
+    let locked: String?
+    let avg_buy_price: String?
+    var avg_buy_price_modified: Bool
+    let unit_currency: String?
     
 //    private enum CodingKeys: String, CodingKey {
 //        case currency

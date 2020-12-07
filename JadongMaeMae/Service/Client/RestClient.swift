@@ -68,7 +68,7 @@ class RestAPIClient {
 
                     switch response.map(responseTransform).result {
                     case Alamofire.Result.success(let successResult):
-                        print("✅ [RestAPI Response]", response.response?.statusCode ?? "-1", "\(responseString)", "\n")
+                        print("✅ [RestAPI Response]", response.response?.statusCode ?? "-1")//, "\(responseString)", "\n")
                         return singleEvent(.success(successResult))
                     case Alamofire.Result.failure(let error):
                         print("🆘 [RestAPI Response]", response.response?.statusCode ?? "-1", "\(responseString)...", "\n")

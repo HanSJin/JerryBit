@@ -28,6 +28,9 @@ extension UIApplication {
         if let presented = viewController?.presentedViewController {
             return topViewController(presented)
         }
+        if viewController is MainViewController {
+            return viewController?.children.first
+        }
         return viewController
     }
 }
