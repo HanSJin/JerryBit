@@ -22,20 +22,22 @@ extension RestAPIClientBuilder {
 
 class RestAPIClientBuilder {
 
-    private let endPoint = "https://api.upbit.com/v1"
+    private let endPoint = "https://api.upbit.com"
     private let path: String
     private let method: HTTPMethod
     private var headers: HTTPHeaders?
     private var queryItems = [URLQueryItem]()
     private var httpBody: Data?
+    private let needAuth: Bool
     
     // MARK: Lifecycle
 
-    init(/*endPoint: String, */path: String, method: HTTPMethod, headers: HTTPHeaders? = nil) {
+    init(/*endPoint: String, */path: String, method: HTTPMethod, headers: HTTPHeaders? = nil, needAuth: Bool = false) {
         // self.endPoint = endPoint
         self.path = path
         self.method = method
         self.headers = headers
+        self.needAuth = needAuth
     }
 
     // MARK: Internal
@@ -73,11 +75,14 @@ class RestAPIClientBuilder {
 
     func build(headerType: HeaderType = .json) -> URLRequest {
         var defaultHeaders: [String: String] = [:]
-        if queryItems.isEmpty {
-            defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: nil)
-        } else {
-            let queryString = queryItems.reduce("") { $0 + "\($1.name)=\($1.value!)&" }
-            defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: queryString)
+        
+        if needAuth {
+            if queryItems.isEmpty {
+                defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: nil)
+            } else {
+                let queryString = queryItems.reduce("") { $0 + "\($1.name)=\($1.value!)&" }
+                defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: queryString)
+            }
         }
 
         let url = URL(string: endPoint)!.appendingPathComponent(path)

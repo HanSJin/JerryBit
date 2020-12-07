@@ -15,6 +15,7 @@ class MyAccountViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView! {
         didSet { tableView.registerNib(cellIdentifier: MyAccountCell.identifier) }
     }
+    @IBOutlet weak var ipLabel: UILabel!
     
     // Variables
     private let accountsService: AccountsService = ServiceContainer.shared.getService(key: .accounts)
@@ -32,16 +33,31 @@ class MyAccountViewController: UIViewController {
 // MARK: - Setup View
 extension MyAccountViewController {
     
-    func setUpView() { }
+    func setUpView() {
+        updateIpAddress()
+        requestMyAccount { [weak self] accountModels in
+            self?.requestCurrentPrice(accountModels: accountModels)
+        }
+    }
+    
+    private func updateIpAddress() {
+        guard let url = URL(string: "https://api.ipify.org") else { return }
+        let ipAddress = try? String(contentsOf: url)
+        ipLabel.text = ipAddress
+        print("My public IP address is: " + (ipAddress ?? "Unknown"))
+    }
 }
 
 // MARK: - GlobalRunLoop
 extension MyAccountViewController: GlobalRunLoop {
     
-    var fps: Double { 1 }
-    func runLoop() { requestMyAccount() }
+    var fps: Double { 5 }
+    func runLoop() {
+        requestMyAccount { [weak self] accountModels in
+            self?.requestCurrentPrice(accountModels: accountModels)
+        }
+    }
 }
-
 
 // MARK: - UITableViewDataSource
 extension MyAccountViewController: UITableViewDataSource {
@@ -58,14 +74,39 @@ extension MyAccountViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDataSource
+extension MyAccountViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
 // MARK: - Request
 extension MyAccountViewController {
     
-    private func requestMyAccount() {
-        accountsService.getMyAccounts().subscribe(onSuccess: { [weak self] in
+    private func requestMyAccount(completion: @escaping ([AccountModel]) -> Void) {
+        accountsService.getMyAccounts().subscribe(onSuccess: {
             switch $0 {
-            case .success(let result):
-                self?.accountModels = result.fil
+            case .success(let accountModels):
+                completion(accountModels.filter { $0.currency != "KRW" }.filter { $0.currency != "PTOY" })
+            case .failure(let error):
+                print(error)
+            }
+        }) { error in
+            print(error)
+        }.disposed(by: self.disposeBag)
+    }
+    
+    private func requestCurrentPrice(accountModels: [AccountModel]) {
+        quoteService.getCurrentPrice(markets: accountModels.map { "KRW-\($0.currency!)" }).subscribe(onSuccess: { [weak self] in
+            switch $0 {
+            case .success(let tickerModels):
+                for accountModel in accountModels {
+//                    accountModel.updateQuoteTickerModel(tickerModels.first!)
+                    accountModel.quoteTickerModel = tickerModels.filter { $0.market == "KRW-\(accountModel.currency!)" }.first
+                }
+                self?.accountModels = accountModels
                 self?.tableView.reloadData()
             case .failure(let error):
                 print(error)

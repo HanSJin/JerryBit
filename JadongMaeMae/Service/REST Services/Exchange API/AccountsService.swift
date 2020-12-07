@@ -14,8 +14,8 @@ protocol AccountsService {
 class AccountsServiceImp: AccountsService {
 
     func getMyAccounts() -> RestAPISingleResult<[AccountModel]> {
-        let path = "/accounts"
-        let request = RestAPIClientBuilder(path: path, method: .get, headers: [:]).build()
+        let path = "/v1/accounts"
+        let request = RestAPIClientBuilder(path: path, method: .get, headers: [:], needAuth: true).build()
         return RestAPIClient.shared.request(request: request, type: [AccountModel].self)
     }
 }

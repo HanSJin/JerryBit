@@ -32,7 +32,7 @@ import Foundation
  ]
  */
 
-struct AccountModel: Decodable {
+class AccountModel: Decodable {
     let currency: String?
     let balance: String?
     let locked: String?
@@ -40,6 +40,7 @@ struct AccountModel: Decodable {
     var avg_buy_price_modified: Bool
     let unit_currency: String?
     
+    var quoteTickerModel: QuoteTickerModel?
 //    private enum CodingKeys: String, CodingKey {
 //        case currency
 //    }

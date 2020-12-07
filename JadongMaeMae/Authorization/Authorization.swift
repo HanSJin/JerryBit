@@ -27,7 +27,7 @@ class Authorization {
             claims["query_hash_alg"] = "SHA512"
         }
         let jwtToken = JWT.encode(claims: claims, algorithm: .hs256(secretKey.data(using: .utf8)!))
-        print("Bearer", jwtToken)
+//        print("Bearer", jwtToken)
         return "Bearer \(jwtToken)"
     }
 }

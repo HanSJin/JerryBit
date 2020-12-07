@@ -40,6 +40,8 @@
 		CE965016257E695400C1AFC6 /* Collection+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE965015257E695400C1AFC6 /* Collection+Ext.swift */; };
 		CE965019257E697000C1AFC6 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE965018257E697000C1AFC6 /* Identifier.swift */; };
 		CE96501D257E69B400C1AFC6 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96501C257E69B400C1AFC6 /* UITableView+Ext.swift */; };
+		CE965021257E92E800C1AFC6 /* QuoteTickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE965020257E92E800C1AFC6 /* QuoteTickerModel.swift */; };
+		CE965024257E9EFB00C1AFC6 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE965023257E9EFB00C1AFC6 /* NumberFormatter.swift */; };
 		F28F860B937F7E71602EEE6F /* Pods_JadongMaeMae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4B312E03543165026DAE562 /* Pods_JadongMaeMae.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +85,8 @@
 		CE965015257E695400C1AFC6 /* Collection+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Ext.swift"; sourceTree = "<group>"; };
 		CE965018257E697000C1AFC6 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		CE96501C257E69B400C1AFC6 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		CE965020257E92E800C1AFC6 /* QuoteTickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteTickerModel.swift; sourceTree = "<group>"; };
+		CE965023257E9EFB00C1AFC6 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +273,7 @@
 				CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */,
 				CE964FD8257E53B900C1AFC6 /* UIApplication+Ext.swift */,
 				CE964FE8257E607200C1AFC6 /* String+Ext.swift */,
+				CE965023257E9EFB00C1AFC6 /* NumberFormatter.swift */,
 				CE96501C257E69B400C1AFC6 /* UITableView+Ext.swift */,
 				CE965012257E68F900C1AFC6 /* UITableViewCell+Ext.swift */,
 			);
@@ -303,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				CE964FE4257E599100C1AFC6 /* QuoteCandleModel.swift */,
+				CE965020257E92E800C1AFC6 /* QuoteTickerModel.swift */,
 			);
 			path = "Quote Models";
 			sourceTree = "<group>";
@@ -450,6 +456,7 @@
 				CE4A6A6F257D2A32007A2C65 /* MyAccountViewController.swift in Sources */,
 				CE4A6AD1257D3912007A2C65 /* Print.swift in Sources */,
 				CE964FE5257E599100C1AFC6 /* QuoteCandleModel.swift in Sources */,
+				CE965024257E9EFB00C1AFC6 /* NumberFormatter.swift in Sources */,
 				CE96501D257E69B400C1AFC6 /* UITableView+Ext.swift in Sources */,
 				CE4A6AFB257D3EAE007A2C65 /* AccountsService.swift in Sources */,
 				CE965013257E68F900C1AFC6 /* UITableViewCell+Ext.swift in Sources */,
@@ -461,6 +468,7 @@
 				CE964FD3257E52C300C1AFC6 /* Notification+Ext.swift in Sources */,
 				CE4A6ABB257D32D9007A2C65 /* FileController.swift in Sources */,
 				CE964FCF257E526D00C1AFC6 /* GlobalTimer.swift in Sources */,
+				CE965021257E92E800C1AFC6 /* QuoteTickerModel.swift in Sources */,
 				CE964FDF257E595000C1AFC6 /* QuoteService.swift in Sources */,
 				CE965016257E695400C1AFC6 /* Collection+Ext.swift in Sources */,
 				CE964FE9257E607200C1AFC6 /* String+Ext.swift in Sources */,

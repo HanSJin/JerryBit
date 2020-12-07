@@ -11,6 +11,10 @@ class MyAccountCell: UITableViewCell {
 
     // Outlets
     @IBOutlet weak var coinNameLabel: UILabel!
+    @IBOutlet weak var currentPriceLabel: UILabel!
+    @IBOutlet weak var currentPercentLabel: UILabel!
+    @IBOutlet weak var currentAmountLabel: UILabel!
+    
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var coinUnitLabel: UILabel!
     @IBOutlet weak var avgPriceLabel: UILabel!
@@ -36,5 +40,35 @@ extension MyAccountCell {
         coinUnitLabel.text = accountModel.currency
         avgPriceLabel.text = accountModel.avg_buy_price
         currencyLabel.text = accountModel.unit_currency
+        
+        guard let quoteTickerModel = accountModel.quoteTickerModel else { return }
+        currentPriceLabel.text = "\(Int(quoteTickerModel.trade_price ?? 0)) KRW"
+        
+        switch quoteTickerModel.changeType {
+        case .EVEN: currentPriceLabel.textColor = .black
+        case .FALL: currentPriceLabel.textColor = .red
+        case .RISE: currentPriceLabel.textColor = .blue
+        }
+        
+        if let balance = Double(accountModel.balance ?? "") {
+            currentAmountLabel.text = "\(NumberFormatter.decimalFormat(Int((quoteTickerModel.trade_price ?? 0) * balance))) KRW"
+        } else {
+            currentAmountLabel.text = "-"
+        }
+        
+        if let avg_buy_price = Double(accountModel.avg_buy_price ?? "0"), let trade_price = quoteTickerModel.trade_price {
+            currentPercentLabel.text = String(format: "%.2f", ((trade_price / avg_buy_price) - 1) * 100) + " %"
+            
+            if avg_buy_price < trade_price {
+                currentPercentLabel.textColor = .blue
+                currentAmountLabel.textColor = .blue
+            } else {
+                currentPercentLabel.textColor = .red
+                currentAmountLabel.textColor = .red
+            }
+        } else {
+            currentPercentLabel.textColor = .black
+            currentAmountLabel.textColor = .black
+        }
     }
 }

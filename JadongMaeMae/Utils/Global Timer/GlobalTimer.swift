@@ -10,10 +10,16 @@ import UIKit
 protocol GlobalRunLoop: class {
     var fps: Double { get }
     func runLoop()
+    
+    var secondaryFps: Double { get }
+    func secondaryRunLoop()
 }
 
 extension GlobalRunLoop {
     var fps: Double { 1 }
+    
+    var secondaryFps: Double { 0 }
+    func secondaryRunLoop() { }
 }
 
 class GlobalTimer {
@@ -40,6 +46,7 @@ class GlobalTimer {
     
     @objc private func timerTick() {
         tick += 1
+        guard tick < 1000 else { return }
         guard let topVC = UIApplication.topViewController(), let runLooper = topVC as? GlobalRunLoop else { return }
         guard runLooper.fps > 0 else { return }
         if tick % Int(60 / runLooper.fps) == 0 {
