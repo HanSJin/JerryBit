@@ -157,7 +157,6 @@
 		CE4A6AB1257D328D007A2C65 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				CE964FCD257E526500C1AFC6 /* Global Timer */,
 				CE964FD5257E52C600C1AFC6 /* Extensions */,
 				CE4A6AD0257D3912007A2C65 /* Print.swift */,
 				CE965018257E697000C1AFC6 /* Identifier.swift */,
@@ -169,6 +168,7 @@
 		CE4A6AB9257D32C9007A2C65 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE964FCE257E526D00C1AFC6 /* GlobalTimer.swift */,
 				CE4A6ABA257D32D9007A2C65 /* FileController.swift */,
 			);
 			path = Controllers;
@@ -258,14 +258,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		CE964FCD257E526500C1AFC6 /* Global Timer */ = {
-			isa = PBXGroup;
-			children = (
-				CE964FCE257E526D00C1AFC6 /* GlobalTimer.swift */,
-			);
-			path = "Global Timer";
-			sourceTree = "<group>";
-		};
 		CE964FD5257E52C600C1AFC6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,8 +302,8 @@
 		CE964FE3257E598000C1AFC6 /* Quote Models */ = {
 			isa = PBXGroup;
 			children = (
-				CE964FE4257E599100C1AFC6 /* QuoteCandleModel.swift */,
 				CE965020257E92E800C1AFC6 /* QuoteTickerModel.swift */,
+				CE964FE4257E599100C1AFC6 /* QuoteCandleModel.swift */,
 			);
 			path = "Quote Models";
 			sourceTree = "<group>";

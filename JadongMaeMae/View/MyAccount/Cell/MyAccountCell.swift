@@ -36,9 +36,9 @@ extension MyAccountCell {
     
     func updateView(_ accountModel: AccountModel) {
         coinNameLabel.text = accountModel.currency
-        balanceLabel.text = accountModel.balance
+        balanceLabel.text = "\(accountModel.balanceDouble + accountModel.lockedDouble)"
         coinUnitLabel.text = accountModel.currency
-        avgPriceLabel.text = accountModel.avg_buy_price
+        avgPriceLabel.text = "\(accountModel.avgBuyPriceDouble)"
         currencyLabel.text = accountModel.unit_currency
         
         guard let quoteTickerModel = accountModel.quoteTickerModel else { return }
@@ -52,19 +52,15 @@ extension MyAccountCell {
         
         currentAmountLabel.text = "\(NumberFormatter.decimalFormat(Int(accountModel.currentTotalPrice))) KRW"
         
-        if let avg_buy_price = Double(accountModel.avg_buy_price ?? "0"), let trade_price = quoteTickerModel.trade_price {
-            currentPercentLabel.text = String(format: "%.2f", ((trade_price / avg_buy_price) - 1) * 100) + " %"
-            
-            if avg_buy_price < trade_price {
-                currentPercentLabel.textColor = UIColor.myRed
-                currentAmountLabel.textColor = UIColor.myRed
-            } else {
-                currentPercentLabel.textColor = UIColor.myBlue
-                currentAmountLabel.textColor = UIColor.myBlue
-            }
+        let percent = ((accountModel.tradePrice / accountModel.avgBuyPriceDouble) - 1) * 100
+        currentPercentLabel.text = String(format: "%.2f", percent) + " %"
+        
+        if accountModel.avgBuyPriceDouble < accountModel.tradePrice {
+            currentPercentLabel.textColor = UIColor.myRed
+            currentAmountLabel.textColor = UIColor.myRed
         } else {
-            currentPercentLabel.textColor = .black
-            currentAmountLabel.textColor = .black
+            currentPercentLabel.textColor = UIColor.myBlue
+            currentAmountLabel.textColor = UIColor.myBlue
         }
     }
 }
