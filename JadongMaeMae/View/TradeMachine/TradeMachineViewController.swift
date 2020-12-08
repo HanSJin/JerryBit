@@ -15,10 +15,24 @@ class TradeMachineViewController: UIViewController {
     
     // Variables
     private let quoteService: QuoteService = ServiceContainer.shared.getService(key: .quote)
+    private let orderService: OrderService = ServiceContainer.shared.getService(key: .order)
     private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    @IBAction func tappedBuyButton(_ sender: UIButton) {
+        orderService.requestOrder(market: "KRW-EOS", side: "bid", volume: "1.5", price: "3,120", identifier: nil).subscribe(onSuccess: { [weak self] in
+            switch $0 {
+            case .success(let orderModels):
+                print(orderModels)
+            case .failure(let error):
+                error.handle()
+            }
+        }) { error in
+            error.handle()
+        }.disposed(by: disposeBag)
     }
 }
 

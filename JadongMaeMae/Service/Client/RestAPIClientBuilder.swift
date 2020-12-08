@@ -28,6 +28,7 @@ class RestAPIClientBuilder {
     private var headers: HTTPHeaders?
     private var queryItems = [URLQueryItem]()
     private var httpBody: Data?
+    private var httpBodyParameters = [String: Any]()
     private let needAuth: Bool
     
     // MARK: Lifecycle
@@ -48,6 +49,7 @@ class RestAPIClientBuilder {
     }
 
     func set(httpBody parameters: [String: Any]) -> Self {
+        httpBodyParameters = parameters
         httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
         return self
     }
@@ -77,11 +79,13 @@ class RestAPIClientBuilder {
         var defaultHeaders: [String: String] = [:]
         
         if needAuth {
-            if queryItems.isEmpty {
-                defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: nil)
-            } else {
+            if !queryItems.isEmpty {
                 let queryString = queryItems.reduce("") { $0 + "\($1.name)=\($1.value!)&" }
                 defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: queryString)
+            } else if !httpBodyParameters.isEmpty {
+                defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: httpBodyParameters.queryString)
+            } else {
+                defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: nil)
             }
         }
 

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE2151DD257FEFE4005A47D5 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151DC257FEFE4005A47D5 /* OrderService.swift */; };
+		CE2151E0257FF02B005A47D5 /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151DF257FF02B005A47D5 /* OrderModel.swift */; };
+		CE2151E3257FF2BC005A47D5 /* Data+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151E2257FF2BC005A47D5 /* Data+Ext.swift */; };
+		CE2151E6257FF65E005A47D5 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151E5257FF65E005A47D5 /* UIAlertController+Ext.swift */; };
+		CE2151E9257FF761005A47D5 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151E8257FF761005A47D5 /* ErrorModel.swift */; };
+		CE2151ED257FF962005A47D5 /* Error+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151EC257FF962005A47D5 /* Error+Ext.swift */; };
 		CE4A6A6B257D2A32007A2C65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6A6A257D2A32007A2C65 /* AppDelegate.swift */; };
 		CE4A6A6F257D2A32007A2C65 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6A6E257D2A32007A2C65 /* MyAccountViewController.swift */; };
 		CE4A6A72257D2A32007A2C65 /* MyAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4A6A70257D2A32007A2C65 /* MyAccount.storyboard */; };
@@ -52,6 +58,12 @@
 		40DA192589D7EFF202ADE4E3 /* Pods-JadongMaeMae.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JadongMaeMae.release.xcconfig"; path = "Target Support Files/Pods-JadongMaeMae/Pods-JadongMaeMae.release.xcconfig"; sourceTree = "<group>"; };
 		A4B312E03543165026DAE562 /* Pods_JadongMaeMae.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JadongMaeMae.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50E94A1455BA046D84B36CA /* Pods-JadongMaeMae.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JadongMaeMae.debug.xcconfig"; path = "Target Support Files/Pods-JadongMaeMae/Pods-JadongMaeMae.debug.xcconfig"; sourceTree = "<group>"; };
+		CE2151DC257FEFE4005A47D5 /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
+		CE2151DF257FF02B005A47D5 /* OrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
+		CE2151E2257FF2BC005A47D5 /* Data+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Ext.swift"; sourceTree = "<group>"; };
+		CE2151E5257FF65E005A47D5 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
+		CE2151E8257FF761005A47D5 /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
+		CE2151EC257FF962005A47D5 /* Error+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Ext.swift"; sourceTree = "<group>"; };
 		CE4A6A67257D2A32007A2C65 /* JadongMaeMae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JadongMaeMae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4A6A6A257D2A32007A2C65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4A6A6E257D2A32007A2C65 /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +241,7 @@
 		CE4A6B0F257D3FC7007A2C65 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CE2151E8257FF761005A47D5 /* ErrorModel.swift */,
 				CE964FE2257E597900C1AFC6 /* Exchange Models */,
 				CE964FE3257E598000C1AFC6 /* Quote Models */,
 			);
@@ -267,15 +280,18 @@
 			isa = PBXGroup;
 			children = (
 				CE4A6AB5257D32C4007A2C65 /* Device+Ext.swift */,
+				CE2151E5257FF65E005A47D5 /* UIAlertController+Ext.swift */,
 				CE964FD2257E52C300C1AFC6 /* Notification+Ext.swift */,
 				CE965015257E695400C1AFC6 /* Collection+Ext.swift */,
 				CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */,
 				CE964FD8257E53B900C1AFC6 /* UIApplication+Ext.swift */,
 				CE964FE8257E607200C1AFC6 /* String+Ext.swift */,
+				CE2151E2257FF2BC005A47D5 /* Data+Ext.swift */,
 				CE965023257E9EFB00C1AFC6 /* NumberFormatter.swift */,
 				CE96501C257E69B400C1AFC6 /* UITableView+Ext.swift */,
 				CE96502E257EAAD900C1AFC6 /* UIColor+Ext.swift */,
 				CE965012257E68F900C1AFC6 /* UITableViewCell+Ext.swift */,
+				CE2151EC257FF962005A47D5 /* Error+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -284,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				CE4A6AFA257D3EAE007A2C65 /* AccountsService.swift */,
+				CE2151DC257FEFE4005A47D5 /* OrderService.swift */,
 			);
 			path = "Exchange API";
 			sourceTree = "<group>";
@@ -300,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				CE4A6B10257D3FD6007A2C65 /* AccountModel.swift */,
+				CE2151DF257FF02B005A47D5 /* OrderModel.swift */,
 			);
 			path = "Exchange Models";
 			sourceTree = "<group>";
@@ -461,6 +479,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2151E9257FF761005A47D5 /* ErrorModel.swift in Sources */,
+				CE2151E3257FF2BC005A47D5 /* Data+Ext.swift in Sources */,
 				CE964FD9257E53B900C1AFC6 /* UIApplication+Ext.swift in Sources */,
 				CE965019257E697000C1AFC6 /* Identifier.swift in Sources */,
 				CE4A6A6F257D2A32007A2C65 /* MyAccountViewController.swift in Sources */,
@@ -471,6 +491,7 @@
 				CE4A6AFB257D3EAE007A2C65 /* AccountsService.swift in Sources */,
 				CE965013257E68F900C1AFC6 /* UITableViewCell+Ext.swift in Sources */,
 				CE4A6B1C257D40F7007A2C65 /* Dictionary+Ext.swift in Sources */,
+				CE2151ED257FF962005A47D5 /* Error+Ext.swift in Sources */,
 				CE4A6AD6257D3C49007A2C65 /* ServiceContainer.swift in Sources */,
 				CE96500B257E67C500C1AFC6 /* MyAccountCell.swift in Sources */,
 				CE4A6AB6257D32C4007A2C65 /* Device+Ext.swift in Sources */,
@@ -484,12 +505,15 @@
 				CE965016257E695400C1AFC6 /* Collection+Ext.swift in Sources */,
 				CE964FE9257E607200C1AFC6 /* String+Ext.swift in Sources */,
 				CE965010257E681900C1AFC6 /* Nib.swift in Sources */,
+				CE2151DD257FEFE4005A47D5 /* OrderService.swift in Sources */,
+				CE2151E0257FF02B005A47D5 /* OrderModel.swift in Sources */,
 				CE4A6AC0257D3392007A2C65 /* Authorization.swift in Sources */,
 				CE4A6B11257D3FD6007A2C65 /* AccountModel.swift in Sources */,
 				CE4A6AFF257D3F0C007A2C65 /* RestClient.swift in Sources */,
 				CE4A6AD9257D3C90007A2C65 /* ServicePool.swift in Sources */,
 				CE4A6B19257D40BC007A2C65 /* RestAPIClientBuilder.swift in Sources */,
 				CE96502F257EAAD900C1AFC6 /* UIColor+Ext.swift in Sources */,
+				CE2151E6257FF65E005A47D5 /* UIAlertController+Ext.swift in Sources */,
 				CE965006257E669A00C1AFC6 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

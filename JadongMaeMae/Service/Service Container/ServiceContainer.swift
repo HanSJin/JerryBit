@@ -14,6 +14,7 @@ extension ServiceContainer {
     enum ServiceKey {
         // Exchange API
         case accounts
+        case order
         
         // Quote API
         case quote
@@ -29,6 +30,7 @@ class ServiceContainer {
     init() {
         do {
             try servicePool.register(key: .accounts, dependency: AccountsServiceImp())
+            try servicePool.register(key: .order, dependency: OrderServiceImp())
             try servicePool.register(key: .quote, dependency: QuoteServiceImp())
         } catch {
             fatalError("ServiceContainer: register Fail")

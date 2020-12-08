@@ -37,7 +37,7 @@ extension MyAccountCell {
     
     func updateView(_ account: AccountModel) {
         coinNameLabel.text = account.currency
-        balanceLabel.text = "\(account.balanceDouble + account.lockedDouble)"
+        balanceLabel.text = "보유 \(account.balanceDouble + account.lockedDouble)"
         coinUnitLabel.text = account.currency
         avgPriceLabel.text = "평단가 \(NumberFormatter.decimal(account.avgBuyPriceDouble)) \(account.unitCurrencyString)"
         currencyLabel.text = account.unit_currency

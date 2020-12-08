@@ -17,11 +17,11 @@ extension MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let myAccountVC = UIStoryboard(name: "MyAccount", bundle: nil).instantiateInitialViewController() as! MyAccountViewController
-        open(to: myAccountVC)
+//        let myAccountVC = UIStoryboard(name: "MyAccount", bundle: nil).instantiateInitialViewController() as! MyAccountViewController
+//        open(to: myAccountVC)
         
-//        let tradeMachineVC = UIStoryboard(name: "TradeMachine", bundle: nil).instantiateInitialViewController() as! TradeMachineViewController
-//        open(to: tradeMachineVC)
+        let tradeMachineVC = UIStoryboard(name: "TradeMachine", bundle: nil).instantiateInitialViewController() as! TradeMachineViewController
+        open(to: tradeMachineVC)
     }
 }
 

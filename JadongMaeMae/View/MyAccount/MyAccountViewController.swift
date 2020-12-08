@@ -97,10 +97,10 @@ extension MyAccountViewController {
                 self?.krwAccountModel = accountModels.filter { $0.currency == "KRW" }.first
                 completion(accountModels.filter { $0.currency != "KRW" }.filter { $0.currency != "PTOY" })
             case .failure(let error):
-                print(error)
+                error.handle()
             }
         }) { error in
-            print(error)
+            error.handle()
         }.disposed(by: self.disposeBag)
     }
     
@@ -115,10 +115,10 @@ extension MyAccountViewController {
                 self?.accountModels = sortedAccoutModels
                 self?.tableView.reloadData()
             case .failure(let error):
-                print(error)
+                error.handle()
             }
         }) { error in
-            print(error)
+            error.handle()
         }.disposed(by: self.disposeBag)
     }
 }
@@ -128,8 +128,8 @@ extension MyAccountViewController {
 //            case .success(let quoteModels):
 //                print(quoteModels)
 //            case .failure(let error):
-//                print(error)
+//                error.handle()
 //            }
 //        } onError: {
-//            print($0)
+//            error.handle()
 //        }.disposed(by: disposeBag)

@@ -18,6 +18,7 @@ extension RestAPIClient {
     enum ResponseError: Error {
         case requestError(Error)
         case decodeError(Error)
+        case serverMessage(ErrorModel)
     }
 }
 
@@ -72,7 +73,12 @@ class RestAPIClient {
                         return singleEvent(.success(successResult))
                     case Alamofire.Result.failure(let error):
                         print("🆘 [RestAPI Response]", response.response?.statusCode ?? "-1", "\(responseString)...", "\n")
-                        return singleEvent(.success(.failure(ResponseError.requestError(error))))
+                        
+                        if let decodedError = try? JSONDecoder().decode(ErrorModel.self, from: response.data!) as ErrorModel {
+                            return singleEvent(.success(.failure(ResponseError.serverMessage(decodedError))))
+                        } else {
+                            return singleEvent(.success(.failure(ResponseError.requestError(error))))
+                        }
                     }
                 }
             )
