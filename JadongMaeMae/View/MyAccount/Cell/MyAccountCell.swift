@@ -35,15 +35,15 @@ class MyAccountCell: UITableViewCell {
 // MARK: - Update View
 extension MyAccountCell {
     
-    func updateView(_ accountModel: AccountModel) {
-        coinNameLabel.text = accountModel.currency
-        balanceLabel.text = "\(accountModel.balanceDouble + accountModel.lockedDouble)"
-        coinUnitLabel.text = accountModel.currency
-        avgPriceLabel.text = "평단 \(accountModel.avgBuyPriceDouble)"
-        currencyLabel.text = accountModel.unit_currency
+    func updateView(_ account: AccountModel) {
+        coinNameLabel.text = account.currency
+        balanceLabel.text = "\(account.balanceDouble + account.lockedDouble)"
+        coinUnitLabel.text = account.currency
+        avgPriceLabel.text = "평단가 \(NumberFormatter.decimal(account.avgBuyPriceDouble)) \(account.unitCurrencyString)"
+        currencyLabel.text = account.unit_currency
         
-        guard let quoteTickerModel = accountModel.quoteTickerModel else { return }
-        currentPriceLabel.text = "\(Int(quoteTickerModel.trade_price ?? 0)) KRW"
+        guard let quoteTickerModel = account.quoteTickerModel else { return }
+        currentPriceLabel.text = "현재가 \(NumberFormatter.decimal(Int(quoteTickerModel.trade_price ?? 0))) " + account.unitCurrencyString
         
         switch quoteTickerModel.changeType {
         case .EVEN: currentPriceLabel.textColor = .black
@@ -51,21 +51,22 @@ extension MyAccountCell {
         case .RISE: currentPriceLabel.textColor = UIColor.myRed
         }
         
-        currentAmountLabel.text = "\(NumberFormatter.decimalFormat(Int(accountModel.currentTotalPrice))) KRW"
+        currentAmountLabel.text = "\(NumberFormatter.decimal(Int(account.currentTotalPrice)))"
         
-        let revenueRate = ((accountModel.tradePrice / accountModel.avgBuyPriceDouble) - 1)
+        let revenueRate = ((account.tradePrice / account.avgBuyPriceDouble) - 1)
         currentPercentLabel.text = String(format: "%.2f", revenueRate * 100) + "%"
+        let sign = account.tradePrice > account.avgBuyPriceDouble ? "+" : ""
+        let revenue = (account.tradePrice - account.avgBuyPriceDouble) * (account.balanceDouble + account.lockedDouble)
+        revenueLabel.text = sign + "\(NumberFormatter.decimal(Int(revenue))) \(account.unitCurrencyString)"
         
-        let revenue = (accountModel.tradePrice - accountModel.avgBuyPriceDouble) * (accountModel.balanceDouble + accountModel.lockedDouble)
-        revenueLabel.text = "(" + "\(NumberFormatter.decimalFormat(Int(revenue))) KRW)"
-        
-        if accountModel.avgBuyPriceDouble < accountModel.tradePrice {
+        if account.avgBuyPriceDouble < account.tradePrice {
             currentPercentLabel.textColor = UIColor.myRed
-            currentAmountLabel.textColor = UIColor.myRed
             revenueLabel.textColor = UIColor.myRed
+        } else if account.avgBuyPriceDouble == account.tradePrice {
+            currentPercentLabel.textColor = UIColor.myBlue
+            revenueLabel.textColor = UIColor.myBlue
         } else {
             currentPercentLabel.textColor = UIColor.myBlue
-            currentAmountLabel.textColor = UIColor.myBlue
             revenueLabel.textColor = UIColor.myBlue
         }
     }

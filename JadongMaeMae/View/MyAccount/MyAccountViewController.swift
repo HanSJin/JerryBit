@@ -59,7 +59,7 @@ extension MyAccountViewController: GlobalRunLoop {
         requestMyAccount { [weak self] accountModels in
             self?.requestCurrentPrice(accountModels: accountModels)
         }
-        totalAccount.text = NumberFormatter.decimalFormat(Int(accountModels.map { $0.currentTotalPrice }.reduce(0.0) { Double($0) + Double($1) })) + " KRW"
+        totalAccount.text = NumberFormatter.decimal(Int(accountModels.map { $0.currentTotalPrice }.reduce(0.0) { Double($0) + Double($1) })) + " KRW"
         krwBalanceLabel.text = String(format: "%.2f KRW", krwAccountModel?.balanceDouble ?? 0)
     }
 }

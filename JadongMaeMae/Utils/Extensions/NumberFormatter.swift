@@ -12,14 +12,14 @@ extension NumberFormatter {
     // MARK: Internal
 
     /// If value is 123456 integer, return string is "123,456"
-    static func decimalFormat(_ value: Int) -> String {
+    static func decimal(_ value: Int) -> String {
         guard let decimalString = decimalNumberFormatter.string(from: NSNumber(value: value)) else {
             return ""
         }
         return decimalString
     }
     
-    static func currencyFormat(_ value: Double) -> String {
+    static func decimal(_ value: Double) -> String {
         guard let decimalString = decimalNumberFormatter.string(from: NSNumber(value: value)) else {
             return ""
         }

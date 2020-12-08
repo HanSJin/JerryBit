@@ -44,7 +44,7 @@ class AccountModel: Decodable {
     var balanceDouble: Double { Double(balance ?? "0.0") ?? 0.0 }
     var lockedDouble: Double { Double(locked ?? "0.0") ?? 0.0 }
     var avgBuyPriceDouble: Double { Double(avg_buy_price ?? "0.0") ?? 0.0 }
-    
+    var unitCurrencyString: String { unit_currency ?? "" }
     var quoteTickerModel: QuoteTickerModel?
     
     var tradePrice: Double { quoteTickerModel?.trade_price ?? 0 }
