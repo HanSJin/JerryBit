@@ -43,6 +43,8 @@
 		CE965021257E92E800C1AFC6 /* QuoteTickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE965020257E92E800C1AFC6 /* QuoteTickerModel.swift */; };
 		CE965024257E9EFB00C1AFC6 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE965023257E9EFB00C1AFC6 /* NumberFormatter.swift */; };
 		CE96502F257EAAD900C1AFC6 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96502E257EAAD900C1AFC6 /* UIColor+Ext.swift */; };
+		CED3EA99257FC10500CC6F91 /* TradeMachineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED3EA98257FC10500CC6F91 /* TradeMachineViewController.swift */; };
+		CED3EA9B257FC11000CC6F91 /* TradeMachine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CED3EA9A257FC11000CC6F91 /* TradeMachine.storyboard */; };
 		F28F860B937F7E71602EEE6F /* Pods_JadongMaeMae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4B312E03543165026DAE562 /* Pods_JadongMaeMae.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +91,8 @@
 		CE965020257E92E800C1AFC6 /* QuoteTickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteTickerModel.swift; sourceTree = "<group>"; };
 		CE965023257E9EFB00C1AFC6 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		CE96502E257EAAD900C1AFC6 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		CED3EA98257FC10500CC6F91 /* TradeMachineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeMachineViewController.swift; sourceTree = "<group>"; };
+		CED3EA9A257FC11000CC6F91 /* TradeMachine.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TradeMachine.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +240,7 @@
 			children = (
 				CE4A6B1F257D420E007A2C65 /* Main */,
 				CE965001257E667B00C1AFC6 /* MyAccount */,
+				CED3EA97257FC0E600CC6F91 /* TradeMachine */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -327,6 +332,15 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		CED3EA97257FC0E600CC6F91 /* TradeMachine */ = {
+			isa = PBXGroup;
+			children = (
+				CED3EA9A257FC11000CC6F91 /* TradeMachine.storyboard */,
+				CED3EA98257FC10500CC6F91 /* TradeMachineViewController.swift */,
+			);
+			path = TradeMachine;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -390,6 +404,7 @@
 				CE4A6ACC257D34D6007A2C65 /* secretKey in Resources */,
 				CE96500C257E67C500C1AFC6 /* MyAccountCell.xib in Resources */,
 				CE4A6A77257D2A34007A2C65 /* LaunchScreen.storyboard in Resources */,
+				CED3EA9B257FC11000CC6F91 /* TradeMachine.storyboard in Resources */,
 				CE4A6A74257D2A34007A2C65 /* Assets.xcassets in Resources */,
 				CE965003257E668A00C1AFC6 /* Main.storyboard in Resources */,
 				CE4A6A72257D2A32007A2C65 /* MyAccount.storyboard in Resources */,
@@ -464,6 +479,7 @@
 				CE4A6ABB257D32D9007A2C65 /* FileController.swift in Sources */,
 				CE964FCF257E526D00C1AFC6 /* GlobalTimer.swift in Sources */,
 				CE965021257E92E800C1AFC6 /* QuoteTickerModel.swift in Sources */,
+				CED3EA99257FC10500CC6F91 /* TradeMachineViewController.swift in Sources */,
 				CE964FDF257E595000C1AFC6 /* QuoteService.swift in Sources */,
 				CE965016257E695400C1AFC6 /* Collection+Ext.swift in Sources */,
 				CE964FE9257E607200C1AFC6 /* String+Ext.swift in Sources */,

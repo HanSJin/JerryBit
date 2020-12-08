@@ -14,6 +14,7 @@ class MyAccountCell: UITableViewCell {
     @IBOutlet weak var currentPriceLabel: UILabel!
     @IBOutlet weak var currentPercentLabel: UILabel!
     @IBOutlet weak var currentAmountLabel: UILabel!
+    @IBOutlet weak var revenueLabel: UILabel!
     
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var coinUnitLabel: UILabel!
@@ -38,7 +39,7 @@ extension MyAccountCell {
         coinNameLabel.text = accountModel.currency
         balanceLabel.text = "\(accountModel.balanceDouble + accountModel.lockedDouble)"
         coinUnitLabel.text = accountModel.currency
-        avgPriceLabel.text = "\(accountModel.avgBuyPriceDouble)"
+        avgPriceLabel.text = "평단 \(accountModel.avgBuyPriceDouble)"
         currencyLabel.text = accountModel.unit_currency
         
         guard let quoteTickerModel = accountModel.quoteTickerModel else { return }
@@ -52,15 +53,20 @@ extension MyAccountCell {
         
         currentAmountLabel.text = "\(NumberFormatter.decimalFormat(Int(accountModel.currentTotalPrice))) KRW"
         
-        let percent = ((accountModel.tradePrice / accountModel.avgBuyPriceDouble) - 1) * 100
-        currentPercentLabel.text = String(format: "%.2f", percent) + " %"
+        let revenueRate = ((accountModel.tradePrice / accountModel.avgBuyPriceDouble) - 1)
+        currentPercentLabel.text = String(format: "%.2f", revenueRate * 100) + "%"
+        
+        let revenue = (accountModel.tradePrice - accountModel.avgBuyPriceDouble) * (accountModel.balanceDouble + accountModel.lockedDouble)
+        revenueLabel.text = "(" + "\(NumberFormatter.decimalFormat(Int(revenue))) KRW)"
         
         if accountModel.avgBuyPriceDouble < accountModel.tradePrice {
             currentPercentLabel.textColor = UIColor.myRed
             currentAmountLabel.textColor = UIColor.myRed
+            revenueLabel.textColor = UIColor.myRed
         } else {
             currentPercentLabel.textColor = UIColor.myBlue
             currentAmountLabel.textColor = UIColor.myBlue
+            revenueLabel.textColor = UIColor.myBlue
         }
     }
 }

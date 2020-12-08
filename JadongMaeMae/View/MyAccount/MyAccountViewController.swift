@@ -17,6 +17,7 @@ class MyAccountViewController: UIViewController {
     }
     @IBOutlet weak var ipLabel: UILabel!
     @IBOutlet weak var totalAccount: UILabel!
+    @IBOutlet weak var krwBalanceLabel: UILabel!
     
     // Variables
     private let accountsService: AccountsService = ServiceContainer.shared.getService(key: .accounts)
@@ -24,6 +25,7 @@ class MyAccountViewController: UIViewController {
     private var disposeBag = DisposeBag()
     
     private var accountModels: [AccountModel] = []
+    private var krwAccountModel: AccountModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +60,7 @@ extension MyAccountViewController: GlobalRunLoop {
             self?.requestCurrentPrice(accountModels: accountModels)
         }
         totalAccount.text = NumberFormatter.decimalFormat(Int(accountModels.map { $0.currentTotalPrice }.reduce(0.0) { Double($0) + Double($1) })) + " KRW"
+        krwBalanceLabel.text = String(format: "%.2f KRW", krwAccountModel?.balanceDouble ?? 0)
     }
 }
 
@@ -88,9 +91,10 @@ extension MyAccountViewController: UITableViewDelegate {
 extension MyAccountViewController {
     
     private func requestMyAccount(completion: @escaping ([AccountModel]) -> Void) {
-        accountsService.getMyAccounts().subscribe(onSuccess: {
+        accountsService.getMyAccounts().subscribe(onSuccess: { [weak self] in
             switch $0 {
             case .success(let accountModels):
+                self?.krwAccountModel = accountModels.filter { $0.currency == "KRW" }.first
                 completion(accountModels.filter { $0.currency != "KRW" }.filter { $0.currency != "PTOY" })
             case .failure(let error):
                 print(error)
