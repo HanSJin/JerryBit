@@ -9,11 +9,13 @@ import UIKit
 
 extension Error {
     
-    func handle() {
+    func globalHandling() -> Bool {
         print(self)
         
         if let responseError = self as? RestAPIClient.ResponseError, case .serverMessage(let errorModel) = responseError {
             UIAlertController.simpleAlert(message: errorModel.error.message + "\ncode: " + errorModel.error.name)
+            return true
         }
+        return false
     }
 }

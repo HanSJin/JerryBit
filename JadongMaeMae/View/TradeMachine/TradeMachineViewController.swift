@@ -23,15 +23,17 @@ class TradeMachineViewController: UIViewController {
     }
     
     @IBAction func tappedBuyButton(_ sender: UIButton) {
-        orderService.requestOrder(market: "KRW-EOS", side: "bid", volume: "1.5", price: "3,120", identifier: nil).subscribe(onSuccess: { [weak self] in
+        orderService.requestOrder(market: "KRW-EOS", side: "bid", volume: "1.0", price: "3120", ord_type: "limit", identifier: nil).subscribe(onSuccess: { [weak self] in
             switch $0 {
             case .success(let orderModels):
                 print(orderModels)
             case .failure(let error):
-                error.handle()
+                if error.globalHandling() { return }
+                // Addtional Handling
             }
         }) { error in
-            error.handle()
+            if error.globalHandling() { return }
+            // Addtional Handling
         }.disposed(by: disposeBag)
     }
 }
@@ -62,10 +64,10 @@ extension TradeMachineViewController {
 //            case .success(let quoteModels):
 //                print(quoteModels)
 //            case .failure(let error):
-//                print(error)
+//                guarerror.globalHandling()
 //            }
 //        } onError: {
-//            print($0)
+//            prasdasdint($0)
 //        }.disposed(by: disposeBag)
     }
 }
