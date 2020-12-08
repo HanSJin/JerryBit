@@ -33,18 +33,18 @@ import Foundation
  */
 
 class AccountModel: Decodable {
-    let currency: String?
-    private let balance: String?
-    private let locked: String?
-    private let avg_buy_price: String?
+    let currency: String
+    let balance: String
+    let locked: String
+    let avg_buy_price: String
     var avg_buy_price_modified: Bool
-    let unit_currency: String?
+    let unit_currency: String
 
     // MARK: - Converted
-    var balanceDouble: Double { Double(balance ?? "0.0") ?? 0.0 }
-    var lockedDouble: Double { Double(locked ?? "0.0") ?? 0.0 }
-    var avgBuyPriceDouble: Double { Double(avg_buy_price ?? "0.0") ?? 0.0 }
-    var unitCurrencyString: String { unit_currency ?? "" }
+    var balanceDouble: Double { Double(balance) ?? 0.0 }
+    var lockedDouble: Double { Double(locked) ?? 0.0 }
+    var avgBuyPriceDouble: Double { Double(avg_buy_price) ?? 0.0 }
+    var unitCurrencyString: String { unit_currency }
     var quoteTickerModel: QuoteTickerModel?
     
     var tradePrice: Double { quoteTickerModel?.trade_price ?? 0 }

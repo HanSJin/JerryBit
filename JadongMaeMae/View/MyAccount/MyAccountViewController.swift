@@ -107,11 +107,11 @@ extension MyAccountViewController {
     }
     
     private func requestCurrentPrice(accountModels: [AccountModel]) {
-        quoteService.getCurrentPrice(markets: accountModels.map { "KRW-\($0.currency!)" }).subscribe(onSuccess: { [weak self] in
+        quoteService.getCurrentPrice(markets: accountModels.map { "KRW-\($0.currency)" }).subscribe(onSuccess: { [weak self] in
             switch $0 {
             case .success(let tickerModels):
                 for accountModel in accountModels {
-                    accountModel.quoteTickerModel = tickerModels.filter { $0.market == "KRW-\(accountModel.currency!)" }.first
+                    accountModel.quoteTickerModel = tickerModels.filter { $0.market == "KRW-\(accountModel.currency)" }.first
                 }
                 let sortedAccoutModels = accountModels.sorted { $0.currentTotalPrice > $1.currentTotalPrice }
                 self?.accountModels = sortedAccoutModels
