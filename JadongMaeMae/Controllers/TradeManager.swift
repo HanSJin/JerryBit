@@ -39,7 +39,7 @@ class TradeManager {
     // MARK: - Candles
     
     // 캔들
-    private var candles = [QuoteCandleModel]()
+    var candles = [QuoteCandleModel]()
     
     init() { }
 }
@@ -94,7 +94,7 @@ extension TradeManager {
     var profitColor: UIColor {
         if avgBuyPrice == 0 { return .black }
         if currentPrice == avgBuyPrice {
-            return .black
+            return UIColor.label
         } else if currentPrice > avgBuyPrice {
             return .myRed
         } else {
@@ -158,7 +158,7 @@ extension TradeManager {
 extension TradeManager {
     
     func requestCandles() {
-        quoteService.getMinuteCandle(market: market, unit: 1, count: 50).subscribe(onSuccess: {
+        quoteService.getMinuteCandle(market: market, unit: 1, count: 150).subscribe(onSuccess: {
             switch $0 {
             case .success(let candleModels):
                 TradeManager.shared.candles = candleModels

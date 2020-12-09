@@ -40,7 +40,7 @@ class MyAccountViewController: UIViewController {
 extension MyAccountViewController {
     
     func setUpView() {
-        self.navigationItem.title = "내 계좌"
+        navigationItem.title = "내 계좌"
         updateIpAddress()
         requestMyAccount { [weak self] accountModels in
             self?.requestCurrentPrice(accountModels: accountModels)

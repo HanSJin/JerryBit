@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (4.9.1)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - JSONWebToken (2.2.0)
   - RxCocoa (5.1.0):
     - RxRelay (~> 5)
@@ -10,6 +13,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (< 5.0)
+  - Charts
   - JSONWebToken
   - RxCocoa (= 5.1.0)
   - RxSwift
@@ -17,6 +21,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Charts
     - JSONWebToken
     - RxCocoa
     - RxRelay
@@ -24,11 +29,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   JSONWebToken: 6fae32489632658d563dd6952a5c34020ea813e4
   RxCocoa: 13d2a4d7546a34b8ececae8c281e4ea1dbb94f2b
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: ea80fe7466ec930938d7de3ae28646f06511bc87
+PODFILE CHECKSUM: bfd6be72deeb26db5f0a2da3755eb53d49643efe
 
 COCOAPODS: 1.10.0
