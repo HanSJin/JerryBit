@@ -144,7 +144,7 @@
                                     <constraint firstItem="BQb-Pw-r73" firstAttribute="leading" secondItem="1no-Jj-xB6" secondAttribute="leading" constant="20" id="tQW-iB-F2y"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZNS-2a-Ad0" customClass="CandleStickChartView" customModule="Charts">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZNS-2a-Ad0" customClass="CandleStickChartView" customModule="JadongMaeMae" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="144" width="414" height="250"/>
                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                                 <constraints>

@@ -16,7 +16,7 @@ def rx
 end
 
 def ui
-  pod 'Charts'
+#  pod 'Charts'
 end
 
 target 'JadongMaeMae' do

@@ -5,7 +5,6 @@
 //  Created by USER on 08/12/2020.
 //
 
-import Charts
 import UIKit
 import RxSwift
 
@@ -71,7 +70,7 @@ extension TradeMachineViewController: ChartViewDelegate {
     
     func setUpChart() {
         chartView.delegate = self
-        chartView.chartDescription?.enabled = false
+        chartView.chartDescription.enabled = false
         chartView.backgroundColor = #colorLiteral(red: 0.09019607843, green: 0.1411764706, blue: 0.2078431373, alpha: 1)
         
         chartView.maxVisibleCount = 200
