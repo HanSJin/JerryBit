@@ -8,7 +8,14 @@
 import UIKit
 
 class MainViewController: UIViewController {
-
+    
+    static var current: MainViewController? {
+        var appMain = UIApplication.shared.keyWindowInConnectedScenes?.rootViewController as? MainViewController
+        if appMain == nil {
+            appMain = UIApplication.shared.windows.first?.rootViewController as? MainViewController
+        }
+        return appMain
+    }
 }
 
 // MARK: - Life Cycles
@@ -17,12 +24,20 @@ extension MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let myAccountVC = UIStoryboard(name: "MyAccount", bundle: nil).instantiateInitialViewController() as! MyAccountViewController
-//        open(to: myAccountVC)
+        let myAccountVC = UIStoryboard(name: "MyAccount", bundle: nil).instantiateInitialViewController() as! MyAccountViewController
+        let naviCon = UINavigationController(rootViewController: myAccountVC)
+        open(to: naviCon)
         
-        let tradeMachineVC = UIStoryboard(name: "TradeMachine", bundle: nil).instantiateInitialViewController() as! TradeMachineViewController
-        open(to: tradeMachineVC)
+//        let tradeMachineVC = UIStoryboard(name: "TradeMachine", bundle: nil).instantiateInitialViewController() as! TradeMachineViewController
+//        let naviCon = UINavigationController(rootViewController: tradeMachineVC)
+//        open(to: naviCon)
+        
     }
+}
+
+// MARK: - Open VC
+extension MainViewController {
+    
 }
 
 // MARK: - Private

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,7 +19,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XHf-2P-glP">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="fZJ-0q-sKg">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -58,15 +60,30 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tIh-GJ-4Hc">
+                                            <rect key="frame" x="324" y="16" width="70" height="30"/>
+                                            <color key="backgroundColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="70" id="SlH-hb-C03"/>
+                                            </constraints>
+                                            <state key="normal" title="자동매매">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="tappedTradeMachineButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="prd-qx-Cz6"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" systemColor="systemFillColor"/>
                                     <constraints>
                                         <constraint firstItem="KSQ-7S-vss" firstAttribute="leading" secondItem="7cq-s0-bXO" secondAttribute="trailing" constant="8" id="3sq-hY-cCI"/>
+                                        <constraint firstAttribute="trailing" secondItem="tIh-GJ-4Hc" secondAttribute="trailing" constant="20" id="EQx-dR-GHf"/>
                                         <constraint firstItem="RHO-3H-eWE" firstAttribute="leading" secondItem="fZJ-0q-sKg" secondAttribute="leading" constant="20" id="KGQ-LU-7S8"/>
                                         <constraint firstItem="RHO-3H-eWE" firstAttribute="top" secondItem="Wzs-1C-BA7" secondAttribute="bottom" constant="4" id="LGx-At-I1A"/>
                                         <constraint firstItem="Wzs-1C-BA7" firstAttribute="leading" secondItem="fZJ-0q-sKg" secondAttribute="leading" constant="20" symbolic="YES" id="Qfo-3R-U2V"/>
                                         <constraint firstItem="HyF-yr-mpU" firstAttribute="leading" secondItem="Wzs-1C-BA7" secondAttribute="trailing" constant="4" id="WWa-HE-Gxa"/>
                                         <constraint firstItem="KSQ-7S-vss" firstAttribute="centerY" secondItem="7cq-s0-bXO" secondAttribute="centerY" id="YIq-xH-rYz"/>
+                                        <constraint firstItem="tIh-GJ-4Hc" firstAttribute="top" secondItem="fZJ-0q-sKg" secondAttribute="top" constant="16" id="ZW9-Ry-pRs"/>
                                         <constraint firstItem="HyF-yr-mpU" firstAttribute="centerY" secondItem="Wzs-1C-BA7" secondAttribute="centerY" id="eRT-Y7-h8q"/>
                                         <constraint firstItem="sJV-WE-xWr" firstAttribute="leading" secondItem="RHO-3H-eWE" secondAttribute="trailing" constant="4" id="fsz-bh-QaH"/>
                                         <constraint firstItem="sJV-WE-xWr" firstAttribute="centerY" secondItem="RHO-3H-eWE" secondAttribute="centerY" id="m4C-LV-hQM"/>
@@ -81,14 +98,14 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="XHf-2P-glP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7AJ-We-aar"/>
                             <constraint firstItem="XHf-2P-glP" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="rUk-2h-ltX"/>
                             <constraint firstAttribute="bottom" secondItem="XHf-2P-glP" secondAttribute="bottom" id="t9N-b3-g0s"/>
                             <constraint firstItem="XHf-2P-glP" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="toq-Md-pKm"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Account" id="oMl-15-2ST"/>
                     <connections>
@@ -96,27 +113,20 @@
                         <outlet property="krwBalanceLabel" destination="sJV-WE-xWr" id="u0B-Xr-PrG"/>
                         <outlet property="tableView" destination="XHf-2P-glP" id="0YA-v5-jbu"/>
                         <outlet property="totalAccount" destination="HyF-yr-mpU" id="AAO-Vn-iNa"/>
+                        <outlet property="tradeMachineButton" destination="tIh-GJ-4Hc" id="E2h-Jp-A6I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="279.71014492753625" y="105.80357142857143"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="0dw-RP-nJf">
-            <objects>
-                <navigationController id="K1i-tf-cY1" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Sfi-p4-6io">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="drL-Jq-Hy3"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gYk-1J-zhr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-577" y="106"/>
-        </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemFillColor">
+            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

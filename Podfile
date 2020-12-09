@@ -15,12 +15,17 @@ def rx
   pod 'RxCocoa', '5.1.0'
 end
 
+def ui
+  'Charts'
+end
+
 target 'JadongMaeMae' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   network
   utils
   rx
+  ui
 end
 
 post_install do |installer|

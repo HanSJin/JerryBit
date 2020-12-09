@@ -29,7 +29,11 @@ extension UIApplication {
             return topViewController(presented)
         }
         if viewController is MainViewController {
-            return viewController?.children.first
+            if let naviCon = viewController?.children.first as? UINavigationController {
+                return naviCon.children.last
+            } else {
+                return viewController?.children.first
+            }
         }
         return viewController
     }

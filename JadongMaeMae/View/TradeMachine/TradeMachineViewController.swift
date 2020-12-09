@@ -32,8 +32,8 @@ class TradeMachineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpView()
         TradeManager.shared.install(market: "KRW-MVL", oncePrice: 1000)
+        setUpView()
     }
 }
 
@@ -41,7 +41,7 @@ class TradeMachineViewController: UIViewController {
 extension TradeMachineViewController {
     
     func setUpView() {
-        coinNameLabel.text = TradeManager.shared.market
+        self.navigationItem.title = TradeManager.shared.market
     }
     
     func syncronizeView() {

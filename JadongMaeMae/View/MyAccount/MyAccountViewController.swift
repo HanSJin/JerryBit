@@ -18,6 +18,9 @@ class MyAccountViewController: UIViewController {
     @IBOutlet weak var ipLabel: UILabel!
     @IBOutlet weak var totalAccount: UILabel!
     @IBOutlet weak var krwBalanceLabel: UILabel!
+    @IBOutlet weak var tradeMachineButton: UIButton! {
+        didSet { tradeMachineButton.layer.cornerRadius = 8.0 }
+    }
     
     // Variables
     private let accountsService: AccountsService = ServiceContainer.shared.getService(key: .accounts)
@@ -37,6 +40,7 @@ class MyAccountViewController: UIViewController {
 extension MyAccountViewController {
     
     func setUpView() {
+        self.navigationItem.title = "내 계좌"
         updateIpAddress()
         requestMyAccount { [weak self] accountModels in
             self?.requestCurrentPrice(accountModels: accountModels)
@@ -87,6 +91,15 @@ extension MyAccountViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UI Touch Events
+extension MyAccountViewController {
+    
+    @IBAction func tappedTradeMachineButton(_ sender: UIButton) {
+        let tradeMachineVC = UIStoryboard(name: "TradeMachine", bundle: nil).instantiateInitialViewController() as! TradeMachineViewController
+        navigationController?.pushViewController(tradeMachineVC, animated: true)
+    }
+}
+
 // MARK: - Request
 extension MyAccountViewController {
     
@@ -126,15 +139,3 @@ extension MyAccountViewController {
         }.disposed(by: self.disposeBag)
     }
 }
-
-//        quoteService.getMinuteCandle(market: "KRW-BTC", unit: 1, count: 200).subscribe {
-//            switch $0 {
-//            case .success(let quoteModels):
-//                print(quoteModels)
-//            case .failure(let error):
-//                if error.globalHandling { return }
-// Addtional Handling//            }
-//        } onError: {
-//            erif error.globalHandling { return }
-// Addtional Handlingdle()
-//        }.disposed(by: disposeBag)
