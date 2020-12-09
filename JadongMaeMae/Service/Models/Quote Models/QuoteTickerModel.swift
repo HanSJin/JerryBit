@@ -43,12 +43,12 @@ struct QuoteTickerModel: Decodable {
      "lowest_52_week_date": "2017-09-25",
      "timestamp": 1524047026072
      */
-    let market: String?
-    let trade_price: Double?
-    private let change: String?
+    let market: String
+    let trade_price: Double
+    private let change: String
     var changeType: Change {
-        Change(rawValue: change ?? "EVEN") ?? .EVEN
+        Change(rawValue: change) ?? .EVEN
     }
-    let change_price: Double?
-    let signed_change_rate: Double?
+    let change_price: Double
+    let signed_change_rate: Double
 }

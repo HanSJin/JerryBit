@@ -20,19 +20,19 @@ class TradeMachineViewController: UIViewController {
     @IBOutlet weak var coinCurrentTotalPriceLabel: UILabel!
     
     // Outlets - KRW Info
-    @IBOutlet weak var krwBalanceLabel: UILabel!
-    @IBOutlet weak var krwLockedLabel: UILabel!
     @IBOutlet weak var krwTotalLabel: UILabel!
     
     // Variables
     private let accountsService: AccountsService = ServiceContainer.shared.getService(key: .accounts)
-    // private let quoteService: QuoteService = ServiceContainer.shared.getService(key: .quote)
+    private let quoteService: QuoteService = ServiceContainer.shared.getService(key: .quote)
     private let orderService: OrderService = ServiceContainer.shared.getService(key: .order)
     private var disposeBag = DisposeBag()
     
-    private let market = "KRW-EOS"
+    private let market = "KRW-MVL"
+    private let oncePrice = 1000
     private var tradeAccount: AccountModel?
     private var krwAccount: AccountModel?
+    private var tickerModel: QuoteTickerModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,15 +48,26 @@ extension TradeMachineViewController {
     }
     
     func syncronizeView() {
+        if let tickerModel = tickerModel {
+            coinCurrentPriceLabel.text = tickerModel.trade_price.numberForm(add: " KRW")
+        }
         if let tradeAccount = tradeAccount {
-            coinCurrentPriceLabel.text = ""
-            coinCurrentAvgPriceLabel.text = tradeAccount.avg_buy_price
+            coinCurrentAvgPriceLabel.text = tradeAccount.avg_buy_price + " KRW"
             coinCurrentBalanceLabel.text = tradeAccount.balance
+            let currentTotalPrice = tradeAccount.avgBuyPriceDouble * tradeAccount.balanceDouble
+            coinCurrentTotalPriceLabel.text = currentTotalPrice.numberForm(add: " KRW")
+        } else {
+            coinCurrentAvgPriceLabel.text = "0 KRW"
+            coinCurrentBalanceLabel.text = "0"
+            coinCurrentTotalPriceLabel.text = "0 KRW"
         }
         if let krwAccount = krwAccount {
             // krwBalanceLabel.text = krwAccount.balance
-            krwLockedLabel.text = krwAccount.locked
-            krwTotalLabel.text = krwAccount.balance
+            if krwAccount.lockedDouble > 0 {
+                krwTotalLabel.text = krwAccount.balanceDouble.numberForm(add: " KRW") + "(Lock " + krwAccount.lockedDouble.numberForm(add: " KRW") + ")"
+            } else {
+                krwTotalLabel.text = krwAccount.balanceDouble.numberForm(add: " KRW")
+            }
         }
     }
 }
@@ -64,9 +75,10 @@ extension TradeMachineViewController {
 // MARK: - GlobalRunLoop
 extension TradeMachineViewController: GlobalRunLoop {
     
-    var fps: Double { 8 }
+    var fps: Double { 5 }
     func runLoop() {
         requestMyAccount() { _ in }
+        requestCurrentPrice()
         syncronizeView()
     }
 }
@@ -75,7 +87,7 @@ extension TradeMachineViewController: GlobalRunLoop {
 extension TradeMachineViewController {
     
     @IBAction func tappedBuyButton(_ sender: UIButton) {
-        orderService.requestBuy(market: market, price: "1000").subscribe(onSuccess: {
+        orderService.requestBuy(market: market, price: "\(oncePrice)").subscribe(onSuccess: {
             switch $0 {
             case .success(let orderModels):
                 print(orderModels)
@@ -90,7 +102,19 @@ extension TradeMachineViewController {
     }
     
     @IBAction func tappedSellButton(_ sender: UIButton) {
-        orderService.requestSell(market: market, volume: "1.0").subscribe(onSuccess: {
+        guard let tickerModel = tickerModel, tickerModel.trade_price > 0 else { return }
+        guard let tradeAccount = tradeAccount else { return }
+        let myCoinAmount = (tradeAccount.avgBuyPriceDouble * tradeAccount.balanceDouble)
+        let volume: String
+        if Double(oncePrice) < myCoinAmount {
+            // OncePrice 거래 가능
+            volume = "\(Double(oncePrice) / tickerModel.trade_price)"
+        } else {
+            // OncePrice 거래 잔액 부족
+            volume = tradeAccount.balance
+        }
+        
+        orderService.requestSell(market: market, volume: volume).subscribe(onSuccess: {
             switch $0 {
             case .success(let orderModels):
                 print(orderModels)
@@ -115,6 +139,21 @@ extension TradeMachineViewController {
             case .success(let accountModels):
                 self.krwAccount = accountModels.filter { $0.currency == "KRW" }.first
                 self.tradeAccount = accountModels.filter { $0.currency == self.market.replacingOccurrences(of: "KRW-", with: "") }.first
+            case .failure(let error):
+                if error.globalHandling() { return }
+                // Addtional Handling
+            }
+        }) { error in
+            if error.globalHandling() { return }
+            // Addtional Handling
+        }.disposed(by: self.disposeBag)
+    }
+    
+    private func requestCurrentPrice() {
+        quoteService.getCurrentPrice(markets: [market]).subscribe(onSuccess: { [weak self] in
+            switch $0 {
+            case .success(let tickerModels):
+                self?.tickerModel = tickerModels.first
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
