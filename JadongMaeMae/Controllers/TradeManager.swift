@@ -158,7 +158,7 @@ extension TradeManager {
 extension TradeManager {
     
     func requestCandles() {
-        quoteService.getMinuteCandle(market: market, unit: 1, count: 150).subscribe(onSuccess: {
+        quoteService.getMinuteCandle(market: market, unit: 1, count: 200).subscribe(onSuccess: {
             switch $0 {
             case .success(let candleModels):
                 TradeManager.shared.candles = candleModels

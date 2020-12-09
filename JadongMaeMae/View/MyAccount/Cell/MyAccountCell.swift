@@ -43,7 +43,8 @@ extension MyAccountCell {
         currencyLabel.text = account.unit_currency
         
         guard let quoteTickerModel = account.quoteTickerModel else { return }
-        currentPriceLabel.text = "현재가 \(NumberFormatter.decimal(Int(quoteTickerModel.trade_price ?? 0))) " + account.unitCurrencyString
+        
+        currentPriceLabel.text = "현재가 " + quoteTickerModel.trade_price.numberForm(add: account.unitCurrencyString)
         
         switch quoteTickerModel.changeType {
         case .EVEN: currentPriceLabel.textColor = .black

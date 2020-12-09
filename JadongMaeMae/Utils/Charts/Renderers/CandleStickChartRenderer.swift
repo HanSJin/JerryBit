@@ -288,19 +288,19 @@ open class CandleStickChartRenderer: LineScatterCandleRadarRenderer
                 
                 let valueFont = dataSet.valueFont
                 
-                let formatter = dataSet.valueFormatter
+//                let formatter = dataSet.valueFormatter
                 
                 let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
                 let valueToPixelMatrix = trans.valueToPixelMatrix
                 
                 let iconsOffset = dataSet.iconsOffset
                 
-                let angleRadians = dataSet.valueLabelAngle.DEG2RAD
+//                let angleRadians = dataSet.valueLabelAngle.DEG2RAD
                 
                 _xBounds.set(chart: dataProvider, dataSet: dataSet, animator: animator)
                 
-                let lineHeight = valueFont.lineHeight
-                let yOffset: CGFloat = lineHeight + 5.0
+//                let lineHeight = valueFont.lineHeight
+//                let yOffset: CGFloat = lineHeight + 5.0
                 
                 for j in _xBounds
                 {

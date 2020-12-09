@@ -12,6 +12,4 @@ extension Double {
     func numberForm(add: String) -> String {
         return String(format: "%.2f\(add)", self)
     }
-    
-    var rounded: Self { (self * 100) / 100 }
 }

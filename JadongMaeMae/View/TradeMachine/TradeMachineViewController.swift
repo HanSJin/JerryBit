@@ -34,7 +34,7 @@ class TradeMachineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TradeManager.shared.install(market: "KRW-MVL", oncePrice: 1000)
+        TradeManager.shared.install(market: "KRW-XRP", oncePrice: 1000)
         setUpView()
     }
 }
@@ -54,8 +54,8 @@ extension TradeMachineViewController {
         coinCurrentPriceLabel?.textColor = trade.profitColor
         
         coinCurrentAvgPriceLabel?.text = trade.avgBuyPrice.numberForm(add: " KRW")
-        coinCurrentBalanceLabel?.text = "\(trade.coinBalance) KRW"
-        coinCurrentTotalPriceLabel?.text = trade.evaluationAmount.numberForm(add: " KRW")
+        coinCurrentBalanceLabel?.text = "\(trade.coinBalance)"
+        coinCurrentTotalPriceLabel?.text = "\(Int(trade.evaluationAmount)) KRW"
         
         var krwBalance = trade.krwBalance.numberForm(add: " KRW")
         if trade.krwLocked > 0 {
@@ -74,19 +74,21 @@ extension TradeMachineViewController: ChartViewDelegate {
         chartView.backgroundColor = #colorLiteral(red: 0.09019607843, green: 0.1411764706, blue: 0.2078431373, alpha: 1)
         
         chartView.maxVisibleCount = 200
-        chartView.pinchZoomEnabled = true
+        chartView.dragXEnabled = false
+        chartView.dragYEnabled = false
+        chartView.scaleXEnabled = false
+        chartView.scaleYEnabled = false
+        chartView.pinchZoomEnabled = false
+        chartView.doubleTapToZoomEnabled = false
+        chartView.drawBordersEnabled = true
+        chartView.dragEnabled = true
+        chartView.highlightPerTapEnabled = true
         
         chartView.legend.enabled = false
         chartView.leftAxis.enabled = false
-//        chartView.leftAxis.axisMinimum = 0
-//        chartView.leftAxis.drawZeroLineEnabled = true
-//        chartView.leftAxis.zeroLineWidth = 0.0
         
         chartView.rightAxis.labelFont = UIFont.systemFont(ofSize: 9)
         chartView.rightAxis.labelTextColor = UIColor.white.withAlphaComponent(0.8)
-        chartView.rightAxis.spaceTop = 0.3
-        chartView.rightAxis.spaceBottom = 0.3
-        chartView.rightAxis.axisMinimum = 0
         
         chartView.xAxis.labelPosition = .bottom
         chartView.xAxis.labelFont = UIFont.systemFont(ofSize: 9)
@@ -103,10 +105,10 @@ extension TradeMachineViewController: ChartViewDelegate {
         let yVals1 = candles.reversed().enumerated().map { (i, candle) -> CandleChartDataEntry in
             CandleChartDataEntry(
                 x: Double(i),
-                shadowH: candle.high_price.rounded,
-                shadowL: candle.low_price.rounded,
-                open: candle.opening_price.rounded,
-                close: candle.trade_price.rounded,
+                shadowH: candle.high_price,
+                shadowL: candle.low_price,
+                open: candle.opening_price,
+                close: candle.trade_price,
                 icon: nil
             )
         }
@@ -131,7 +133,7 @@ extension TradeMachineViewController: ChartViewDelegate {
 // MARK: - GlobalRunLoop
 extension TradeMachineViewController: GlobalRunLoop {
     
-    var fps: Double { 5 }
+    var fps: Double { 2 }
     func runLoop() {
         TradeManager.shared.syncModels()
         syncronizeView()
