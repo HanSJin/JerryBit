@@ -23,8 +23,6 @@ class TradeMachineViewController: UIViewController {
     @IBOutlet weak var krwTotalLabel: UILabel!
     
     // Variables
-    private let accountsService: AccountsService = ServiceContainer.shared.getService(key: .accounts)
-    private let quoteService: QuoteService = ServiceContainer.shared.getService(key: .quote)
     private let orderService: OrderService = ServiceContainer.shared.getService(key: .order)
     private var disposeBag = DisposeBag()
     
@@ -37,6 +35,7 @@ class TradeMachineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        TradeManager.shared.install(market: "KRW-MVL", oncePrice: 1000)
     }
 }
 
@@ -48,27 +47,16 @@ extension TradeMachineViewController {
     }
     
     func syncronizeView() {
-        if let tickerModel = tickerModel {
-            coinCurrentPriceLabel.text = tickerModel.trade_price.numberForm(add: " KRW")
+        coinCurrentPriceLabel.text = TradeManager.shared.currentPrice.numberForm(add: " KRW")
+        coinCurrentAvgPriceLabel.text = TradeManager.shared.avgBuyPrice.numberForm(add: " KRW")
+        coinCurrentBalanceLabel.text = "\(TradeManager.shared.coinBalance) KRW"
+        coinCurrentTotalPriceLabel.text = TradeManager.shared.evaluationAmount.numberForm(add: " KRW")
+        
+        var krwBalance = TradeManager.shared.krwBalance.numberForm(add: " KRW")
+        if TradeManager.shared.krwLocked > 0 {
+            krwBalance += "(예약 \(TradeManager.shared.krwLocked.numberForm(add: " KRW"))"
         }
-        if let tradeAccount = tradeAccount {
-            coinCurrentAvgPriceLabel.text = tradeAccount.avg_buy_price + " KRW"
-            coinCurrentBalanceLabel.text = tradeAccount.balance
-            let currentTotalPrice = tradeAccount.avgBuyPriceDouble * tradeAccount.balanceDouble
-            coinCurrentTotalPriceLabel.text = currentTotalPrice.numberForm(add: " KRW")
-        } else {
-            coinCurrentAvgPriceLabel.text = "0 KRW"
-            coinCurrentBalanceLabel.text = "0"
-            coinCurrentTotalPriceLabel.text = "0 KRW"
-        }
-        if let krwAccount = krwAccount {
-            // krwBalanceLabel.text = krwAccount.balance
-            if krwAccount.lockedDouble > 0 {
-                krwTotalLabel.text = krwAccount.balanceDouble.numberForm(add: " KRW") + "(Lock " + krwAccount.lockedDouble.numberForm(add: " KRW") + ")"
-            } else {
-                krwTotalLabel.text = krwAccount.balanceDouble.numberForm(add: " KRW")
-            }
-        }
+        krwTotalLabel.text = krwBalance
     }
 }
 
@@ -77,8 +65,7 @@ extension TradeMachineViewController: GlobalRunLoop {
     
     var fps: Double { 5 }
     func runLoop() {
-        requestMyAccount() { _ in }
-        requestCurrentPrice()
+        TradeManager.shared.syncModels()
         syncronizeView()
     }
 }
@@ -87,83 +74,14 @@ extension TradeMachineViewController: GlobalRunLoop {
 extension TradeMachineViewController {
     
     @IBAction func tappedBuyButton(_ sender: UIButton) {
-        orderService.requestBuy(market: market, price: "\(oncePrice)").subscribe(onSuccess: {
-            switch $0 {
-            case .success(let orderModels):
-                print(orderModels)
-            case .failure(let error):
-                if error.globalHandling() { return }
-                // Addtional Handling
-            }
-        }) { error in
-            if error.globalHandling() { return }
-            // Addtional Handling
-        }.disposed(by: disposeBag)
+        TradeManager.shared.requestBuy()
     }
     
     @IBAction func tappedSellButton(_ sender: UIButton) {
-        guard let tickerModel = tickerModel, tickerModel.trade_price > 0 else { return }
-        guard let tradeAccount = tradeAccount else { return }
-        let myCoinAmount = (tradeAccount.avgBuyPriceDouble * tradeAccount.balanceDouble)
-        let volume: String
-        if Double(oncePrice) < myCoinAmount {
-            // OncePrice 거래 가능
-            volume = "\(Double(oncePrice) / tickerModel.trade_price)"
-        } else {
-            // OncePrice 거래 잔액 부족
-            volume = tradeAccount.balance
-        }
-        
-        orderService.requestSell(market: market, volume: volume).subscribe(onSuccess: {
-            switch $0 {
-            case .success(let orderModels):
-                print(orderModels)
-            case .failure(let error):
-                if error.globalHandling() { return }
-                // Addtional Handling
-            }
-        }) { error in
-            if error.globalHandling() { return }
-            // Addtional Handling
-        }.disposed(by: disposeBag)
+        TradeManager.shared.requestSell()
     }
 }
-
-// MARK: - Request
-extension TradeMachineViewController {
-    
-    private func requestMyAccount(completion: @escaping ([AccountModel]) -> Void) {
-        accountsService.getMyAccounts().subscribe(onSuccess: { [weak self] in
-            guard let self = self else { return }
-            switch $0 {
-            case .success(let accountModels):
-                self.krwAccount = accountModels.filter { $0.currency == "KRW" }.first
-                self.tradeAccount = accountModels.filter { $0.currency == self.market.replacingOccurrences(of: "KRW-", with: "") }.first
-            case .failure(let error):
-                if error.globalHandling() { return }
-                // Addtional Handling
-            }
-        }) { error in
-            if error.globalHandling() { return }
-            // Addtional Handling
-        }.disposed(by: self.disposeBag)
-    }
-    
-    private func requestCurrentPrice() {
-        quoteService.getCurrentPrice(markets: [market]).subscribe(onSuccess: { [weak self] in
-            switch $0 {
-            case .success(let tickerModels):
-                self?.tickerModel = tickerModels.first
-            case .failure(let error):
-                if error.globalHandling() { return }
-                // Addtional Handling
-            }
-        }) { error in
-            if error.globalHandling() { return }
-            // Addtional Handling
-        }.disposed(by: self.disposeBag)
-    }
-    
+    /*
     private func getMinuteCandles() {
 //        quoteService.getMinuteCandle(market: "KRW-ETH", unit: 1, count: 200).subscribe {
 //            switch $0 {
@@ -177,3 +95,4 @@ extension TradeMachineViewController {
 //        }.disposed(by: disposeBag)
     }
 }
+*/

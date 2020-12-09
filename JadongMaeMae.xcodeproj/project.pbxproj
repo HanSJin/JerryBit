@@ -14,6 +14,7 @@
 		CE2151E9257FF761005A47D5 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151E8257FF761005A47D5 /* ErrorModel.swift */; };
 		CE2151ED257FF962005A47D5 /* Error+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151EC257FF962005A47D5 /* Error+Ext.swift */; };
 		CE489EBE25811EED009AFAC0 /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489EBD25811EED009AFAC0 /* Double+Ext.swift */; };
+		CE489EC1258125D9009AFAC0 /* TradeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489EC0258125D9009AFAC0 /* TradeManager.swift */; };
 		CE4A6A6B257D2A32007A2C65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6A6A257D2A32007A2C65 /* AppDelegate.swift */; };
 		CE4A6A6F257D2A32007A2C65 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6A6E257D2A32007A2C65 /* MyAccountViewController.swift */; };
 		CE4A6A72257D2A32007A2C65 /* MyAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4A6A70257D2A32007A2C65 /* MyAccount.storyboard */; };
@@ -66,6 +67,7 @@
 		CE2151E8257FF761005A47D5 /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		CE2151EC257FF962005A47D5 /* Error+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Ext.swift"; sourceTree = "<group>"; };
 		CE489EBD25811EED009AFAC0 /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
+		CE489EC0258125D9009AFAC0 /* TradeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeManager.swift; sourceTree = "<group>"; };
 		CE4A6A67257D2A32007A2C65 /* JadongMaeMae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JadongMaeMae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4A6A6A257D2A32007A2C65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4A6A6E257D2A32007A2C65 /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		CE4A6AB9257D32C9007A2C65 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE489EC0258125D9009AFAC0 /* TradeManager.swift */,
 				CE964FCE257E526D00C1AFC6 /* GlobalTimer.swift */,
 				CE4A6ABA257D32D9007A2C65 /* FileController.swift */,
 			);
@@ -506,6 +509,7 @@
 				CE965021257E92E800C1AFC6 /* QuoteTickerModel.swift in Sources */,
 				CED3EA99257FC10500CC6F91 /* TradeMachineViewController.swift in Sources */,
 				CE964FDF257E595000C1AFC6 /* QuoteService.swift in Sources */,
+				CE489EC1258125D9009AFAC0 /* TradeManager.swift in Sources */,
 				CE965016257E695400C1AFC6 /* Collection+Ext.swift in Sources */,
 				CE964FE9257E607200C1AFC6 /* String+Ext.swift in Sources */,
 				CE965010257E681900C1AFC6 /* Nib.swift in Sources */,
@@ -675,7 +679,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = hansjin.JadongMaeMae;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hansjin.JadongMaeMae;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "JadongMaeMae/JadongMaeMae-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -699,7 +703,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = hansjin.JadongMaeMae;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hansjin.JadongMaeMae;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "JadongMaeMae/JadongMaeMae-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
