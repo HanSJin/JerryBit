@@ -15,6 +15,7 @@
 		CE2151ED257FF962005A47D5 /* Error+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151EC257FF962005A47D5 /* Error+Ext.swift */; };
 		CE489EBE25811EED009AFAC0 /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489EBD25811EED009AFAC0 /* Double+Ext.swift */; };
 		CE489EC1258125D9009AFAC0 /* TradeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489EC0258125D9009AFAC0 /* TradeManager.swift */; };
+		CE489ECA25813162009AFAC0 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489EC925813162009AFAC0 /* Int+Ext.swift */; };
 		CE4A6A6B257D2A32007A2C65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6A6A257D2A32007A2C65 /* AppDelegate.swift */; };
 		CE4A6A6F257D2A32007A2C65 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6A6E257D2A32007A2C65 /* MyAccountViewController.swift */; };
 		CE4A6A72257D2A32007A2C65 /* MyAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4A6A70257D2A32007A2C65 /* MyAccount.storyboard */; };
@@ -68,6 +69,7 @@
 		CE2151EC257FF962005A47D5 /* Error+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Ext.swift"; sourceTree = "<group>"; };
 		CE489EBD25811EED009AFAC0 /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		CE489EC0258125D9009AFAC0 /* TradeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeManager.swift; sourceTree = "<group>"; };
+		CE489EC925813162009AFAC0 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		CE4A6A67257D2A32007A2C65 /* JadongMaeMae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JadongMaeMae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4A6A6A257D2A32007A2C65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4A6A6E257D2A32007A2C65 /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				CE96502E257EAAD900C1AFC6 /* UIColor+Ext.swift */,
 				CE965012257E68F900C1AFC6 /* UITableViewCell+Ext.swift */,
 				CE2151EC257FF962005A47D5 /* Error+Ext.swift */,
+				CE489EC925813162009AFAC0 /* Int+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				CE4A6AFF257D3F0C007A2C65 /* RestClient.swift in Sources */,
 				CE4A6AD9257D3C90007A2C65 /* ServicePool.swift in Sources */,
 				CE4A6B19257D40BC007A2C65 /* RestAPIClientBuilder.swift in Sources */,
+				CE489ECA25813162009AFAC0 /* Int+Ext.swift in Sources */,
 				CE96502F257EAAD900C1AFC6 /* UIColor+Ext.swift in Sources */,
 				CE2151E6257FF65E005A47D5 /* UIAlertController+Ext.swift in Sources */,
 				CE965006257E669A00C1AFC6 /* MainViewController.swift in Sources */,

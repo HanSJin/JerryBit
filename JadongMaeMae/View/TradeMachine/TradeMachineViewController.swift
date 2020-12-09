@@ -26,8 +26,6 @@ class TradeMachineViewController: UIViewController {
     private let orderService: OrderService = ServiceContainer.shared.getService(key: .order)
     private var disposeBag = DisposeBag()
     
-    private let market = "KRW-MVL"
-    private let oncePrice = 1000
     private var tradeAccount: AccountModel?
     private var krwAccount: AccountModel?
     private var tickerModel: QuoteTickerModel?
@@ -43,18 +41,21 @@ class TradeMachineViewController: UIViewController {
 extension TradeMachineViewController {
     
     func setUpView() {
-        coinNameLabel.text = market
+        coinNameLabel.text = TradeManager.shared.market
     }
     
     func syncronizeView() {
-        coinCurrentPriceLabel.text = TradeManager.shared.currentPrice.numberForm(add: " KRW")
-        coinCurrentAvgPriceLabel.text = TradeManager.shared.avgBuyPrice.numberForm(add: " KRW")
-        coinCurrentBalanceLabel.text = "\(TradeManager.shared.coinBalance) KRW"
-        coinCurrentTotalPriceLabel.text = TradeManager.shared.evaluationAmount.numberForm(add: " KRW")
+        let trade = TradeManager.shared
+        coinCurrentPriceLabel.text = trade.currentPrice.numberForm(add: "KRW") + " (" + trade.profitSign + trade.profitPercent.numberForm(add: "") + "%)"
+        coinCurrentPriceLabel.textColor = trade.profitColor
         
-        var krwBalance = TradeManager.shared.krwBalance.numberForm(add: " KRW")
-        if TradeManager.shared.krwLocked > 0 {
-            krwBalance += "(예약 \(TradeManager.shared.krwLocked.numberForm(add: " KRW"))"
+        coinCurrentAvgPriceLabel.text = trade.avgBuyPrice.numberForm(add: " KRW")
+        coinCurrentBalanceLabel.text = "\(trade.coinBalance) KRW"
+        coinCurrentTotalPriceLabel.text = trade.evaluationAmount.numberForm(add: " KRW")
+        
+        var krwBalance = trade.krwBalance.numberForm(add: " KRW")
+        if trade.krwLocked > 0 {
+            krwBalance += "(예약 \(trade.krwLocked.numberForm(add: " KRW"))"
         }
         krwTotalLabel.text = krwBalance
     }
@@ -67,6 +68,11 @@ extension TradeMachineViewController: GlobalRunLoop {
     func runLoop() {
         TradeManager.shared.syncModels()
         syncronizeView()
+    }
+    
+    var secondaryFps: Double { 1 }
+    func secondaryRunLoop() {
+        TradeManager.shared.syncCandles()
     }
 }
 
@@ -81,18 +87,3 @@ extension TradeMachineViewController {
         TradeManager.shared.requestSell()
     }
 }
-    /*
-    private func getMinuteCandles() {
-//        quoteService.getMinuteCandle(market: "KRW-ETH", unit: 1, count: 200).subscribe {
-//            switch $0 {
-//            case .success(let quoteModels):
-//                print(quoteModels)
-//            case .failure(let error):
-//                guarerror.globalHandling()
-//            }
-//        } onError: {
-//            prasdasdint($0)
-//        }.disposed(by: disposeBag)
-    }
-}
-*/

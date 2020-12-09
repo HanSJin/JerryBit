@@ -23,7 +23,7 @@ class TradeManager {
     // MARK: - Variables
     
     // 거래 Market
-    private var market: String = "" // "KRW-MVL"
+    var market: String = "" // "KRW-MVL"
     // 1회 거래 가능량
     private var oncePrice: Int = 0 // 1000
     
@@ -35,6 +35,11 @@ class TradeManager {
     private var tradeAccount: AccountModel!
     // 원화 계좌
     private var krwAccount: AccountModel!
+    
+    // MARK: - Candles
+    
+    // 캔들
+    private var candles = [QuoteCandleModel]()
     
     init() { }
 }
@@ -61,6 +66,12 @@ extension TradeManager {
 // MARK: - Coin & Price Infomation
 extension TradeManager {
     
+    enum CoinChangeSign: String {
+        case EVEN // 보합
+        case RISE // 상승
+        case FALL // 하락
+    }
+    
     // MARK: - About Coin
     // 현재가
     var currentPrice: Double { tickerModel?.trade_price ?? 0.0 }
@@ -68,8 +79,28 @@ extension TradeManager {
     var avgBuyPrice: Double { tradeAccount?.avgBuyPriceDouble ?? 0.0 }
     // 코인 보유량
     var coinBalance: Double { tradeAccount?.balanceDouble ?? 0.0 }
+    // 총 매수 금액
+    var coinBuyAmmount: Double { avgBuyPrice * coinBalance }
     // 평가 금액
-    var evaluationAmount: Double { (tradeAccount?.avgBuyPriceDouble ?? 0.0) * (tradeAccount?.balanceDouble ?? 0.0) }
+    var evaluationAmount: Double { currentPrice * coinBalance }
+    // 평가 손익 퍼센트
+    var profitPercent: Double {
+        if avgBuyPrice == 0 { return 0.0 }
+        return (currentPrice / avgBuyPrice) * 100 - 100
+    }
+    // 평가 손익 부호 (양수일 때만 '+' 반환)
+    var profitSign: String { profitPercent > 0 ? "+" : "" }
+    // 평가 손익 색상 (검/빨/파)
+    var profitColor: UIColor {
+        if avgBuyPrice == 0 { return .black }
+        if currentPrice == avgBuyPrice {
+            return .black
+        } else if currentPrice > avgBuyPrice {
+            return .myRed
+        } else {
+            return .myBlue
+        }
+    }
     
     // MARK: - About KRW
     // 원화 보유량
@@ -84,6 +115,10 @@ extension TradeManager {
     func syncModels() {
         requestMyAccount()
         requestTickerModel()
+    }
+    
+    func syncCandles() {
+        requestCandles()
     }
     
     private func requestMyAccount() {
@@ -104,10 +139,10 @@ extension TradeManager {
     }
     
     private func requestTickerModel() {
-        quoteService.getCurrentPrice(markets: [market]).subscribe(onSuccess: { [weak self] in
+        quoteService.getCurrentPrice(markets: [market]).subscribe(onSuccess: {
             switch $0 {
             case .success(let tickerModels):
-                self?.tickerModel = tickerModels.first
+                TradeManager.shared.tickerModel = tickerModels.first
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
@@ -116,6 +151,25 @@ extension TradeManager {
             if error.globalHandling() { return }
             // Addtional Handling
         }.disposed(by: self.disposeBag)
+    }
+}
+
+// MARK: Services Candle
+extension TradeManager {
+    
+    func requestCandles() {
+        quoteService.getMinuteCandle(market: market, unit: 1, count: 50).subscribe(onSuccess: {
+            switch $0 {
+            case .success(let candleModels):
+                TradeManager.shared.candles = candleModels
+            case .failure(let error):
+                if error.globalHandling() { return }
+                // Addtional Handling
+            }
+        }) { error in
+            if error.globalHandling() { return }
+            // Addtional Handling
+        }.disposed(by: disposeBag)
     }
 }
 

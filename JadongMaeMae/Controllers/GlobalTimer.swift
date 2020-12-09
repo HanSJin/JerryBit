@@ -52,5 +52,9 @@ class GlobalTimer {
         if tick % Int(60 / runLooper.fps) == 0 {
             runLooper.runLoop()
         }
+        guard runLooper.secondaryFps > 0 else { return }
+        if tick % Int(60 / runLooper.secondaryFps) == 0 {
+            runLooper.secondaryRunLoop()
+        }
     }
 }
