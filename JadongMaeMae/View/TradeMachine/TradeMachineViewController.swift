@@ -22,7 +22,7 @@ class TradeMachineViewController: UIViewController {
     @IBOutlet weak var coinCurrentTotalPriceLabel: UILabel!
     
     // Outlets - Chart
-    @IBOutlet weak var chartView: CandleStickChartView!
+    @IBOutlet weak var chartView: CombinedChartView!
     
     // Variables
     private let orderService: OrderService = ServiceContainer.shared.getService(key: .order)
@@ -72,54 +72,85 @@ extension TradeMachineViewController {
 // MARK: - ChartViewDelegate
 extension TradeMachineViewController: ChartViewDelegate {
     
-    func setUpChart() {
+    private func setUpChart() {
         chartView.delegate = self
         chartView.chartDescription.enabled = false
         chartView.backgroundColor = #colorLiteral(red: 0.09019607843, green: 0.1411764706, blue: 0.2078431373, alpha: 1)
         
-        chartView.maxVisibleCount = 200
-        chartView.dragXEnabled = false
+        chartView.drawBarShadowEnabled = false
+        chartView.highlightFullBarEnabled = false
+        
+        chartView.drawOrder = [
+            DrawOrder.candle.rawValue,
+            DrawOrder.line.rawValue,
+        ]
+        chartView.maxVisibleCount = TradeManager.candleCount
+//        chartView.dragXEnabled = false
         chartView.dragYEnabled = false
-        chartView.scaleXEnabled = false
+//        chartView.scaleXEnabled = false
         chartView.scaleYEnabled = false
-        chartView.pinchZoomEnabled = false
+//        chartView.pinchZoomEnabled = false
         chartView.doubleTapToZoomEnabled = false
-        chartView.drawBordersEnabled = true
+//        chartView.drawBordersEnabled = true
         chartView.dragEnabled = true
         chartView.highlightPerTapEnabled = true
-        
+//
         chartView.legend.enabled = false
         chartView.leftAxis.enabled = false
-        
+//
         chartView.rightAxis.labelFont = UIFont.systemFont(ofSize: 9)
         chartView.rightAxis.labelTextColor = UIColor.white.withAlphaComponent(0.8)
-        
+//
         chartView.xAxis.labelPosition = .bottom
         chartView.xAxis.labelFont = UIFont.systemFont(ofSize: 9)
         chartView.xAxis.labelTextColor = UIColor.white.withAlphaComponent(0.8)
     }
     
-    func updateChartData() {
+    private func updateChartData() {
+        // Start -> End 까지 0.002 ms 경과 (Line+Candle)
+        // print("start", Date().toStringWithDefaultFormat())
         chartView.data = nil
-        setDataCount(100, range: 100)
+        setDataCount()
+        // print("end", Date().toStringWithDefaultFormat())
     }
     
-    func setDataCount(_ count: Int, range: UInt32) {
+    private func setDataCount() {
+        let data = CombinedChartData()
+        data.lineData = generateLineData()
+        data.candleData = generateCandleData()
+        chartView.xAxis.axisMaximum = data.xMax + 0.25
+        chartView.data = data
+    }
+    
+    private func generateLineData() -> LineChartData {
+        let movingAverageLine = TradeManager.shared.movingAverageLine
+        let entries = movingAverageLine.reversed().enumerated().map { ChartDataEntry(x: Double($0), y: $1) }
+        let set = LineChartDataSet(entries: entries, label: "Line DataSet")
+        set.setColor(UIColor.white)
+        set.lineWidth = 1.0
+        set.setCircleColor(.clear)
+        set.circleRadius = 0
+        set.circleHoleRadius = 0
+        set.mode = .cubicBezier
+        set.drawValuesEnabled = false
+        set.axisDependency = .left
+        return LineChartData(dataSet: set)
+    }
+    
+    private func generateCandleData() -> CandleChartData {
         let candles = TradeManager.shared.candles
-        let yVals1 = candles.reversed().enumerated().map { (i, candle) -> CandleChartDataEntry in
+        let entries = candles.reversed().enumerated().map {
             CandleChartDataEntry(
-                x: Double(i),
-                shadowH: candle.high_price,
-                shadowL: candle.low_price,
-                open: candle.opening_price,
-                close: candle.trade_price,
+                x: Double($0),
+                shadowH: $1.high_price,
+                shadowL: $1.low_price,
+                open: $1.opening_price,
+                close: $1.trade_price,
                 icon: nil
             )
         }
-        
-        let set1 = CandleChartDataSet(entries: yVals1, label: "Data Set")
+        let set1 = CandleChartDataSet(entries: entries, label: "Candle Data Set")
         set1.axisDependency = .left
-//        set1.setColor(UIColor(white: 80/255, alpha: 1))
         set1.drawIconsEnabled = false
         set1.shadowColorSameAsCandle = true
         set1.shadowWidth = 0.5
@@ -128,9 +159,7 @@ extension TradeMachineViewController: ChartViewDelegate {
         set1.increasingColor = UIColor.myRed
         set1.increasingFilled = true
         set1.neutralColor = UIColor.white
-        
-        let data = CandleChartData(dataSet: set1)
-        chartView.data = data
+        return CandleChartData(dataSet: set1)
     }
 }
 

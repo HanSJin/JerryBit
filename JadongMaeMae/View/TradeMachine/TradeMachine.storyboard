@@ -144,8 +144,8 @@
                                     <constraint firstItem="BQb-Pw-r73" firstAttribute="leading" secondItem="1no-Jj-xB6" secondAttribute="leading" constant="20" id="tQW-iB-F2y"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZNS-2a-Ad0" customClass="CandleStickChartView" customModule="JadongMaeMae" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="144" width="414" height="250"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZNS-2a-Ad0" customClass="CombinedChartView" customModule="JadongMaeMae" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="136" width="414" height="250"/>
                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="Jlu-uR-EBg"/>
@@ -155,7 +155,7 @@
                         <viewLayoutGuide key="safeArea" id="UJ0-GR-ZNg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ZNS-2a-Ad0" firstAttribute="top" secondItem="1jX-fc-rH0" secondAttribute="bottom" constant="12" id="2xM-aL-udK"/>
+                            <constraint firstItem="ZNS-2a-Ad0" firstAttribute="top" secondItem="1jX-fc-rH0" secondAttribute="bottom" constant="4" id="2xM-aL-udK"/>
                             <constraint firstItem="1jX-fc-rH0" firstAttribute="top" secondItem="1no-Jj-xB6" secondAttribute="bottom" constant="2" id="4Qw-0R-5tC"/>
                             <constraint firstItem="ZNS-2a-Ad0" firstAttribute="leading" secondItem="UJ0-GR-ZNg" secondAttribute="leading" id="Inl-Wo-804"/>
                             <constraint firstItem="1no-Jj-xB6" firstAttribute="trailing" secondItem="UJ0-GR-ZNg" secondAttribute="trailing" id="Lkl-sF-h34"/>

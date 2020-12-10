@@ -9,6 +9,8 @@ import Foundation
 import RxCocoa
 import RxSwift
 
+typealias MovingAverage = Double
+
 class TradeManager {
     
     static let shared = TradeManager()
@@ -39,7 +41,14 @@ class TradeManager {
     // MARK: - Candles
     
     // 캔들
-    var candles = [QuoteCandleModel]()
+    static let candleCount = 150
+    static let numberOfSkipCandleForMALine = 19
+    static var fullCandleCount: Int { candleCount + numberOfSkipCandleForMALine }
+    var candles = [QuoteCandleModel]() // 이평선 적용을 위해 뒤 19개 candle 을 버린 값
+    var fullCandles = [QuoteCandleModel]() // Full 캔들
+    
+    // Formula
+    var movingAverageLine = [MovingAverage]()
     
     init() { }
 }
@@ -61,6 +70,8 @@ extension TradeManager {
         krwAccount = nil
         tickerModel = nil
         candles.removeAll()
+        fullCandles.removeAll()
+        movingAverageLine.removeAll()
     }
 }
 
@@ -159,10 +170,14 @@ extension TradeManager {
 extension TradeManager {
     
     func requestCandles() {
-        quoteService.getMinuteCandle(market: market, unit: 1, count: 200).subscribe(onSuccess: {
+        quoteService.getMinuteCandle(market: market, unit: 1, count: TradeManager.fullCandleCount).subscribe(onSuccess: {
             switch $0 {
             case .success(let candleModels):
-                TradeManager.shared.candles = candleModels
+                // print("start", Date().toStringWithDefaultFormat())
+                TradeManager.shared.fullCandles = candleModels
+                TradeManager.shared.candles = Array(candleModels[...(TradeManager.candleCount - 1)])
+                TradeManager.shared.movingAverageLine = TradeFormula.movingAverageLine()
+                // print("end", Date().toStringWithDefaultFormat())
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
