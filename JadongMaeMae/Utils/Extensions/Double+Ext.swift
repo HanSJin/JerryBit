@@ -10,6 +10,6 @@ import Foundation
 extension Double {
     
     func numberForm(add: String) -> String {
-        return String(format: "%.2f\(add)", self)
+        return NumberFormatter.decimal((Double(Int(self * 100.0)) / 100.0)) + add
     }
 }

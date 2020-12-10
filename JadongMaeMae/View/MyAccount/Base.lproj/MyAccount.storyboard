@@ -61,7 +61,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tIh-GJ-4Hc">
-                                            <rect key="frame" x="324" y="16" width="70" height="30"/>
+                                            <rect key="frame" x="324" y="48" width="70" height="30"/>
                                             <color key="backgroundColor" red="0.10980392156862745" green="0.14117647058823529" blue="0.20784313725490194" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="70" id="SlH-hb-C03"/>
@@ -73,21 +73,32 @@
                                                 <action selector="tappedTradeMachineButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="prd-qx-Cz6"/>
                                             </connections>
                                         </button>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="BTC" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mQO-rG-XZc">
+                                            <rect key="frame" x="324" y="10" width="70" height="34"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="70" id="hVn-bw-4Fz"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemFillColor"/>
                                     <constraints>
                                         <constraint firstItem="KSQ-7S-vss" firstAttribute="leading" secondItem="7cq-s0-bXO" secondAttribute="trailing" constant="8" id="3sq-hY-cCI"/>
+                                        <constraint firstAttribute="trailing" secondItem="mQO-rG-XZc" secondAttribute="trailing" constant="20" symbolic="YES" id="AP4-wU-XD5"/>
                                         <constraint firstAttribute="trailing" secondItem="tIh-GJ-4Hc" secondAttribute="trailing" constant="20" id="EQx-dR-GHf"/>
                                         <constraint firstItem="RHO-3H-eWE" firstAttribute="leading" secondItem="fZJ-0q-sKg" secondAttribute="leading" constant="20" id="KGQ-LU-7S8"/>
                                         <constraint firstItem="RHO-3H-eWE" firstAttribute="top" secondItem="Wzs-1C-BA7" secondAttribute="bottom" constant="4" id="LGx-At-I1A"/>
                                         <constraint firstItem="Wzs-1C-BA7" firstAttribute="leading" secondItem="fZJ-0q-sKg" secondAttribute="leading" constant="20" symbolic="YES" id="Qfo-3R-U2V"/>
                                         <constraint firstItem="HyF-yr-mpU" firstAttribute="leading" secondItem="Wzs-1C-BA7" secondAttribute="trailing" constant="4" id="WWa-HE-Gxa"/>
                                         <constraint firstItem="KSQ-7S-vss" firstAttribute="centerY" secondItem="7cq-s0-bXO" secondAttribute="centerY" id="YIq-xH-rYz"/>
-                                        <constraint firstItem="tIh-GJ-4Hc" firstAttribute="top" secondItem="fZJ-0q-sKg" secondAttribute="top" constant="16" id="ZW9-Ry-pRs"/>
                                         <constraint firstItem="HyF-yr-mpU" firstAttribute="centerY" secondItem="Wzs-1C-BA7" secondAttribute="centerY" id="eRT-Y7-h8q"/>
                                         <constraint firstItem="sJV-WE-xWr" firstAttribute="leading" secondItem="RHO-3H-eWE" secondAttribute="trailing" constant="4" id="fsz-bh-QaH"/>
                                         <constraint firstItem="sJV-WE-xWr" firstAttribute="centerY" secondItem="RHO-3H-eWE" secondAttribute="centerY" id="m4C-LV-hQM"/>
                                         <constraint firstItem="7cq-s0-bXO" firstAttribute="top" secondItem="fZJ-0q-sKg" secondAttribute="top" constant="12" id="o8O-Aq-uLd"/>
+                                        <constraint firstItem="tIh-GJ-4Hc" firstAttribute="top" secondItem="mQO-rG-XZc" secondAttribute="bottom" constant="4" id="qti-ka-k6b"/>
+                                        <constraint firstItem="mQO-rG-XZc" firstAttribute="top" secondItem="fZJ-0q-sKg" secondAttribute="top" constant="10" id="rAy-8X-D0C"/>
                                         <constraint firstItem="7cq-s0-bXO" firstAttribute="leading" secondItem="fZJ-0q-sKg" secondAttribute="leading" constant="20" id="siS-pB-pdS"/>
                                         <constraint firstItem="Wzs-1C-BA7" firstAttribute="top" secondItem="7cq-s0-bXO" secondAttribute="bottom" constant="4" id="wiT-X3-2oM"/>
                                     </constraints>
@@ -114,6 +125,7 @@
                         <outlet property="tableView" destination="XHf-2P-glP" id="0YA-v5-jbu"/>
                         <outlet property="totalAccount" destination="HyF-yr-mpU" id="AAO-Vn-iNa"/>
                         <outlet property="tradeMachineButton" destination="tIh-GJ-4Hc" id="E2h-Jp-A6I"/>
+                        <outlet property="tradeNameTF" destination="mQO-rG-XZc" id="9ex-J9-8sI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

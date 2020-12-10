@@ -175,6 +175,7 @@
 		CE4A6B11257D3FD6007A2C65 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B10257D3FD6007A2C65 /* AccountModel.swift */; };
 		CE4A6B19257D40BC007A2C65 /* RestAPIClientBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B18257D40BC007A2C65 /* RestAPIClientBuilder.swift */; };
 		CE4A6B1C257D40F7007A2C65 /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */; };
+		CE664A8025827C73008F7AB2 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE664A7F25827C73008F7AB2 /* UserDefaultsManager.swift */; };
 		CE964FCF257E526D00C1AFC6 /* GlobalTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE964FCE257E526D00C1AFC6 /* GlobalTimer.swift */; };
 		CE964FD3257E52C300C1AFC6 /* Notification+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE964FD2257E52C300C1AFC6 /* Notification+Ext.swift */; };
 		CE964FD9257E53B900C1AFC6 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE964FD8257E53B900C1AFC6 /* UIApplication+Ext.swift */; };
@@ -372,6 +373,7 @@
 		CE4A6B10257D3FD6007A2C65 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		CE4A6B18257D40BC007A2C65 /* RestAPIClientBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPIClientBuilder.swift; sourceTree = "<group>"; };
 		CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ext.swift"; sourceTree = "<group>"; };
+		CE664A7F25827C73008F7AB2 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		CE964FCE257E526D00C1AFC6 /* GlobalTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalTimer.swift; sourceTree = "<group>"; };
 		CE964FD2257E52C300C1AFC6 /* Notification+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Ext.swift"; sourceTree = "<group>"; };
 		CE964FD8257E53B900C1AFC6 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ext.swift"; sourceTree = "<group>"; };
@@ -744,6 +746,7 @@
 				CE489EC0258125D9009AFAC0 /* TradeManager.swift */,
 				CE964FCE257E526D00C1AFC6 /* GlobalTimer.swift */,
 				CE4A6ABA257D32D9007A2C65 /* FileController.swift */,
+				CE664A7F25827C73008F7AB2 /* UserDefaultsManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1215,6 +1218,7 @@
 				CE48A00925814E7C009AFAC0 /* CandleChartDataSetProtocol.swift in Sources */,
 				CE489FDB25814E7C009AFAC0 /* AxisBase.swift in Sources */,
 				CE489FEA25814E7C009AFAC0 /* RadarChartDataEntry.swift in Sources */,
+				CE664A8025827C73008F7AB2 /* UserDefaultsManager.swift in Sources */,
 				CE489FCD25814E7C009AFAC0 /* ViewPortHandler.swift in Sources */,
 				CE965006257E669A00C1AFC6 /* MainViewController.swift in Sources */,
 				CE489FE825814E7C009AFAC0 /* BarChartDataEntry.swift in Sources */,

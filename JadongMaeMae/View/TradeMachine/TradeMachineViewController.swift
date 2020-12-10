@@ -28,13 +28,17 @@ class TradeMachineViewController: UIViewController {
     private let orderService: OrderService = ServiceContainer.shared.getService(key: .order)
     private var disposeBag = DisposeBag()
     
+    private var enableCoin: Bool = false
     private var tradeAccount: AccountModel?
     private var krwAccount: AccountModel?
     private var tickerModel: QuoteTickerModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TradeManager.shared.install(market: "KRW-XRP", oncePrice: 1000)
+        
+        guard let tradeCoin = UserDefaultsManager.shared.tradeCoin, !tradeCoin.isEmpty else { return }
+        enableCoin = true
+        TradeManager.shared.install(market: "KRW-\(tradeCoin)", oncePrice: 1000)
         setUpView()
     }
 }
@@ -55,11 +59,11 @@ extension TradeMachineViewController {
         
         coinCurrentAvgPriceLabel?.text = trade.avgBuyPrice.numberForm(add: " KRW")
         coinCurrentBalanceLabel?.text = "\(trade.coinBalance)"
-        coinCurrentTotalPriceLabel?.text = "\(Int(trade.evaluationAmount)) KRW"
+        coinCurrentTotalPriceLabel?.text = trade.evaluationAmount.numberForm(add: " KRW")
         
         var krwBalance = trade.krwBalance.numberForm(add: " KRW")
         if trade.krwLocked > 0 {
-            krwBalance += "(예약 \(trade.krwLocked.numberForm(add: " KRW"))"
+            krwBalance += "(예약 \(trade.krwLocked.numberForm(add: " KRW)"))"
         }
         krwTotalLabel?.text = krwBalance
     }
@@ -135,12 +139,14 @@ extension TradeMachineViewController: GlobalRunLoop {
     
     var fps: Double { 2 }
     func runLoop() {
+        guard enableCoin else { return }
         TradeManager.shared.syncModels()
         syncronizeView()
     }
     
     var secondaryFps: Double { 1 }
     func secondaryRunLoop() {
+        guard enableCoin else { return }
         TradeManager.shared.syncCandles()
         updateChartData()
     }

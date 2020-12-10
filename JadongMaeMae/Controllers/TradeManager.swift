@@ -60,6 +60,7 @@ extension TradeManager {
         tradeAccount = nil
         krwAccount = nil
         tickerModel = nil
+        candles.removeAll()
     }
 }
 

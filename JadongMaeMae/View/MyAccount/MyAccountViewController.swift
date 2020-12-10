@@ -21,6 +21,7 @@ class MyAccountViewController: UIViewController {
     @IBOutlet weak var tradeMachineButton: UIButton! {
         didSet { tradeMachineButton.layer.cornerRadius = 8.0 }
     }
+    @IBOutlet weak var tradeNameTF: UITextField!
     
     // Variables
     private let accountsService: AccountsService = ServiceContainer.shared.getService(key: .accounts)
@@ -42,6 +43,7 @@ extension MyAccountViewController {
     func setUpView() {
         navigationItem.title = "내 계좌"
         updateIpAddress()
+        tradeNameTF.text = UserDefaultsManager.shared.tradeCoin
         requestMyAccount { [weak self] accountModels in
             self?.requestCurrentPrice(accountModels: accountModels)
         }
@@ -95,6 +97,8 @@ extension MyAccountViewController: UITableViewDelegate {
 extension MyAccountViewController {
     
     @IBAction func tappedTradeMachineButton(_ sender: UIButton) {
+        guard let tradeCoin = tradeNameTF.text, !tradeCoin.isEmpty else { return }
+        UserDefaultsManager.shared.tradeCoin = tradeCoin
         let tradeMachineVC = UIStoryboard(name: "TradeMachine", bundle: nil).instantiateInitialViewController() as! TradeMachineViewController
         navigationController?.pushViewController(tradeMachineVC, animated: true)
     }
