@@ -127,7 +127,7 @@ extension TradeMachineViewController: ChartViewDelegate {
         let entries = movingAverageLine.reversed().enumerated().map { ChartDataEntry(x: Double($0), y: $1) }
         let set = LineChartDataSet(entries: entries, label: "Line DataSet")
         set.setColor(UIColor.white)
-        set.lineWidth = 1.0
+        set.lineWidth = 0.8
         set.setCircleColor(.clear)
         set.circleRadius = 0
         set.circleHoleRadius = 0

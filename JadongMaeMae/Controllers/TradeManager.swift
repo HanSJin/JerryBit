@@ -9,8 +9,6 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-typealias MovingAverage = Double
-
 class TradeManager {
     
     static let shared = TradeManager()
