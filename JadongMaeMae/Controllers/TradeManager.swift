@@ -45,8 +45,8 @@ class TradeManager {
     var candles = [QuoteCandleModel]() // 이평선 적용을 위해 뒤 19개 candle 을 버린 값
     var fullCandles = [QuoteCandleModel]() // Full 캔들
     
-    // Formula
-    var movingAverageLine = [MovingAverage]()
+    // Formula - 볼린저밴드
+    var bollingerBands = [BollingerBand]()
     
     init() { }
 }
@@ -69,7 +69,7 @@ extension TradeManager {
         tickerModel = nil
         candles.removeAll()
         fullCandles.removeAll()
-        movingAverageLine.removeAll()
+        bollingerBands.removeAll()
     }
 }
 
@@ -164,7 +164,7 @@ extension TradeManager {
     }
 }
 
-// MARK: Services Candle
+// MARK: - Services Candle
 extension TradeManager {
     
     func requestCandles() {
@@ -174,7 +174,7 @@ extension TradeManager {
                 // print("start", Date().toStringWithDefaultFormat())
                 TradeManager.shared.fullCandles = candleModels
                 TradeManager.shared.candles = Array(candleModels[...(TradeManager.candleCount - 1)])
-                TradeManager.shared.movingAverageLine = TradeFormula.movingAverageLine()
+                TradeManager.shared.bollingerBands = TradeFormula.getBollingerBands(period: TradeManager.numberOfSkipCandleForMALine, type: .normal)
                 // print("end", Date().toStringWithDefaultFormat())
             case .failure(let error):
                 if error.globalHandling() { return }
@@ -187,7 +187,7 @@ extension TradeManager {
     }
 }
 
-// MARK: Services Trade
+// MARK: - Services Trade
 extension TradeManager {
     
     func requestBuy() {
@@ -219,5 +219,15 @@ extension TradeManager {
             if error.globalHandling() { return }
             // Addtional Handling
         }.disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Trade
+extension TradeManager {
+    
+    func trade() {
+        guard let band = bollingerBands.last else { return }
+        band.bandWidth
+        currentPrice
     }
 }

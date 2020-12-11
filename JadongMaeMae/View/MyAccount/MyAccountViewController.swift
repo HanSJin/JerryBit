@@ -90,6 +90,9 @@ extension MyAccountViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let account = accountModels[safe: indexPath.row] else { return }
+        tradeNameTF.text = account.currency
+        moveToTradeMachine(currency: account.currency)
     }
 }
 
@@ -97,8 +100,12 @@ extension MyAccountViewController: UITableViewDelegate {
 extension MyAccountViewController {
     
     @IBAction func tappedTradeMachineButton(_ sender: UIButton) {
-        guard let tradeCoin = tradeNameTF.text, !tradeCoin.isEmpty else { return }
-        UserDefaultsManager.shared.tradeCoin = tradeCoin
+        guard let currency = tradeNameTF.text, !currency.isEmpty else { return }
+        moveToTradeMachine(currency: currency)
+    }
+    
+    private func moveToTradeMachine(currency: String) {
+        UserDefaultsManager.shared.tradeCoin = currency
         let tradeMachineVC = UIStoryboard(name: "TradeMachine", bundle: nil).instantiateInitialViewController() as! TradeMachineViewController
         navigationController?.pushViewController(tradeMachineVC, animated: true)
     }
