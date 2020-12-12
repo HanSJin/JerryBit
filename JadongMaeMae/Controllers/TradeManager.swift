@@ -25,7 +25,7 @@ class TradeManager {
     // 거래 Market
     var market: String = "" // "KRW-MVL"
     // 1회 거래 가능량
-    private var oncePrice: Int = 0 // 1000
+    var oncePrice: Int = 0 // 1000
     
     // MARK: - Models
     
@@ -102,7 +102,7 @@ extension TradeManager {
     var profitSign: String { profitPercent > 0 ? "+" : "" }
     // 평가 손익 색상 (검/빨/파)
     var profitColor: UIColor {
-        if avgBuyPrice == 0 { return .black }
+        if avgBuyPrice == 0 { return .label }
         if currentPrice == avgBuyPrice {
             return UIColor.label
         } else if currentPrice > avgBuyPrice {

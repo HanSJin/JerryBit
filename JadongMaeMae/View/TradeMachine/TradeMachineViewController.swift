@@ -24,6 +24,10 @@ class TradeMachineViewController: UIViewController {
     // Outlets - Chart
     @IBOutlet weak var chartView: CombinedChartView!
     
+    @IBOutlet weak var tradePriceTF: UITextField!
+    @IBOutlet weak var buyButton: UIButton!
+    @IBOutlet weak var sellButton: UIButton!
+    
     // Variables
     private let orderService: OrderService = ServiceContainer.shared.getService(key: .order)
     private var disposeBag = DisposeBag()
@@ -50,6 +54,12 @@ extension TradeMachineViewController {
         navigationItem.title = TradeManager.shared.market
         setUpChart()
         updateChartData()
+        tradePriceTF.text = "\(TradeManager.shared.oncePrice)"
+        
+        buyButton.backgroundColor = .myRed
+        buyButton.layer.cornerRadius = 10
+        sellButton.backgroundColor = .myBlue
+        sellButton.layer.cornerRadius = 10
     }
     
     func syncronizeView() {
@@ -66,6 +76,26 @@ extension TradeMachineViewController {
             krwBalance += "(예약 \(trade.krwLocked.numberForm(add: " KRW)"))"
         }
         krwTotalLabel?.text = krwBalance
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension TradeMachineViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return tableView.emptyCell
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension TradeMachineViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
