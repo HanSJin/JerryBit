@@ -33,19 +33,19 @@ struct OrderModel: Decodable {
     // 주문 종류 (필수)
     // - bid : 매수
     // - ask : 매도
-    let side: String
-    let ord_type: String
-    let price: String
-    let avg_price: String
-    let state: String
-    let market: String
-    let created_at: String
-    let volume: String
-    let remaining_volume: String
-    let reserved_fee: String
-    let remaining_fee: String
-    let paid_fee: String
-    let locked: String
-    let executed_volume: String
-    let trade_count: String
+//    let side: String
+//    let ord_type: String
+//    let price: String
+//    let avg_price: String
+//    let state: String
+//    let market: String
+//    let created_at: String
+//    let volume: String
+//    let remaining_volume: String
+//    let reserved_fee: String
+//    let remaining_fee: String
+//    let paid_fee: String
+//    let locked: String
+//    let executed_volume: String
+//    let trade_count: Int
 }

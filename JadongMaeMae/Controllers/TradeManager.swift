@@ -162,6 +162,21 @@ extension TradeManager {
             // Addtional Handling
         }.disposed(by: self.disposeBag)
     }
+    
+    func requestOrders() {
+        orderService.reuqestOrders(market: market, states: "done"/*"cancel"*/, kind: "normal", page: 1, limit: 1).subscribe(onSuccess: {
+            switch $0 {
+            case .success(let orders):
+                print(orders)
+            case .failure(let error):
+                if error.globalHandling() { return }
+                // Addtional Handling
+            }
+        }) { error in
+            if error.globalHandling() { return }
+            // Addtional Handling
+        }.disposed(by: self.disposeBag)
+    }
 }
 
 // MARK: - Services Candle

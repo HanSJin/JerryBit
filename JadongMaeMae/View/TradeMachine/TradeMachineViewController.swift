@@ -79,6 +79,25 @@ extension TradeMachineViewController {
     }
 }
 
+// MARK: - GlobalRunLoop
+extension TradeMachineViewController: GlobalRunLoop {
+    
+    var fps: Double { 2 }
+    func runLoop() {
+        guard enableCoin else { return }
+        TradeManager.shared.syncModels()
+        syncronizeView()
+    }
+    
+    var secondaryFps: Double { 1 }
+    func secondaryRunLoop() {
+        guard enableCoin else { return }
+        TradeManager.shared.syncCandles()
+        TradeManager.shared.requestOrders()
+        updateChartData()
+    }
+}
+
 // MARK: - UITableViewDataSource
 extension TradeMachineViewController: UITableViewDataSource {
     
@@ -226,24 +245,6 @@ extension TradeMachineViewController: ChartViewDelegate {
         set1.increasingFilled = true
         set1.neutralColor = UIColor.white
         return CandleChartData(dataSet: set1)
-    }
-}
-
-// MARK: - GlobalRunLoop
-extension TradeMachineViewController: GlobalRunLoop {
-    
-    var fps: Double { 2 }
-    func runLoop() {
-        guard enableCoin else { return }
-        TradeManager.shared.syncModels()
-        syncronizeView()
-    }
-    
-    var secondaryFps: Double { 1 }
-    func secondaryRunLoop() {
-        guard enableCoin else { return }
-        TradeManager.shared.syncCandles()
-        updateChartData()
     }
 }
 

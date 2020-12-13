@@ -80,7 +80,7 @@ class RestAPIClientBuilder {
         
         if needAuth {
             if !queryItems.isEmpty {
-                let queryString = queryItems.reduce("") { $0 + "\($1.name)=\($1.value!)&" }
+                let queryString = "state=done&market=KRW-XRP"// queryItems.reduce("") { $0 + "\($1.name)=\($1.value!)&" }
                 defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: queryString)
             } else if !httpBodyParameters.isEmpty {
                 defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: httpBodyParameters.queryString)
