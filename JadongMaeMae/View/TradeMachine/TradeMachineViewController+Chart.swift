@@ -124,7 +124,7 @@ extension TradeMachineViewController: ChartViewDelegate {
             )
         }
         let set1 = CandleChartDataSet(entries: entries, label: "Candle Data Set")
-        set1.axisDependency = .left
+        set1.axisDependency = .right
         set1.drawIconsEnabled = false
         set1.shadowColorSameAsCandle = true
         set1.shadowWidth = 0.5

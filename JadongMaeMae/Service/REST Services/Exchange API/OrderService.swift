@@ -9,8 +9,8 @@ import Foundation
 
 
 protocol OrderService {
-    func requestBuy(market: String, price: String) -> RestAPISingleResult<OrderModel>
-    func requestSell(market: String, volume: String) -> RestAPISingleResult<OrderModel>
+    func requestBuy(market: String, volume: String, price: String) -> RestAPISingleResult<OrderModel>
+    func requestSell(market: String, volume: String, price: String) -> RestAPISingleResult<OrderModel>
     
     // 주문 내역
     func reuqestOrders(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]>
@@ -18,12 +18,12 @@ protocol OrderService {
 
 class OrderServiceImp: OrderService {
 
-    func requestBuy(market: String, price: String) -> RestAPISingleResult<OrderModel> {
-        requestOrder(market: market, side: "bid", volume: "", price: price, ord_type: "price")
+    func requestBuy(market: String, volume: String, price: String) -> RestAPISingleResult<OrderModel> {
+        requestOrder(market: market, side: "bid", volume: volume, price: price, ord_type: "limit")
     }
     
-    func requestSell(market: String, volume: String) -> RestAPISingleResult<OrderModel> {
-        requestOrder(market: market, side: "ask", volume: volume, price: "", ord_type: "market")
+    func requestSell(market: String, volume: String, price: String) -> RestAPISingleResult<OrderModel> {
+        requestOrder(market: market, side: "ask", volume: volume, price: price, ord_type: "limit")
     }
     
     /// https://docs.upbit.com/reference#주문하기

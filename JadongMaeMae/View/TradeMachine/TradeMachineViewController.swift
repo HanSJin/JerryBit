@@ -86,10 +86,7 @@ extension TradeMachineViewController {
     }
     
     private func loadData() {
-        TradeManager.shared.requestOrders { [weak self] in
-            self?.tradeOrders = $0
-            self?.tableView.reloadData()
-        }
+        
     }
 }
 
@@ -109,6 +106,11 @@ extension TradeMachineViewController: GlobalRunLoop {
         guard enableCoin else { return }
         TradeManager.shared.syncCandles()
         updateChartData()
+        TradeManager.shared.requestOrders { [weak self] in
+            self?.tradeOrders = $0
+            self?.tableView.reloadData()
+        }
+        TradeManager.shared.tradeJudgement()
     }
 }
 
