@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Trade Machine View Controller-->
+        <!--Title-->
         <scene sceneID="twk-1o-iN5">
             <objects>
                 <viewController id="owC-oe-YOw" customClass="TradeMachineViewController" customModule="JadongMaeMae" customModuleProvider="target" sceneMemberID="viewController">
@@ -229,6 +229,13 @@
                             <constraint firstItem="Hfu-83-AuK" firstAttribute="top" secondItem="UJ0-GR-ZNg" secondAttribute="top" id="U5p-im-plg"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="Nx0-5h-9hX">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="QB6-GN-sZE">
+                            <connections>
+                                <action selector="tappedComposeButton:" destination="owC-oe-YOw" id="ewf-v1-e0x"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="buyButton" destination="WK3-gW-RAe" id="kWd-rm-0Kz"/>
@@ -237,6 +244,7 @@
                         <outlet property="coinCurrentBalanceLabel" destination="vuU-5M-3si" id="iZU-y6-mfw"/>
                         <outlet property="coinCurrentPriceLabel" destination="SqG-hQ-Zoi" id="iQv-ZD-Haz"/>
                         <outlet property="coinCurrentTotalPriceLabel" destination="n6T-NC-Vpy" id="4ba-VE-1hP"/>
+                        <outlet property="composeButton" destination="QB6-GN-sZE" id="S5H-e4-bTL"/>
                         <outlet property="krwTotalLabel" destination="n1m-WQ-rpk" id="yUf-zi-VYM"/>
                         <outlet property="sellButton" destination="B80-wt-1cV" id="S52-Qo-Muh"/>
                         <outlet property="tableView" destination="Hfu-83-AuK" id="sc0-gH-FNT"/>

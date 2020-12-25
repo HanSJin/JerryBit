@@ -164,7 +164,7 @@ extension TradeManager {
     }
     
     func requestOrders(completion: @escaping ([OrderModel]) -> Void) {
-        orderService.reuqestOrders(market: market, page: 1, limit: 100).subscribe(onSuccess: {
+        orderService.reuqestOrders(market: market, page: 1, limit: 30).subscribe(onSuccess: {
             switch $0 {
             case .success(let orders):
                 completion(orders)
@@ -185,7 +185,8 @@ extension TradeManager {
 extension TradeManager {
     
     func requestCandles() {
-        quoteService.getMinuteCandle(market: market, unit: 1, count: TradeManager.fullCandleCount).subscribe(onSuccess: {
+        let unit = UserDefaultsManager.shared.unit
+        quoteService.getMinuteCandle(market: market, unit: unit, count: TradeManager.fullCandleCount).subscribe(onSuccess: {
             switch $0 {
             case .success(let candleModels):
                 // print("start", Date().toStringWithDefaultFormat())

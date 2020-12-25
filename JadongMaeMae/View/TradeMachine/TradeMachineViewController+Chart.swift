@@ -72,7 +72,7 @@ extension TradeMachineViewController: ChartViewDelegate {
         set.mode = .cubicBezier
         set.drawValuesEnabled = true
         set.highlightColor = .white
-        set.axisDependency = .left
+        set.axisDependency = .right
         
         let topBandWidths = TradeManager.shared.bollingerBands.map { $0.bandWidth.top }
         let topEntries = topBandWidths.reversed().enumerated().map { ChartDataEntry(x: Double($0), y: $1) }
