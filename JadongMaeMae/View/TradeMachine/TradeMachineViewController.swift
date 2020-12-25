@@ -134,7 +134,7 @@ extension TradeMachineViewController: ChartViewDelegate {
         set.mode = .cubicBezier
         set.drawValuesEnabled = true
         set.highlightColor = .white
-        set.axisDependency = .left
+        set.axisDependency = .right
         
         let topBandWidths = TradeManager.shared.bollingerBands.map { $0.bandWidth.top }
         let topEntries = topBandWidths.reversed().enumerated().map { ChartDataEntry(x: Double($0), y: $1) }
@@ -168,8 +168,7 @@ extension TradeMachineViewController: ChartViewDelegate {
         bottomSet.fillAlpha = 0.3
         bottomSet.fillColor = .black
         bottomSet.highlightColor = .red
-        bottomSet.fillFormatter = DefaultFillFormatter { _, _ in CGFloat(self.chartView.rightAxis.axisMinimum)
-        }
+        bottomSet.fillFormatter = DefaultFillFormatter { _, _ in CGFloat(self.chartView.rightAxis.axisMinimum) }
         return LineChartData(dataSets: [topSet, set, bottomSet])
     }
     
