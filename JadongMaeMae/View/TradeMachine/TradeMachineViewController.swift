@@ -27,6 +27,7 @@ class TradeMachineViewController: UIViewController {
     
     // Outlets - Chart
     @IBOutlet weak var chartView: CombinedChartView!
+    @IBOutlet weak var unitLabel: UILabel!
     
     @IBOutlet weak var tradePriceTF: UITextField!
     @IBOutlet weak var buyButton: UIButton!
@@ -99,6 +100,7 @@ extension TradeMachineViewController: GlobalRunLoop {
     func runLoop() {
         guard enableCoin else { return }
         TradeManager.shared.syncModels()
+        unitLabel.text = "\(UserDefaultsManager.shared.unit)분"
         syncronizeView()
     }
     
