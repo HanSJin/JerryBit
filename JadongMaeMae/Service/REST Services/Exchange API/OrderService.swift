@@ -18,6 +18,10 @@ protocol OrderService {
 
 class OrderServiceImp: OrderService {
 
+    enum OrderError: Error {
+        case largePrice
+    }
+    
     func requestBuy(market: String, volume: String, price: String) -> RestAPISingleResult<OrderModel> {
         requestOrder(market: market, side: "bid", volume: volume, price: price, ord_type: "limit")
     }
@@ -28,6 +32,15 @@ class OrderServiceImp: OrderService {
     
     /// https://docs.upbit.com/reference#주문하기
     private func requestOrder(market: String, side: String, volume: String, price: String, ord_type: String, identifier: String? = nil) -> RestAPISingleResult<OrderModel> {
+        let volumeDouble = Double(volume) ?? 0.0
+        let priceDouble = Double(price) ?? 0.0
+        
+        // 혹시라도 너무 큰 금액은 일단 방어
+        guard volumeDouble * priceDouble < 100000 else {
+            UIAlertController.simpleAlert(message: "너무 큰 거래 금액: \(volumeDouble * priceDouble)")
+            return .error(OrderError.largePrice)
+        }
+        
         let path = "/v1/orders"
         let request = RestAPIClientBuilder(path: path, method: .post, headers: [:], needAuth: true)
             .set(httpBody: [

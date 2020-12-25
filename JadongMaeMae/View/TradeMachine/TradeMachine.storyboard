@@ -241,11 +241,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="Nx0-5h-9hX">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="QB6-GN-sZE">
-                            <connections>
-                                <action selector="tappedComposeButton:" destination="owC-oe-YOw" id="ewf-v1-e0x"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="pause.fill" catalog="system" style="plain" id="IoN-UM-CtA">
+                                <connections>
+                                    <action selector="tappedTradeRunningButton:" destination="owC-oe-YOw" id="Y61-Ti-kXR"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="compose" id="QB6-GN-sZE">
+                                <connections>
+                                    <action selector="tappedComposeButton:" destination="owC-oe-YOw" id="ewf-v1-e0x"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
@@ -260,6 +267,7 @@
                         <outlet property="sellButton" destination="B80-wt-1cV" id="S52-Qo-Muh"/>
                         <outlet property="tableView" destination="Hfu-83-AuK" id="sc0-gH-FNT"/>
                         <outlet property="tradePriceTF" destination="vo6-d0-IxD" id="3Ja-1Y-q1o"/>
+                        <outlet property="tradeRunButton" destination="IoN-UM-CtA" id="3Fm-zZ-Se2"/>
                         <outlet property="unitLabel" destination="w2X-nB-zkU" id="Bcq-ih-HMx"/>
                     </connections>
                 </viewController>
@@ -269,6 +277,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="pause.fill" catalog="system" width="116" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

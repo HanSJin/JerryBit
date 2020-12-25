@@ -12,7 +12,8 @@ class TradeMachineViewController: UIViewController {
     
     // Outlets
     @IBOutlet private weak var composeButton: UIBarButtonItem!
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tradeRunButton: UIBarButtonItem!
+    @IBOutlet private weak var tableView: UITableView! {
         didSet { tableView.registerNib(cellIdentifier: TradeOrderCell.identifier) }
     }
     
@@ -52,6 +53,15 @@ class TradeMachineViewController: UIViewController {
         setUpView()
         loadData()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        TradeManager.shared.runningTrade = false
+    }
+    
+    deinit {
+        print("DEINIT")
+    }
 }
 
 // MARK: - Setup View
@@ -59,6 +69,8 @@ extension TradeMachineViewController {
     
     func setUpView() {
         navigationItem.title = TradeManager.shared.market
+        updateRunningButton()
+        
         setUpChart()
         updateChartData()
         tradePriceTF.text = "\(TradeManager.shared.oncePrice)"
@@ -85,9 +97,15 @@ extension TradeMachineViewController {
         krwTotalLabel?.text = krwBalance
     }
     
-    private func loadData() {
-        
+    private func updateRunningButton() {
+        if TradeManager.shared.runningTrade {
+            tradeRunButton.image = UIImage(systemName: "pause.fill")
+        } else {
+            tradeRunButton.image = UIImage(systemName: "play.fill")
+        }
     }
+    
+    private func loadData() { }
 }
 
 // MARK: - GlobalRunLoop
@@ -110,7 +128,9 @@ extension TradeMachineViewController: GlobalRunLoop {
             self?.tradeOrders = $0
             self?.tableView.reloadData()
         }
-        TradeManager.shared.tradeJudgement()
+        if TradeManager.shared.runningTrade {
+            TradeManager.shared.tradeJudgement()
+        }
     }
 }
 
@@ -139,6 +159,11 @@ extension TradeMachineViewController: UITableViewDelegate {
 
 // MARK: - UI Touch Events
 extension TradeMachineViewController {
+    
+    @objc func tappedTradeRunningButton(_ sender: UIBarButtonItem) {
+        TradeManager.shared.runningTrade = !TradeManager.shared.runningTrade
+        updateRunningButton()
+    }
     
     @IBAction func tappedComposeButton(_ sender: UIBarButtonItem) {
         let optionAlert = UIAlertController(title: "분봉 길이", message: nil, preferredStyle: .actionSheet)

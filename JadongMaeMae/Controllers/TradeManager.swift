@@ -25,7 +25,7 @@ class TradeManager {
     // 거래 Market
     var market: String = "" // "KRW-MVL"
     // 1회 거래 가능량
-    var oncePrice: Int = 0 // 1000
+    var oncePrice: Int = 0 // 1000 {
     
     // MARK: - Models
     
@@ -49,6 +49,9 @@ class TradeManager {
     var bollingerBands = [BollingerBand]()
     
     // Trade Judgement
+    var runningTrade = false {
+        didSet { print("[Trade Judgement] Running to", runningTrade) }
+    }
     var tradeTimeRecords = [String]()
     
     init() { }
@@ -62,6 +65,7 @@ extension TradeManager {
         clear()
         self.market = market
         self.oncePrice = oncePrice
+        self.runningTrade = false
     }
     
     private func clear() {
@@ -231,6 +235,7 @@ extension TradeManager {
     }
     
     func requestSell() {
+        guard evaluationAmount >= 500.0 else { return } // 최소 주문 금액
         let volume = Double(oncePrice) < evaluationAmount ? (Double(oncePrice) / currentPrice) : tradeAccount.balanceDouble
         orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {
             switch $0 {
@@ -251,42 +256,34 @@ extension TradeManager {
 extension TradeManager {
     
     func tradeJudgement() {
+        guard runningTrade else { return }
         guard let band = bollingerBands.first else { return }
         let bandDistance = band.bandWidth.top - band.movingAverage // 밴드 상(한쪽) 폭
         
         let maPoint = ((currentPrice - band.movingAverage) / bandDistance).rounded // MA 포인트 (-1 ~ +1)
         print("[Trade Judgement] 현재가: \(currentPrice), MA: \(band.movingAverage.rounded()), MAPoint: \(maPoint)")
         
-        guard recordTime() else { return }
-        
         if maPoint >= 1.0 {
-            // 매수 판단
-            guard recordTime() else { return }
-        } else if maPoint <= -1.0 {
             // 매도 판단
             guard recordTime() else { return }
+            print("[Trade Judgement] 매도 요청! \(currentPrice))")
+            requestSell()
+        } else if maPoint <= -1.0 {
+            // 매수 판단
+            guard recordTime() else { return }
+            print("[Trade Judgement] 매수 요청! \(currentPrice))")
+            requestBuy()
         }
     }
     
+    // 분으로 구분되는 TimeString 을 Key 로 배열에 Append
+    // 배열에 Contains 여부로, 분당 1회 Trade 하도록 조절함.
     func recordTime() -> Bool {
         guard let currentime = Date().toStringWithFormat(to: "yyyy-MM-dd'T'HH:mm") else { return false }
         let recordTime = "\(market)&\(currentime)"
         guard !tradeTimeRecords.contains(recordTime) else { return false }
         tradeTimeRecords.append(recordTime)
         print("[Trade Judgement] Time Records: \(tradeTimeRecords)")
-        
         return true
     }
 }
-
-/*
- 220 (top)
-
- 190 price / 70중의 40이므로 40/70
- 
- 150 MA
- 
- 100 price2 / 70 중의 -50 이므로
- 
- 80 (bot)
- */
