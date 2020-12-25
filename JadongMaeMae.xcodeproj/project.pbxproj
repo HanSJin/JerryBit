@@ -197,6 +197,9 @@
 		CE965021257E92E800C1AFC6 /* QuoteTickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE965020257E92E800C1AFC6 /* QuoteTickerModel.swift */; };
 		CE965024257E9EFB00C1AFC6 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE965023257E9EFB00C1AFC6 /* NumberFormatter.swift */; };
 		CE96502F257EAAD900C1AFC6 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96502E257EAAD900C1AFC6 /* UIColor+Ext.swift */; };
+		CE9E9C8C258F42AA001CB3D3 /* TradeOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E9C8A258F42AA001CB3D3 /* TradeOrderCell.swift */; };
+		CE9E9C8D258F42AA001CB3D3 /* TradeOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE9E9C8B258F42AA001CB3D3 /* TradeOrderCell.xib */; };
+		CE9E9C91258F475B001CB3D3 /* TradeMachineViewController+Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E9C90258F475B001CB3D3 /* TradeMachineViewController+Chart.swift */; };
 		CED3EA99257FC10500CC6F91 /* TradeMachineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED3EA98257FC10500CC6F91 /* TradeMachineViewController.swift */; };
 		CED3EA9B257FC11000CC6F91 /* TradeMachine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CED3EA9A257FC11000CC6F91 /* TradeMachine.storyboard */; };
 		F28F860B937F7E71602EEE6F /* Pods_JadongMaeMae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4B312E03543165026DAE562 /* Pods_JadongMaeMae.framework */; };
@@ -399,6 +402,9 @@
 		CE965020257E92E800C1AFC6 /* QuoteTickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteTickerModel.swift; sourceTree = "<group>"; };
 		CE965023257E9EFB00C1AFC6 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		CE96502E257EAAD900C1AFC6 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		CE9E9C8A258F42AA001CB3D3 /* TradeOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeOrderCell.swift; sourceTree = "<group>"; };
+		CE9E9C8B258F42AA001CB3D3 /* TradeOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeOrderCell.xib; sourceTree = "<group>"; };
+		CE9E9C90258F475B001CB3D3 /* TradeMachineViewController+Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TradeMachineViewController+Chart.swift"; sourceTree = "<group>"; };
 		CED3EA98257FC10500CC6F91 /* TradeMachineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeMachineViewController.swift; sourceTree = "<group>"; };
 		CED3EA9A257FC11000CC6F91 /* TradeMachine.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TradeMachine.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -922,11 +928,22 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		CE9E9C89258F4299001CB3D3 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CE9E9C8B258F42AA001CB3D3 /* TradeOrderCell.xib */,
+				CE9E9C8A258F42AA001CB3D3 /* TradeOrderCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		CED3EA97257FC0E600CC6F91 /* TradeMachine */ = {
 			isa = PBXGroup;
 			children = (
 				CED3EA9A257FC11000CC6F91 /* TradeMachine.storyboard */,
 				CED3EA98257FC10500CC6F91 /* TradeMachineViewController.swift */,
+				CE9E9C90258F475B001CB3D3 /* TradeMachineViewController+Chart.swift */,
+				CE9E9C89258F4299001CB3D3 /* Cell */,
 			);
 			path = TradeMachine;
 			sourceTree = "<group>";
@@ -996,6 +1013,7 @@
 				CE4A6A77257D2A34007A2C65 /* LaunchScreen.storyboard in Resources */,
 				CED3EA9B257FC11000CC6F91 /* TradeMachine.storyboard in Resources */,
 				CE4A6A74257D2A34007A2C65 /* Assets.xcassets in Resources */,
+				CE9E9C8D258F42AA001CB3D3 /* TradeOrderCell.xib in Resources */,
 				CE965003257E668A00C1AFC6 /* Main.storyboard in Resources */,
 				CE4A6A72257D2A32007A2C65 /* MyAccount.storyboard in Resources */,
 				CE4A6ACD257D34D6007A2C65 /* accessKey in Resources */,
@@ -1074,6 +1092,7 @@
 				CE48A00825814E7C009AFAC0 /* LineChartDataSetProtocol.swift in Sources */,
 				CE965024257E9EFB00C1AFC6 /* NumberFormatter.swift in Sources */,
 				CE489FCC25814E7C009AFAC0 /* Platform+Touch Handling.swift in Sources */,
+				CE9E9C8C258F42AA001CB3D3 /* TradeOrderCell.swift in Sources */,
 				CE48A01425814E7C009AFAC0 /* BarLineScatterCandleBubbleChartDataProvider.swift in Sources */,
 				CE489FF925814E7C009AFAC0 /* ChartDataSet.swift in Sources */,
 				CE96501D257E69B400C1AFC6 /* UITableView+Ext.swift in Sources */,
@@ -1216,6 +1235,7 @@
 				CE489FE725814E7C009AFAC0 /* ChartData.swift in Sources */,
 				CE489FEE25814E7C009AFAC0 /* CombinedChartData.swift in Sources */,
 				CE48A01525814E7C009AFAC0 /* ScatterChartDataProvider.swift in Sources */,
+				CE9E9C91258F475B001CB3D3 /* TradeMachineViewController+Chart.swift in Sources */,
 				CE489FF025814E7C009AFAC0 /* RadarChartData.swift in Sources */,
 				CE96502F257EAAD900C1AFC6 /* UIColor+Ext.swift in Sources */,
 				CE2151E6257FF65E005A47D5 /* UIAlertController+Ext.swift in Sources */,

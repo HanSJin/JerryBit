@@ -33,19 +33,47 @@ struct OrderModel: Decodable {
     // 주문 종류 (필수)
     // - bid : 매수
     // - ask : 매도
-//    let side: String
-//    let ord_type: String
-//    let price: String
-//    let avg_price: String
-//    let state: String
-//    let market: String
-//    let created_at: String
-//    let volume: String
-//    let remaining_volume: String
-//    let reserved_fee: String
-//    let remaining_fee: String
-//    let paid_fee: String
-//    let locked: String
-//    let executed_volume: String
-//    let trade_count: Int
+    let side: String
+    let ord_type: String
+    let price: String?
+    let avg_price: String?
+    let state: String
+    let market: String
+    let created_at: String
+    let volume: String?
+    let remaining_volume: String?
+    let reserved_fee: String
+    let remaining_fee: String
+    let paid_fee: String
+    let locked: String
+    let executed_volume: String
+    let trade_count: Int?
+}
+
+// MARK: - Additional
+extension OrderModel {
+    
+    var sideValue: String {
+        switch side {
+        case "bid": return "매도"
+        case "ask": return "매수"
+        default: return ""
+        }
+    }
+    var sideColor: UIColor {
+        switch side {
+        case "bid": return .myBlue
+        case "ask": return .myRed
+        default: return UIColor.label
+        }
+    }
+    
+    var stateValue: String {
+        switch state {
+        case "done": return "완료"
+        case "wait": return "대기"
+        case "cancel": return "취소"
+        default: return ""
+        }
+    }
 }

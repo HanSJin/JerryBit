@@ -13,7 +13,7 @@ protocol OrderService {
     func requestSell(market: String, volume: String) -> RestAPISingleResult<OrderModel>
     
     // 주문 내역
-    func reuqestOrders(market: String, states: String, kind: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]>
+    func reuqestOrders(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]>
 }
 
 class OrderServiceImp: OrderService {
@@ -40,25 +40,16 @@ class OrderServiceImp: OrderService {
         return RestAPIClient.shared.request(request: request, type: OrderModel.self)
     }
     
-    func reuqestOrders(market: String, states: String, kind: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]> {
+    func reuqestOrders(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]> {
         let path = "/v1/orders"
         let request = RestAPIClientBuilder(path: path, method: .get, headers: [:], needAuth: true)
             .set(queryName: "market", queryValue: market)
-            .set(queryName: "state", queryValue: "done")
-//            .set(queryName: "uuids[]", queryValue: "11ba8831-c058-4616-8622-53cb6aa84254")
+            .set(queryName: "states[]", queryValue: "done")
+            .set(queryName: "states[]", queryValue: "wait")
+            /*.set(queryName: "states[]", queryValue: "cancel")*/
+            .set(queryName: "page", queryValue: "\(page)")
+            .set(queryName: "limit", queryValue: "\(limit)")
             .build()
         return RestAPIClient.shared.request(request: request, type: [OrderModel].self)
-        
-        
-//        let path = "/v1/orders"
-//        let request = RestAPIClientBuilder(path: path, method: .get, headers: [:], needAuth: true)
-//            .set(queryName: "market", queryValue: market)
-//            .set(queryName: "state", queryValue: "done")
-//            .set(queryName: "kind", queryValue: "normal")
-//            .set(queryName: "uuids[]", queryValue: "9ca023a5-851b-4fec-9f0a-48cd83c2eaae")
-//            .set(queryName: "page", queryValue: "\(page)")
-//            .set(queryName: "limit", queryValue: "\(limit)")
-//            .build()
-//        return RestAPIClient.shared.request(request: request, type: [OrderModel].self)
     }
 }

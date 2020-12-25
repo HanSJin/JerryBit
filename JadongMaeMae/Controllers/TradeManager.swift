@@ -163,16 +163,18 @@ extension TradeManager {
         }.disposed(by: self.disposeBag)
     }
     
-    func requestOrders() {
-        orderService.reuqestOrders(market: market, states: "done"/*"cancel"*/, kind: "normal", page: 1, limit: 1).subscribe(onSuccess: {
+    func requestOrders(completion: @escaping ([OrderModel]) -> Void) {
+        orderService.reuqestOrders(market: market, page: 1, limit: 100).subscribe(onSuccess: {
             switch $0 {
             case .success(let orders):
-                print(orders)
+                completion(orders)
             case .failure(let error):
+                completion([])
                 if error.globalHandling() { return }
                 // Addtional Handling
             }
         }) { error in
+            completion([])
             if error.globalHandling() { return }
             // Addtional Handling
         }.disposed(by: self.disposeBag)
