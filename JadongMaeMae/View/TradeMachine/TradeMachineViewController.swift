@@ -11,18 +11,21 @@ import RxSwift
 class TradeMachineViewController: UIViewController {
     
     // Outlets
+    @IBOutlet private weak var composeButton: UIBarButtonItem!
     
     // Outlets - KRW Info
-    @IBOutlet weak var krwTotalLabel: UILabel!
+    @IBOutlet private weak var krwTotalLabel: UILabel!
     
     // Outlets - Coin Info
-    @IBOutlet weak var coinCurrentPriceLabel: UILabel!
-    @IBOutlet weak var coinCurrentAvgPriceLabel: UILabel!
-    @IBOutlet weak var coinCurrentBalanceLabel: UILabel!
-    @IBOutlet weak var coinCurrentTotalPriceLabel: UILabel!
+    @IBOutlet private weak var coinCurrentPriceLabel: UILabel!
+    @IBOutlet private weak var coinCurrentAvgPriceLabel: UILabel!
+    @IBOutlet private weak var coinCurrentBalanceLabel: UILabel!
+    @IBOutlet private weak var coinCurrentTotalPriceLabel: UILabel!
+    
+    
     
     // Outlets - Chart
-    @IBOutlet weak var chartView: CombinedChartView!
+    @IBOutlet private weak var chartView: CombinedChartView!
     
     // Variables
     private let orderService: OrderService = ServiceContainer.shared.getService(key: .order)
@@ -218,6 +221,21 @@ extension TradeMachineViewController: GlobalRunLoop {
 
 // MARK: - UI Touch Events
 extension TradeMachineViewController {
+    
+    @IBAction func tappedComposeButton(_ sender: UIBarButtonItem) {
+        let optionAlert = UIAlertController(title: "Edit", message: nil, preferredStyle: .actionSheet)
+        optionAlert.addAction(UIAlertAction(title: "1 Minute", style: .default) { _ in
+            UserDefaultsManager.shared.unit = 1
+        })
+        optionAlert.addAction(UIAlertAction(title: "10 Minute", style: .default) { _ in
+            UserDefaultsManager.shared.unit = 10
+        })
+        optionAlert.addAction(UIAlertAction(title: "1 Hour", style: .default) { _ in
+            UserDefaultsManager.shared.unit = 60
+        })
+        optionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(optionAlert, animated: true)
+    }
     
     @IBAction func tappedBuyButton(_ sender: UIButton) {
         TradeManager.shared.requestBuy()
