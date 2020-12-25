@@ -55,15 +55,15 @@ extension OrderModel {
     
     var sideValue: String {
         switch side {
-        case "bid": return "매도"
-        case "ask": return "매수"
+        case "bid": return "매수"
+        case "ask": return "매도"
         default: return ""
         }
     }
     var sideColor: UIColor {
         switch side {
-        case "bid": return .myBlue
-        case "ask": return .myRed
+        case "bid": return .myRed
+        case "ask": return .myBlue
         default: return UIColor.label
         }
     }
@@ -76,4 +76,22 @@ extension OrderModel {
         default: return ""
         }
     }
+    /*
+    주문 타입 (필수)
+    - limit : 지정가 주문
+    - price : 시장가 주문(매수)
+    - market : 시장가 주문(매도)
+     */
+    var orderTypeValue: String {
+        switch ord_type {
+        case "limit": return "지정가"
+        case "price": return "시장가 매수"
+        case "market": return "시장가 매도"
+        default: return ""
+        }
+    }
+    
+    var volumeDouble: Double { Double(volume ?? "0") ?? 0.0 }
+    var priceDouble: Double { Double(price ?? "0") ?? 0.0 }
+    var amountValue: Double { volumeDouble * priceDouble }
 }

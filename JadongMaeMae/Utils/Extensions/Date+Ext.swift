@@ -11,7 +11,7 @@ extension DateFormatter {
 
     static var defaultFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         dateFormatter.calendar = Calendar(identifier: .iso8601)
         return dateFormatter
     }
@@ -48,11 +48,12 @@ extension String {
         DateFormatter.defaultFormatter.date(from: self)
     }
     
-   func toStringWithDefaultFormat() -> String? {
+   func toStringWithDefaultFormat(to format: String) -> String {
         let dateFormatter = DateFormatter.defaultFormatter
         guard let dt = dateFormatter.date(from: self) else {
-            return nil
+            return ""
         }
+        dateFormatter.dateFormat = format
         return dateFormatter.string(from: dt)
    }
 

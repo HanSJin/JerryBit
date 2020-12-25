@@ -32,11 +32,16 @@ class TradeOrderCell: UITableViewCell {
 extension TradeOrderCell {
     
     func updateView(_ order: OrderModel) {
-        dateLabel.text = "날짜: \(order.created_at.toStringWithDefaultFormat())"
+        dateLabel.text = order.created_at.toStringWithDefaultFormat(to: "yy/MM/dd HH:mm:ss")
         sideLabel.text = order.sideValue
         sideLabel.textColor = order.sideColor
-        stateLabel.text = "(\(order.stateValue))"
+        stateLabel.text = "(" + order.stateValue + ")"
         volumeLabel.text = order.volume
-        priceLabel.text = order.price
+        if order.ord_type == "limit" {
+            priceLabel.text = order.price
+        } else {
+            priceLabel.text = "시장가"
+        }
+        amountLabel.text = order.amountValue.numberForm(add: " KRW")
     }
 }

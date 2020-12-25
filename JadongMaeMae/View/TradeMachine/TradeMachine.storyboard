@@ -135,7 +135,7 @@
                                             <rect key="frame" x="0.0" y="92" width="414" height="250"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2X-nB-zkU">
-                                                    <rect key="frame" x="12" y="10" width="20" height="12"/>
+                                                    <rect key="frame" x="12" y="12" width="20" height="12"/>
                                                     <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -145,7 +145,7 @@
                                             <color key="backgroundColor" systemColor="systemFillColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="250" id="Jlu-uR-EBg"/>
-                                                <constraint firstItem="w2X-nB-zkU" firstAttribute="top" secondItem="ZNS-2a-Ad0" secondAttribute="top" constant="10" id="L7h-P6-uOT"/>
+                                                <constraint firstItem="w2X-nB-zkU" firstAttribute="top" secondItem="ZNS-2a-Ad0" secondAttribute="top" constant="12" id="L7h-P6-uOT"/>
                                                 <constraint firstItem="w2X-nB-zkU" firstAttribute="leading" secondItem="ZNS-2a-Ad0" secondAttribute="leading" constant="12" id="Woe-pT-PhN"/>
                                             </constraints>
                                         </view>

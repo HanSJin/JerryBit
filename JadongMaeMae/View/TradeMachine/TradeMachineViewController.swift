@@ -139,14 +139,14 @@ extension TradeMachineViewController: UITableViewDelegate {
 extension TradeMachineViewController {
     
     @IBAction func tappedComposeButton(_ sender: UIBarButtonItem) {
-        let optionAlert = UIAlertController(title: "Edit", message: nil, preferredStyle: .actionSheet)
-        optionAlert.addAction(UIAlertAction(title: "1 Minute", style: .default) { _ in
+        let optionAlert = UIAlertController(title: "분봉 길이", message: nil, preferredStyle: .actionSheet)
+        optionAlert.addAction(UIAlertAction(title: "1분", style: .default) { _ in
             UserDefaultsManager.shared.unit = 1
         })
-        optionAlert.addAction(UIAlertAction(title: "10 Minute", style: .default) { _ in
+        optionAlert.addAction(UIAlertAction(title: "10분", style: .default) { _ in
             UserDefaultsManager.shared.unit = 10
         })
-        optionAlert.addAction(UIAlertAction(title: "1 Hour", style: .default) { _ in
+        optionAlert.addAction(UIAlertAction(title: "60분", style: .default) { _ in
             UserDefaultsManager.shared.unit = 60
         })
         optionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
