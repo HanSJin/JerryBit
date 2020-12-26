@@ -25,7 +25,7 @@ class TradeManager {
     // 거래 Market
     var market: String = "" // "KRW-MVL"
     // 1회 거래 가능량
-    var oncePrice: Int = 0 // 1000 {
+    var oncePrice: Int { UserDefaultsManager.shared.oncePrice }
     
     // MARK: - Models
     
@@ -52,7 +52,12 @@ class TradeManager {
     var runningTrade = false {
         didSet { print("[Trade Judgement] Running to", runningTrade) }
     }
-    var tradeTimeRecords = [String]()
+    private var tradeTimeRecords = [String]()
+    
+    // Timer - 경과 시간 기록 & 주문 취소 추적
+    private var timer: Timer!
+    var timerTick = 0
+    var estimatedTradeProfit: Double = 0.0
     
     init() { }
 }
@@ -61,22 +66,33 @@ class TradeManager {
 
 extension TradeManager {
     
-    func install(market: String, oncePrice: Int) {
+    func install(market: String) {
         clear()
         self.market = market
-        self.oncePrice = oncePrice
         self.runningTrade = false
+        
+        timer?.invalidate()
+        timer = Timer(timeInterval: 1.0, target: self, selector: #selector(timerTicked), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
     }
     
     private func clear() {
         market = ""
-        oncePrice = 0
         tradeAccount = nil
         krwAccount = nil
         tickerModel = nil
+        timerTick = 0
+        timer?.invalidate()
+        timer = nil
+        estimatedTradeProfit = 0.0
         candles.removeAll()
         fullCandles.removeAll()
         bollingerBands.removeAll()
+    }
+    
+    @objc private func timerTicked() {
+        guard runningTrade else { return }
+        timerTick += 1
     }
 }
 
@@ -237,6 +253,10 @@ extension TradeManager {
     func requestSell() {
         guard evaluationAmount >= 500.0 else { return } // 최소 주문 금액
         let volume = Double(oncePrice) < evaluationAmount ? (Double(oncePrice) / currentPrice) : tradeAccount.balanceDouble
+        
+        let profit = (currentPrice - avgBuyPrice) * volume
+        estimatedTradeProfit += profit
+        
         orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {
             switch $0 {
             case .success(let orderModels):

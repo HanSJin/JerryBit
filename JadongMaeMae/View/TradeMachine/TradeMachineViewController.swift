@@ -16,6 +16,7 @@ class TradeMachineViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView! {
         didSet { tableView.registerNib(cellIdentifier: TradeOrderCell.identifier) }
     }
+    @IBOutlet private weak var tableHeaderView: UIView!
     
     // Outlets - KRW Info
     @IBOutlet private weak var krwTotalLabel: UILabel!
@@ -26,13 +27,21 @@ class TradeMachineViewController: UIViewController {
     @IBOutlet private weak var coinCurrentBalanceLabel: UILabel!
     @IBOutlet private weak var coinCurrentTotalPriceLabel: UILabel!
     
+    // Outlets - Auto Trade View
+    @IBOutlet private weak var autoTradeView: UIView!
+    @IBOutlet private weak var autoTradeHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var autoTradeTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var autoTradeLabel: UILabel!
+    @IBOutlet private weak var autoTradeTimerLabel: UILabel!
+    @IBOutlet private weak var autoTradeResultLabel: UILabel!
+    
     // Outlets - Chart
     @IBOutlet weak var chartView: CombinedChartView!
-    @IBOutlet weak var unitLabel: UILabel!
+    @IBOutlet private weak var unitLabel: UILabel!
     
-    @IBOutlet weak var tradePriceTF: UITextField!
-    @IBOutlet weak var buyButton: UIButton!
-    @IBOutlet weak var sellButton: UIButton!
+    @IBOutlet private weak var tradePriceTF: UITextField!
+    @IBOutlet private weak var buyButton: UIButton!
+    @IBOutlet private weak var sellButton: UIButton!
     
     // Variables
     private let orderService: OrderService = ServiceContainer.shared.getService(key: .order)
@@ -49,7 +58,7 @@ class TradeMachineViewController: UIViewController {
         
         guard let tradeCoin = UserDefaultsManager.shared.tradeCoin, !tradeCoin.isEmpty else { return }
         enableCoin = true
-        TradeManager.shared.install(market: "KRW-\(tradeCoin)", oncePrice: 5000)
+        TradeManager.shared.install(market: "KRW-\(tradeCoin)")
         setUpView()
         loadData()
     }
@@ -70,6 +79,7 @@ extension TradeMachineViewController {
     func setUpView() {
         navigationItem.title = TradeManager.shared.market
         updateRunningButton()
+        updateAutoTradeView()
         
         setUpChart()
         updateChartData()
@@ -106,6 +116,38 @@ extension TradeMachineViewController {
         }
     }
     
+    private func updateAutoTradeView() {
+        if TradeManager.shared.runningTrade {
+            autoTradeHeightConstraint.constant = 25
+            autoTradeTopConstraint.constant = 2
+            autoTradeView.isHidden = false
+            tableHeaderView.frame.size.height = 383
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.autoreverse, .repeat]) {
+                self.autoTradeLabel.alpha = 0.2
+            } completion: { _ in }
+        } else {
+            autoTradeHeightConstraint.constant = 0
+            autoTradeTopConstraint.constant = 0
+            autoTradeView.isHidden = true
+            tableHeaderView.frame.size.height = 383 - 25 - 2
+        }
+        view.layoutSubviews()
+        tableView.reloadData()
+    }
+    
+    private func updateTradeTimerTick() {
+        let time = secondsToHoursMinutesSeconds(seconds: TradeManager.shared.timerTick)
+        autoTradeTimerLabel.text = "\(String(format: "%02d", time.0)):\(String(format: "%02d", time.1)):\(String(format: "%02d", time.2))"
+    }
+    
+    private func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
+    private func updateTradeEstimatedProfit() {
+        autoTradeResultLabel.text = "\(TradeManager.shared.profitSign)\(TradeManager.shared.estimatedTradeProfit.numberForm(add: " KRW"))"
+    }
+    
     private func loadData() { }
 }
 
@@ -118,6 +160,8 @@ extension TradeMachineViewController: GlobalRunLoop {
         TradeManager.shared.syncModels()
         unitLabel.text = "\(UserDefaultsManager.shared.unit)분"
         syncronizeView()
+        updateTradeTimerTick()
+        updateTradeEstimatedProfit()
     }
     
     var secondaryFps: Double { 1 }
@@ -164,6 +208,16 @@ extension TradeMachineViewController {
     @objc func tappedTradeRunningButton(_ sender: UIBarButtonItem) {
         TradeManager.shared.runningTrade = !TradeManager.shared.runningTrade
         updateRunningButton()
+        updateAutoTradeView()
+    }
+    
+    @IBAction func tappedSaveOncePriceButton(_ sender: UIButton) {
+        guard let oncePriceText = tradePriceTF.text, let oncePrice = Int(oncePriceText), oncePrice >= 500 else {
+            UIAlertController.simpleAlert(message: "최저 거래 대금 500원 이상을 입력해주세요.")
+            return
+        }
+        UserDefaultsManager.shared.oncePrice = oncePrice
+        UIAlertController.simpleAlert(message: "\(oncePrice) 저장 완료")
     }
     
     @IBAction func tappedComposeButton(_ sender: UIBarButtonItem) {

@@ -11,6 +11,7 @@ final class UserDefaultsManager: UserDefaults {
 
     private enum Key {
         case tradeCoin
+        case oncePrice
         case unit
         
         var name: String {
@@ -34,6 +35,15 @@ extension UserDefaultsManager {
     var tradeCoin: String? {
         get { UserDefaults.standard.string(forKey: Key.tradeCoin.name) }
         set { synchronizeAfterSet(newValue, forKey: .tradeCoin) }
+    }
+    var oncePrice: Int {
+        get {
+            if UserDefaults.standard.integer(forKey: Key.oncePrice.name) == 0 {
+                return 5000
+            }
+            return UserDefaults.standard.integer(forKey: Key.oncePrice.name)
+        }
+        set { synchronizeAfterSet(newValue, forKey: .oncePrice) }
     }
     var unit: Int {
         get {
