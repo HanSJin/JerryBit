@@ -38,7 +38,7 @@ extension TradeOrderCell {
         stateLabel.text = "(" + order.stateValue + ")"
         volumeLabel.text = order.volume
         if order.ord_type == "limit" {
-            priceLabel.text = order.price
+            priceLabel.text = order.priceDouble.numberForm(add: "")
         } else {
             priceLabel.text = "시장가"
         }

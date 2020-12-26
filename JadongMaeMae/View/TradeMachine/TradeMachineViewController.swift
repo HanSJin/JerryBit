@@ -49,7 +49,7 @@ class TradeMachineViewController: UIViewController {
         
         guard let tradeCoin = UserDefaultsManager.shared.tradeCoin, !tradeCoin.isEmpty else { return }
         enableCoin = true
-        TradeManager.shared.install(market: "KRW-\(tradeCoin)", oncePrice: 1000)
+        TradeManager.shared.install(market: "KRW-\(tradeCoin)", oncePrice: 5000)
         setUpView()
         loadData()
     }
@@ -84,11 +84,12 @@ extension TradeMachineViewController {
     func syncronizeView() {
         let trade = TradeManager.shared
         coinCurrentPriceLabel?.text = trade.currentPrice.numberForm(add: "KRW") + " (" + trade.profitSign + trade.profitPercent.numberForm(add: "") + "%)"
-        coinCurrentPriceLabel?.textColor = trade.profitColor
         
         coinCurrentAvgPriceLabel?.text = trade.avgBuyPrice.numberForm(add: " KRW")
         coinCurrentBalanceLabel?.text = "\(trade.coinBalance)"
-        coinCurrentTotalPriceLabel?.text = trade.evaluationAmount.numberForm(add: " KRW")
+        let profit = NumberFormatter.decimal(Int(trade.evaluationAmount - trade.coinBuyAmmount))
+        coinCurrentTotalPriceLabel?.text = trade.evaluationAmount.numberForm(add: "") + "(\(trade.profitSign)\(profit)) KRW"
+        // coinCurrentTotalPriceLabel?.textColor = trade.profitColor
         
         var krwBalance = trade.krwBalance.numberForm(add: " KRW")
         if trade.krwLocked > 0 {
@@ -167,15 +168,13 @@ extension TradeMachineViewController {
     
     @IBAction func tappedComposeButton(_ sender: UIBarButtonItem) {
         let optionAlert = UIAlertController(title: "분봉 길이", message: nil, preferredStyle: .actionSheet)
-        optionAlert.addAction(UIAlertAction(title: "1분", style: .default) { _ in
-            UserDefaultsManager.shared.unit = 1
-        })
-        optionAlert.addAction(UIAlertAction(title: "10분", style: .default) { _ in
-            UserDefaultsManager.shared.unit = 10
-        })
-        optionAlert.addAction(UIAlertAction(title: "60분", style: .default) { _ in
-            UserDefaultsManager.shared.unit = 60
-        })
+        let units = [1, 3, 5, 10, 15, 30, 60, 240]
+        units.forEach { unit in
+            let unitText = unit >= 60 ? "\(unit / 60)시간" : "\(unit)분"
+            optionAlert.addAction(UIAlertAction(title: unitText, style: .default) { _ in
+                UserDefaultsManager.shared.unit = unit
+            })
+        }
         optionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(optionAlert, animated: true)
     }
