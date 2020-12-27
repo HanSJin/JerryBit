@@ -10,6 +10,7 @@ import Foundation
 typealias MovingAverage = Double
 
 struct BollingerBand {
+    static let alpha = 2.0
     let movingAverage: MovingAverage
     let bandWidth: BandWidth
     
@@ -46,8 +47,10 @@ class TradeFormula {
             // 표준편차
             let standardDeviation = sqrt(variance)
             // 밴드폭
-            let bandWidth = BollingerBand.BandWidth(top: movingAverageValue + standardDeviation * 2, bottom: movingAverageValue - standardDeviation * 2)
-            
+            let bandWidth = BollingerBand.BandWidth(
+                top: movingAverageValue + standardDeviation * BollingerBand.alpha,
+                bottom: movingAverageValue - standardDeviation * BollingerBand.alpha
+            )
             bollingerBands.append(BollingerBand(movingAverage: movingAverageValue, bandWidth: bandWidth))
         }
         return bollingerBands

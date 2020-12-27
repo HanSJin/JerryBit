@@ -52,6 +52,17 @@ class TradeManager {
     var runningTrade = false {
         didSet { print("[Trade Judgement] Running to", runningTrade) }
     }
+    var bandWidthPoint: Double { // 현재가 대비 볼린저밴드 폭(표준편차) 의 크기 점수
+        guard let band = bollingerBands.first else { return 0.0 }
+        let bandDistance = (band.bandWidth.top - band.movingAverage) / BollingerBand.alpha // 표준편차
+        return (bandDistance / currentPrice * 100).rounded
+    }
+    var maJudgementPoint: Double { // 밴드폭 기준으로 현재가의 위치 (-1 ~ +1)
+        guard let band = bollingerBands.first else { return 0.0 }
+        let bandDistance = band.bandWidth.top - band.movingAverage // 밴드 상(한쪽) 폭
+        let maPoint = ((currentPrice - band.movingAverage) / bandDistance).rounded // MA 포인트 (-1 ~ +1)
+        return maPoint
+    }
     private var tradeTimeRecords = [String]()
     
     // Timer - 경과 시간 기록 & 주문 취소 추적
@@ -277,21 +288,22 @@ extension TradeManager {
     
     func tradeJudgement() {
         guard runningTrade else { return }
-        guard let band = bollingerBands.first else { return }
-        let bandDistance = band.bandWidth.top - band.movingAverage // 밴드 상(한쪽) 폭
         
-        let maPoint = ((currentPrice - band.movingAverage) / bandDistance).rounded // MA 포인트 (-1 ~ +1)
-        print("[Trade Judgement] 현재가: \(currentPrice), MA: \(band.movingAverage.rounded()), MAPoint: \(maPoint)")
-        
+        let maPoint = maJudgementPoint
+        print("[Trade Judgement] 현재가: \(currentPrice), MAPoint: \(maPoint)", "BandWidthPoint: \(bandWidthPoint)")
+
         if maPoint >= 1.0 {
+            // bandWidthPoint 가 0.3 미만의 횡보 구간에서 의미없는 매도 Block
+            guard bandWidthPoint > 0.3 else { return }
+            
             // 매도 판단
             guard recordTime() else { return }
-            print("[Trade Judgement] 매도 요청! \(currentPrice))")
+            print("[Trade Judgement] 매도 요청! \(currentPrice)")
             requestSell()
         } else if maPoint <= -1.0 {
             // 매수 판단
             guard recordTime() else { return }
-            print("[Trade Judgement] 매수 요청! \(currentPrice))")
+            print("[Trade Judgement] 매수 요청! \(currentPrice)")
             requestBuy()
         }
     }

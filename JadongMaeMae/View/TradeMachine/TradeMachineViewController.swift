@@ -145,7 +145,8 @@ extension TradeMachineViewController {
     }
     
     private func updateTradeEstimatedProfit() {
-        autoTradeResultLabel.text = "\(TradeManager.shared.profitSign)\(TradeManager.shared.estimatedTradeProfit.numberForm(add: " KRW"))"
+        let estimatedTradeProfit = TradeManager.shared.estimatedTradeProfit
+        autoTradeResultLabel.text = "\(estimatedTradeProfit > 0 ? "+" : "")\(estimatedTradeProfit.numberForm(add: " KRW"))"
     }
     
     private func loadData() { }
