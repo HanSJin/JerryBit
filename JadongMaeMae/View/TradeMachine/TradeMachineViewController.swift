@@ -34,6 +34,8 @@ class TradeMachineViewController: UIViewController {
     @IBOutlet private weak var autoTradeLabel: UILabel!
     @IBOutlet private weak var autoTradeTimerLabel: UILabel!
     @IBOutlet private weak var autoTradeResultLabel: UILabel!
+    @IBOutlet private weak var autoTradeMaPoinLabelt: UILabel!
+    @IBOutlet private weak var autoTradeBandWidthPointLabel: UILabel!
     
     // Outlets - Chart
     @IBOutlet weak var chartView: CombinedChartView!
@@ -118,10 +120,10 @@ extension TradeMachineViewController {
     
     private func updateAutoTradeView() {
         if TradeManager.shared.runningTrade {
-            autoTradeHeightConstraint.constant = 25
+            autoTradeHeightConstraint.constant = 40
             autoTradeTopConstraint.constant = 2
             autoTradeView.isHidden = false
-            tableHeaderView.frame.size.height = 383
+            tableHeaderView.frame.size.height = 403
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [.autoreverse, .repeat]) {
                 self.autoTradeLabel.alpha = 0.2
             } completion: { _ in }
@@ -129,7 +131,7 @@ extension TradeMachineViewController {
             autoTradeHeightConstraint.constant = 0
             autoTradeTopConstraint.constant = 0
             autoTradeView.isHidden = true
-            tableHeaderView.frame.size.height = 383 - 25 - 2
+            tableHeaderView.frame.size.height = 403 - 40 - 2
         }
         view.layoutSubviews()
         tableView.reloadData()
@@ -149,6 +151,11 @@ extension TradeMachineViewController {
         autoTradeResultLabel.text = "\(estimatedTradeProfit > 0 ? "+" : "")\(estimatedTradeProfit.numberForm(add: " KRW"))"
     }
     
+    private func updateTradePoints() {
+        autoTradeMaPoinLabelt.text = "\(TradeManager.shared.maJudgementPoint.rounded)"
+        autoTradeBandWidthPointLabel.text = "\(TradeManager.shared.bandWidthPoint.rounded)"
+    }
+    
     private func loadData() { }
 }
 
@@ -163,6 +170,7 @@ extension TradeMachineViewController: GlobalRunLoop {
         syncronizeView()
         updateTradeTimerTick()
         updateTradeEstimatedProfit()
+        updateTradePoints()
     }
     
     var secondaryFps: Double { 1 }

@@ -118,7 +118,7 @@ extension TradeMachineViewController: ChartViewDelegate {
         let chartData = LineChartData(dataSets: [topSet, set, bottomSet])
         
         // 매수평균가 선 (수익률 10% 미만일 때만 보여줌. 안그러면 차트 지나치게 축소됨)
-        if abs(TradeManager.shared.profitPercent) < 10 {
+        if TradeManager.shared.coinBalance > 0, abs(TradeManager.shared.profitPercent) < 10 {
             let avgBuyPrice = TradeManager.shared.avgBuyPrice.rounded
             let buyAverageLine = TradeManager.shared.bollingerBands.map { _ in avgBuyPrice }
             let buyAverageEntries = buyAverageLine.reversed().enumerated().map { ChartDataEntry(x: Double($0), y: $1) }
