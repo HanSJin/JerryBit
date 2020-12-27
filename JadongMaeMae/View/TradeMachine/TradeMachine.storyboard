@@ -142,13 +142,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="경과시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bg4-gU-feo">
-                                                    <rect key="frame" x="106" y="5" width="42" height="15"/>
+                                                    <rect key="frame" x="198" y="5" width="42" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMp-dK-UbH">
-                                                    <rect key="frame" x="152" y="5" width="52.5" height="14.5"/>
+                                                    <rect key="frame" x="244" y="5" width="52.5" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -166,13 +166,25 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bt6-LO-1xh">
-                                                    <rect key="frame" x="386" y="5" width="8" height="14.5"/>
+                                                    <rect key="frame" x="386" y="21" width="8" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누적 매매손익(추정)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7NU-aU-PzE">
-                                                    <rect key="frame" x="286" y="5" width="96" height="15"/>
+                                                    <rect key="frame" x="286" y="20.5" width="96" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTm-yN-32u">
+                                                    <rect key="frame" x="341.5" y="5" width="52.5" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rhk-u0-4o5">
+                                                    <rect key="frame" x="316.5" y="5" width="21" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -192,23 +204,27 @@
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemFillColor"/>
                                             <constraints>
+                                                <constraint firstItem="KTm-yN-32u" firstAttribute="leading" secondItem="Rhk-u0-4o5" secondAttribute="trailing" constant="4" id="0IX-ch-bIw"/>
+                                                <constraint firstItem="7NU-aU-PzE" firstAttribute="centerY" secondItem="Tfo-uQ-GGN" secondAttribute="centerY" id="2eU-Ko-Ent"/>
                                                 <constraint firstItem="EMp-dK-UbH" firstAttribute="centerY" secondItem="GqE-xW-8ih" secondAttribute="centerY" id="57k-ia-fUu"/>
                                                 <constraint firstItem="EMp-dK-UbH" firstAttribute="leading" secondItem="Bg4-gU-feo" secondAttribute="trailing" constant="4" id="7SC-Kk-GV9"/>
-                                                <constraint firstItem="7NU-aU-PzE" firstAttribute="centerY" secondItem="GqE-xW-8ih" secondAttribute="centerY" id="ACR-or-F0o"/>
                                                 <constraint firstItem="ybE-BS-YAy" firstAttribute="leading" secondItem="BWL-i0-yJz" secondAttribute="trailing" constant="15" id="CMu-5F-m0A"/>
                                                 <constraint firstItem="GqE-xW-8ih" firstAttribute="leading" secondItem="m1X-j4-jxS" secondAttribute="leading" constant="20" id="D5O-Ip-C02"/>
-                                                <constraint firstItem="Bt6-LO-1xh" firstAttribute="centerY" secondItem="GqE-xW-8ih" secondAttribute="centerY" id="Et1-Es-3D6"/>
                                                 <constraint firstItem="IQH-3t-3hH" firstAttribute="centerY" secondItem="Tfo-uQ-GGN" secondAttribute="centerY" id="GGb-cH-1pk"/>
                                                 <constraint firstItem="Bt6-LO-1xh" firstAttribute="leading" secondItem="7NU-aU-PzE" secondAttribute="trailing" constant="4" id="INC-s3-KH2"/>
+                                                <constraint firstItem="Rhk-u0-4o5" firstAttribute="leading" secondItem="EMp-dK-UbH" secondAttribute="trailing" constant="20" id="Ih0-z9-hhu"/>
+                                                <constraint firstAttribute="trailing" secondItem="KTm-yN-32u" secondAttribute="trailing" constant="20" symbolic="YES" id="Nbx-eQ-aKQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="Bt6-LO-1xh" secondAttribute="trailing" constant="20" id="P3M-fQ-iqb"/>
                                                 <constraint firstItem="ybE-BS-YAy" firstAttribute="centerY" secondItem="Tfo-uQ-GGN" secondAttribute="centerY" id="Pbg-zU-49e"/>
                                                 <constraint firstItem="IQH-3t-3hH" firstAttribute="centerY" secondItem="ybE-BS-YAy" secondAttribute="centerY" id="Qpy-EF-S95"/>
                                                 <constraint firstItem="BWL-i0-yJz" firstAttribute="leading" secondItem="Tfo-uQ-GGN" secondAttribute="trailing" constant="4" id="Rkb-mB-U0a"/>
+                                                <constraint firstItem="Rhk-u0-4o5" firstAttribute="centerY" secondItem="GqE-xW-8ih" secondAttribute="centerY" id="Sqd-eZ-LpN"/>
                                                 <constraint firstItem="Tfo-uQ-GGN" firstAttribute="top" secondItem="GqE-xW-8ih" secondAttribute="bottom" constant="1" id="V1M-fu-vje"/>
                                                 <constraint firstItem="Tfo-uQ-GGN" firstAttribute="leading" secondItem="m1X-j4-jxS" secondAttribute="leading" constant="20" symbolic="YES" id="X8Q-JO-9r6"/>
                                                 <constraint firstItem="GqE-xW-8ih" firstAttribute="top" secondItem="m1X-j4-jxS" secondAttribute="top" constant="5" id="dgs-He-3HY"/>
                                                 <constraint firstItem="BWL-i0-yJz" firstAttribute="centerY" secondItem="Tfo-uQ-GGN" secondAttribute="centerY" id="ggE-ho-UfY"/>
-                                                <constraint firstItem="Bg4-gU-feo" firstAttribute="leading" secondItem="GqE-xW-8ih" secondAttribute="trailing" constant="10" id="k2q-e3-l3B"/>
+                                                <constraint firstItem="KTm-yN-32u" firstAttribute="centerY" secondItem="GqE-xW-8ih" secondAttribute="centerY" id="ibb-zg-Ra3"/>
+                                                <constraint firstItem="Bt6-LO-1xh" firstAttribute="centerY" secondItem="Tfo-uQ-GGN" secondAttribute="centerY" id="kj4-6f-xXR"/>
                                                 <constraint firstItem="EMp-dK-UbH" firstAttribute="centerY" secondItem="Bg4-gU-feo" secondAttribute="centerY" id="qeZ-bn-ASo"/>
                                                 <constraint firstAttribute="height" constant="40" id="vlA-2K-btd"/>
                                                 <constraint firstItem="Bg4-gU-feo" firstAttribute="centerY" secondItem="GqE-xW-8ih" secondAttribute="centerY" id="y51-Rr-izh"/>
@@ -367,6 +383,7 @@
                         <outlet property="autoTradeLabel" destination="GqE-xW-8ih" id="WHS-Mm-9J6"/>
                         <outlet property="autoTradeMaPoinLabelt" destination="BWL-i0-yJz" id="Rfj-TO-dJ8"/>
                         <outlet property="autoTradeResultLabel" destination="Bt6-LO-1xh" id="u4d-jY-am4"/>
+                        <outlet property="autoTradeTimeLabel" destination="KTm-yN-32u" id="RkU-vL-Wyy"/>
                         <outlet property="autoTradeTimerLabel" destination="EMp-dK-UbH" id="JeW-tA-FmG"/>
                         <outlet property="autoTradeTopConstraint" destination="fo5-Sj-D3b" id="rba-7K-79v"/>
                         <outlet property="autoTradeView" destination="m1X-j4-jxS" id="W7a-nJ-Tza"/>

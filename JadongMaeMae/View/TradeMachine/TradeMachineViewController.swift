@@ -36,6 +36,7 @@ class TradeMachineViewController: UIViewController {
     @IBOutlet private weak var autoTradeResultLabel: UILabel!
     @IBOutlet private weak var autoTradeMaPoinLabelt: UILabel!
     @IBOutlet private weak var autoTradeBandWidthPointLabel: UILabel!
+    @IBOutlet private weak var autoTradeTimeLabel: UILabel!
     
     // Outlets - Chart
     @IBOutlet weak var chartView: CombinedChartView!
@@ -140,6 +141,7 @@ extension TradeMachineViewController {
     private func updateTradeTimerTick() {
         let time = secondsToHoursMinutesSeconds(seconds: TradeManager.shared.timerTick)
         autoTradeTimerLabel.text = "\(String(format: "%02d", time.0)):\(String(format: "%02d", time.1)):\(String(format: "%02d", time.2))"
+        autoTradeTimeLabel.text = Date().toStringWithFormat(to: "HH:mm:ss")
     }
     
     private func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
