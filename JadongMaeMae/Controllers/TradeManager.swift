@@ -73,40 +73,6 @@ class TradeManager {
     init() { }
 }
 
-// MARK: - SetUp
-
-extension TradeManager {
-    
-    func install(market: String) {
-        clear()
-        self.market = market
-        self.runningTrade = false
-        
-        timer?.invalidate()
-        timer = Timer(timeInterval: 1.0, target: self, selector: #selector(timerTicked), userInfo: nil, repeats: true)
-        RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
-    }
-    
-    private func clear() {
-        market = ""
-        tradeAccount = nil
-        krwAccount = nil
-        tickerModel = nil
-        timerTick = 0
-        timer?.invalidate()
-        timer = nil
-        estimatedTradeProfit = 0.0
-        candles.removeAll()
-        fullCandles.removeAll()
-        bollingerBands.removeAll()
-    }
-    
-    @objc private func timerTicked() {
-        guard runningTrade else { return }
-        timerTick += 1
-    }
-}
-
 // MARK: - Coin & Price Infomation
 extension TradeManager {
     
@@ -151,6 +117,40 @@ extension TradeManager {
     var krwBalance: Double { krwAccount?.balanceDouble ?? 0.0 }
     // 원화 매매 예약금
     var krwLocked: Double { krwAccount?.lockedDouble ?? 0.0 }
+}
+
+// MARK: - SetUp
+
+extension TradeManager {
+    
+    func install(market: String) {
+        clear()
+        self.market = market
+        self.runningTrade = false
+        
+        timer?.invalidate()
+        timer = Timer(timeInterval: 1.0, target: self, selector: #selector(timerTicked), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
+    }
+    
+    private func clear() {
+        market = ""
+        tradeAccount = nil
+        krwAccount = nil
+        tickerModel = nil
+        timerTick = 0
+        timer?.invalidate()
+        timer = nil
+        estimatedTradeProfit = 0.0
+        candles.removeAll()
+        fullCandles.removeAll()
+        bollingerBands.removeAll()
+    }
+    
+    @objc private func timerTicked() {
+        guard runningTrade else { return }
+        timerTick += 1
+    }
 }
 
 // MARK: - Services Syncronize
@@ -293,8 +293,8 @@ extension TradeManager {
         print("[Trade Judgement] 현재가: \(currentPrice), MAPoint: \(maPoint)", "BandWidthPoint: \(bandWidthPoint)")
 
         if maPoint >= 1.0 {
-            // bandWidthPoint 가 0.3 미만의 횡보 구간에서 의미없는 매도 Block
-            guard bandWidthPoint > 0.3 else { return }
+            // bandWidthPoint 가 0.1 미만의 횡보 구간에서 의미없는 매도 Block (현재가 3,000원 일때 bandWidth 가 3원 미만인 경우)
+            guard bandWidthPoint > 0.1 else { return }
             
             // 매도 판단
             guard recordTime() else { return }

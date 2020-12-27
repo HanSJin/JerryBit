@@ -23,13 +23,13 @@ extension TradeMachineViewController: ChartViewDelegate {
             DrawOrder.line.rawValue,
         ]
         chartView.maxVisibleCount = TradeManager.candleCount
-//        chartView.dragXEnabled = false
+        chartView.dragXEnabled = true
         chartView.dragYEnabled = false
 //        chartView.scaleXEnabled = false
         chartView.scaleYEnabled = false
 //        chartView.pinchZoomEnabled = false
         chartView.doubleTapToZoomEnabled = false
-//        chartView.drawBordersEnabled = true
+        chartView.drawBordersEnabled = false
         chartView.dragEnabled = true
         chartView.highlightPerTapEnabled = true
         
@@ -54,14 +54,15 @@ extension TradeMachineViewController: ChartViewDelegate {
     
     private func setDataCount() {
         let data = CombinedChartData()
-        data.lineData = generateFilledLineData()
+        data.lineData = generateLineData()
         data.candleData = generateCandleData()
         chartView.xAxis.axisMaximum = data.xMax + 0.25
         chartView.data = data
     }
     
-    private func generateFilledLineData() -> LineChartData {
-        let movingAverageLine = TradeManager.shared.bollingerBands.map { $0.movingAverage }
+    private func generateLineData() -> LineChartData {
+        // 20,2 이동평균선
+        let movingAverageLine = TradeManager.shared.bollingerBands.map { $0.movingAverage.rounded }
         let entries = movingAverageLine.reversed().enumerated().map { ChartDataEntry(x: Double($0), y: $1) }
         let set = LineChartDataSet(entries: entries, label: "Line DataSet")
         set.setColor(UIColor.white)
@@ -71,10 +72,12 @@ extension TradeMachineViewController: ChartViewDelegate {
         set.circleHoleRadius = 0
         set.mode = .cubicBezier
         set.drawValuesEnabled = true
-        set.highlightColor = .white
+        set.valueTextColor = .white
+        set.highlightColor = .clear
         set.axisDependency = .right
         
-        let topBandWidths = TradeManager.shared.bollingerBands.map { $0.bandWidth.top }
+        // 볼린저밴드 상단
+        let topBandWidths = TradeManager.shared.bollingerBands.map { $0.bandWidth.top.rounded }
         let topEntries = topBandWidths.reversed().enumerated().map { ChartDataEntry(x: Double($0), y: $1) }
         let topSet = LineChartDataSet(entries: topEntries, label: "Filled Line DataSet Top")
         topSet.setColor(UIColor.white)
@@ -86,12 +89,14 @@ extension TradeMachineViewController: ChartViewDelegate {
         topSet.axisDependency = .right
         topSet.drawValuesEnabled = true
         topSet.drawFilledEnabled = true
+        topSet.valueTextColor = .white
         topSet.fillAlpha = 0.3
         topSet.fillColor = .black
-        topSet.highlightColor = .red
+        topSet.highlightColor = .clear
         topSet.fillFormatter = DefaultFillFormatter { _, _ in CGFloat(self.chartView.rightAxis.axisMaximum) }
         
-        let bottomBandWidths = TradeManager.shared.bollingerBands.map { $0.bandWidth.bottom }
+        // 볼린저밴드 하단
+        let bottomBandWidths = TradeManager.shared.bollingerBands.map { $0.bandWidth.bottom.rounded }
         let bottomEntries = bottomBandWidths.reversed().enumerated().map { ChartDataEntry(x: Double($0), y: $1) }
         let bottomSet = LineChartDataSet(entries: bottomEntries, label: "Filled Line DataSet Bottom")
         bottomSet.setColor(UIColor.white)
@@ -103,12 +108,35 @@ extension TradeMachineViewController: ChartViewDelegate {
         bottomSet.axisDependency = .right
         bottomSet.drawValuesEnabled = true
         bottomSet.drawFilledEnabled = true
+        bottomSet.valueTextColor = .white
         bottomSet.fillAlpha = 0.3
         bottomSet.fillColor = .black
-        bottomSet.highlightColor = .red
+        bottomSet.highlightColor = .clear
         bottomSet.fillFormatter = DefaultFillFormatter { _, _ in CGFloat(self.chartView.rightAxis.axisMinimum)
         }
-        return LineChartData(dataSets: [topSet, set, bottomSet])
+        
+        let chartData = LineChartData(dataSets: [topSet, set, bottomSet])
+        
+        // 매수평균가 선 (수익률 10% 미만일 때만 보여줌. 안그러면 차트 지나치게 축소됨)
+        if abs(TradeManager.shared.profitPercent) < 10 {
+            let avgBuyPrice = TradeManager.shared.avgBuyPrice.rounded
+            let buyAverageLine = TradeManager.shared.bollingerBands.map { _ in avgBuyPrice }
+            let buyAverageEntries = buyAverageLine.reversed().enumerated().map { ChartDataEntry(x: Double($0), y: $1) }
+            let buyAverageSet = LineChartDataSet(entries: buyAverageEntries, label: "Average Buy Line DataSet")
+            buyAverageSet.setColor(UIColor.idGreen)
+            buyAverageSet.lineWidth = 1.5
+            buyAverageSet.setCircleColor(.clear)
+            buyAverageSet.circleRadius = 0
+            buyAverageSet.circleHoleRadius = 0
+            buyAverageSet.mode = .cubicBezier
+            buyAverageSet.drawValuesEnabled = true
+            buyAverageSet.valueTextColor = .white
+            buyAverageSet.highlightColor = .clear
+            buyAverageSet.axisDependency = .right
+            
+            chartData.append(buyAverageSet)
+        }
+        return chartData
     }
     
     private func generateCandleData() -> CandleChartData {
@@ -127,7 +155,7 @@ extension TradeMachineViewController: ChartViewDelegate {
         set1.axisDependency = .right
         set1.drawIconsEnabled = false
         set1.shadowColorSameAsCandle = true
-        set1.shadowWidth = 0.5
+        set1.shadowWidth = 0.8
         set1.decreasingColor = UIColor.myBlue
         set1.decreasingFilled = true
         set1.increasingColor = UIColor.myRed
