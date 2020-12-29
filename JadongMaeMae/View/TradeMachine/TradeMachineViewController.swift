@@ -37,6 +37,8 @@ class TradeMachineViewController: UIViewController {
     @IBOutlet private weak var autoTradeMaPoinLabelt: UILabel!
     @IBOutlet private weak var autoTradeBandWidthPointLabel: UILabel!
     @IBOutlet private weak var autoTradeTimeLabel: UILabel!
+    @IBOutlet private weak var autoTradeBuyCountLabel: UILabel!
+    @IBOutlet private weak var autoTradeSellCountLabel: UILabel!
     
     // Outlets - Chart
     @IBOutlet weak var chartView: CombinedChartView!
@@ -154,8 +156,10 @@ extension TradeMachineViewController {
     }
     
     private func updateTradePoints() {
-        autoTradeMaPoinLabelt.text = "\(TradeManager.shared.maJudgementPoint.rounded)"
-        autoTradeBandWidthPointLabel.text = "\(TradeManager.shared.bandWidthPoint.rounded)"
+        autoTradeMaPoinLabelt.text = "\(String(format: "%.2f", TradeManager.shared.maJudgementPoint.rounded))"
+        autoTradeBandWidthPointLabel.text = "\(String(format: "%.2f", TradeManager.shared.bandWidthPoint.rounded))"
+        autoTradeBuyCountLabel.text = "\(TradeManager.shared.buyRequestCount)회"
+        autoTradeSellCountLabel.text = "\(TradeManager.shared.sellRequestCount)회"
     }
     
     private func loadData() { }

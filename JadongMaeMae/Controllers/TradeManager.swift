@@ -70,6 +70,11 @@ class TradeManager {
     var timerTick = 0
     var estimatedTradeProfit: Double = 0.0
     
+    // 매수 주문 카운트
+    var buyRequestCount = 0
+    // 매도 주문 카운트
+    var sellRequestCount = 0
+    
     init() { }
 }
 
@@ -145,6 +150,8 @@ extension TradeManager {
         candles.removeAll()
         fullCandles.removeAll()
         bollingerBands.removeAll()
+        buyRequestCount = 0
+        sellRequestCount = 0
     }
     
     @objc private func timerTicked() {
@@ -250,6 +257,7 @@ extension TradeManager {
         orderService.requestBuy(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {
             switch $0 {
             case .success(let orderModels):
+                TradeManager.shared.buyRequestCount += 1
                 print(orderModels)
             case .failure(let error):
                 if error.globalHandling() { return }
@@ -271,6 +279,7 @@ extension TradeManager {
         orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {
             switch $0 {
             case .success(let orderModels):
+                TradeManager.shared.sellRequestCount += 1
                 print(orderModels)
             case .failure(let error):
                 if error.globalHandling() { return }

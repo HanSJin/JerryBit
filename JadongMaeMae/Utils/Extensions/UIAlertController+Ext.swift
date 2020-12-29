@@ -18,5 +18,8 @@ extension UIAlertController {
         DispatchQueue.main.async {
             UIApplication.topViewController()?.present(alert, animated: true)
         }
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + .seconds(5)) { [weak alert] in
+            alert?.dismiss(animated: true)
+        }
     }
 }
