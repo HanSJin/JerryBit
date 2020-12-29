@@ -64,7 +64,12 @@ extension OrderModel {
         switch side {
         case "bid": return .myRed
         case "ask": return .myBlue
-        default: return UIColor.label
+        default:
+            if #available(iOS 13.0, *) {
+                return UIColor.label
+            } else {
+                return UIColor.black
+            }
         }
     }
     

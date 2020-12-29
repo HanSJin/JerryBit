@@ -44,7 +44,11 @@ class RestAPIClient {
         return self.request(request: request, type: Response.self, responseTransform: { data -> Swift.Result<Response, ResponseError> in
             do {
                 let decode = JSONDecoder()
-                decode.dateDecodingStrategy = .iso8601
+                if #available(iOS 10.0, *) {
+                    decode.dateDecodingStrategy = .iso8601
+                } else {
+                    // Fallback on earlier versions
+                }
                 let decodedResponse = try decode.decode(Response.self, from: data) as Response
                 return .success(decodedResponse)
             } catch let error {

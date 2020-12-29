@@ -1,63 +1,34 @@
 PODS:
   - Alamofire (4.9.1)
-  - BlueCryptor (1.0.32)
-  - BlueECC (1.2.5)
-  - BlueRSA (1.0.34)
   - JSONWebToken (2.2.0)
-  - KituraContracts (1.2.1):
-    - LoggerAPI (~> 1.7)
-  - LoggerAPI (1.9.200):
-    - Logging (~> 1.1)
-  - Logging (1.4.0)
   - RxCocoa (5.1.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
-  - SwiftJWT (3.6.200):
-    - BlueCryptor (~> 1.0)
-    - BlueECC (~> 1.1)
-    - BlueRSA (~> 1.0)
-    - KituraContracts (~> 1.2)
-    - LoggerAPI (~> 1.7)
 
 DEPENDENCIES:
   - Alamofire (< 5.0)
   - JSONWebToken
   - RxCocoa (= 5.1.0)
   - RxSwift
-  - SwiftJWT
 
 SPEC REPOS:
   trunk:
     - Alamofire
-    - BlueCryptor
-    - BlueECC
-    - BlueRSA
     - JSONWebToken
-    - KituraContracts
-    - LoggerAPI
-    - Logging
     - RxCocoa
     - RxRelay
     - RxSwift
-    - SwiftJWT
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
-  BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
-  BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
   JSONWebToken: 6fae32489632658d563dd6952a5c34020ea813e4
-  KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
-  LoggerAPI: ad9c4a6f1e32f518fdb43a1347ac14d765ab5e3d
-  Logging: beeb016c9c80cf77042d62e83495816847ef108b
   RxCocoa: 13d2a4d7546a34b8ececae8c281e4ea1dbb94f2b
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
-  SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
 
-PODFILE CHECKSUM: 67a8e80e4a2ed67a95b2b90b8dcabe649f418ea6
+PODFILE CHECKSUM: 7c4df8e35317b2af063130a0cf1de2be0eec9215
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.9.3
