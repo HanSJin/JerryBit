@@ -240,7 +240,7 @@ extension TradeMachineViewController {
             return
         }
         UserDefaultsManager.shared.oncePrice = oncePrice
-        UIAlertController.simpleAlert(message: "\(oncePrice) 저장 완료")
+        UIAlertController.simpleAlert(message: "\(oncePrice)원 저장~")
     }
     
     @IBAction func tappedComposeButton(_ sender: UIBarButtonItem) {

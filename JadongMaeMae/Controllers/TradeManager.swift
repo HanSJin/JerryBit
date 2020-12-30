@@ -252,7 +252,11 @@ extension TradeManager {
     func requestBuy() {
         guard krwBalance >= Double(oncePrice) else { return }
         guard currentPrice > 0.0 else { return }
-        guard Double(UserDefaultsManager.shared.maxCoinBuyAmmount) < (coinBuyAmmount + Double(oncePrice)) else { return } // 최대 매수 가능 금액 초과
+        
+        guard Double(UserDefaultsManager.shared.maxCoinBuyAmmount) > (coinBuyAmmount + Double(oncePrice)) else {
+            UIAlertController.simpleAlert(message: "최대 매수 가능 금액 초과")
+            return
+        }
         
         let volume = Double(oncePrice) / currentPrice
         guard volume > 0.0 else { return }

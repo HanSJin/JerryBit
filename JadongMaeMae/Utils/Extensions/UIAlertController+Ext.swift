@@ -16,17 +16,7 @@ extension UIAlertController {
             completion?()
         }))
         DispatchQueue.main.async {
-            guard let topVC = UIApplication.topViewController() else { return }
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                if let popoverController = alert.popoverPresentationController {
-                    popoverController.sourceView = topVC.view
-                    popoverController.sourceRect = CGRect(x: topVC.view.bounds.midX, y: topVC.view.bounds.midY, width: 0, height: 0)
-                    popoverController.permittedArrowDirections = []
-                    topVC.present(alert, animated: true, completion: nil)
-                }
-            } else {
-                topVC.present(alert, animated: true)
-            }
+            UIApplication.topViewController()?.present(alert, animated: true)
         }
         DispatchQueue.main.asyncAfter(wallDeadline: .now() + .seconds(5)) { [weak alert] in
             alert?.dismiss(animated: true)
