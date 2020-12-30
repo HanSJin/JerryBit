@@ -107,9 +107,9 @@ extension TradeManager {
     var profitSign: String { profitPercent > 0 ? "+" : "" }
     // 평가 손익 색상 (검/빨/파)
     var profitColor: UIColor {
-        if avgBuyPrice == 0 { return .label }
+        if avgBuyPrice == 0 { return UIColor.MyColor.label }
         if currentPrice == avgBuyPrice {
-            return UIColor.label
+            return UIColor.MyColor.label
         } else if currentPrice > avgBuyPrice {
             return .myRed
         } else {

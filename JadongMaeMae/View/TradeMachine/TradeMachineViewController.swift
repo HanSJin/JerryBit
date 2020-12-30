@@ -115,9 +115,17 @@ extension TradeMachineViewController {
     
     private func updateRunningButton() {
         if TradeManager.shared.runningTrade {
-            tradeRunButton.image = UIImage(systemName: "pause.fill")
+            if #available(iOS 13.0, *) {
+                tradeRunButton.image = UIImage(systemName: "pause.fill")
+            } else {
+                tradeRunButton.title = "Pause"
+            }
         } else {
-            tradeRunButton.image = UIImage(systemName: "play.fill")
+            if #available(iOS 13.0, *) {
+                tradeRunButton.image = UIImage(systemName: "play.fill")
+            } else {
+                tradeRunButton.title = "Play"
+            }
         }
     }
     

@@ -14,6 +14,6 @@ extension Double {
     }
     
     var rounded: Double {
-        (Double(Int(self * 100.0)) / 100.0)
+        (Double(Int64(self * 100.0)) / 100.0)
     }
 }

@@ -15,4 +15,15 @@ extension UIColor {
     static var idGreen: UIColor { #colorLiteral(red: 0.299263835, green: 0.6332904696, blue: 0.5155590773, alpha: 1) }
     static var myRed: UIColor { #colorLiteral(red: 0.754979074, green: 0.2496204376, blue: 0.2605587244, alpha: 1) }
     static var myBlue: UIColor { #colorLiteral(red: 0.05344705284, green: 0.4062835574, blue: 0.7742214203, alpha: 1) }
+    
+    
+    enum MyColor {
+        static var label: UIColor {
+            if #available(iOS 13.0, *) {
+                return .label
+            } else {
+                return .black
+            }
+        }
+    }
 }
