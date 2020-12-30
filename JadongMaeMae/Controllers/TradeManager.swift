@@ -75,7 +75,11 @@ class TradeManager {
     // 매도 주문 카운트
     var sellRequestCount = 0
     
-    init() { }
+    init() {
+        timer?.invalidate()
+        timer = Timer(timeInterval: 1.0, target: self, selector: #selector(timerTicked), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
+    }
 }
 
 // MARK: - Coin & Price Infomation
@@ -129,13 +133,11 @@ extension TradeManager {
 extension TradeManager {
     
     func install(market: String) {
-        clear()
+        if self.market != market {
+            clear()
+        }
         self.market = market
         self.runningTrade = false
-        
-        timer?.invalidate()
-        timer = Timer(timeInterval: 1.0, target: self, selector: #selector(timerTicked), userInfo: nil, repeats: true)
-        RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
     }
     
     private func clear() {
@@ -144,8 +146,6 @@ extension TradeManager {
         krwAccount = nil
         tickerModel = nil
         timerTick = 0
-        timer?.invalidate()
-        timer = nil
         estimatedTradeProfit = 0.0
         candles.removeAll()
         fullCandles.removeAll()
@@ -252,6 +252,8 @@ extension TradeManager {
     func requestBuy() {
         guard krwBalance >= Double(oncePrice) else { return }
         guard currentPrice > 0.0 else { return }
+        guard Double(UserDefaultsManager.shared.maxCoinBuyAmmount) < (coinBuyAmmount + Double(oncePrice)) else { return } // 최대 매수 가능 금액 초과
+        
         let volume = Double(oncePrice) / currentPrice
         guard volume > 0.0 else { return }
         orderService.requestBuy(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {

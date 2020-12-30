@@ -12,6 +12,7 @@ import UIKit
 class MyAccountViewController: UIViewController {
 
     // Outelts
+    @IBOutlet private weak var settingBarButton: UIBarButtonItem!
     @IBOutlet private weak var tableView: UITableView! {
         didSet { tableView.registerNib(cellIdentifier: MyAccountCell.identifier) }
     }
@@ -108,6 +109,34 @@ extension MyAccountViewController {
         UserDefaultsManager.shared.tradeCoin = currency
         let tradeMachineVC = UIStoryboard(name: "TradeMachine", bundle: nil).instantiateInitialViewController() as! TradeMachineViewController
         navigationController?.pushViewController(tradeMachineVC, animated: true)
+    }
+    
+    @IBAction func tappedSettingBarButton(_ sender: UIBarButtonItem) {
+        let optionAlert = UIAlertController(title: "설정", message: nil, preferredStyle: .actionSheet)
+        optionAlert.addAction(UIAlertAction(title: "매수 가능 최대 금액 설정", style: .default) { _ in
+            self.showMaximumCoinBuyAmmountPrompt()
+        })
+        optionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(optionAlert, animated: true)
+    }
+    
+    private func showMaximumCoinBuyAmmountPrompt() {
+        let alert = UIAlertController(title: "코인 매수 최대 금액 설정", message: "설정 금액 초과 시, 매수 입력을 무시함\n자동매매는 지속되니까 걱정ㄴㄴ에요 유유", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "저장", style: .default) { _ in
+            guard let amount = alert.textFields?[0].text, let amountInt = Int(amount), amountInt > 1000 else {
+                UIAlertController.simpleAlert(message: "똑바른 금액으로 다시 입력")
+                return
+            }
+            UserDefaultsManager.shared.maxCoinBuyAmmount = amountInt
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel) { _ in }
+        alert.addTextField {
+            $0.keyboardType = .numberPad
+            $0.placeholder = "\(NumberFormatter.decimal(UserDefaultsManager.shared.maxCoinBuyAmmount))"
+        }
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
     }
 }
 

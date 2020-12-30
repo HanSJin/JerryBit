@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Account-->
+        <!--Title-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MyAccountViewController" customModule="JadongMaeMae" customModuleProvider="target" sceneMemberID="viewController">
@@ -119,10 +119,18 @@
                             <constraint firstItem="XHf-2P-glP" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="toq-Md-pKm"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Account" id="oMl-15-2ST"/>
+                    <navigationItem key="navigationItem" title="Title" id="n3R-t0-dzJ">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="moon.stars" catalog="system" id="IX6-PU-jEr">
+                            <connections>
+                                <action selector="tappedSettingBarButton:" destination="BYZ-38-t0r" id="Szc-NJ-oJX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="ipLabel" destination="KSQ-7S-vss" id="X5o-Ny-Bu0"/>
                         <outlet property="krwBalanceLabel" destination="sJV-WE-xWr" id="u0B-Xr-PrG"/>
+                        <outlet property="settingBarButton" destination="IX6-PU-jEr" id="dHd-Dl-2Rb"/>
                         <outlet property="tableView" destination="XHf-2P-glP" id="0YA-v5-jbu"/>
                         <outlet property="totalAccount" destination="HyF-yr-mpU" id="AAO-Vn-iNa"/>
                         <outlet property="tradeMachineButton" destination="tIh-GJ-4Hc" id="E2h-Jp-A6I"/>
@@ -135,6 +143,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="moon.stars" catalog="system" width="128" height="124"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -13,6 +13,7 @@ final class UserDefaultsManager: UserDefaults {
         case tradeCoin
         case oncePrice
         case unit
+        case maxCoinBuyAmmount
         
         var name: String {
             "\(Foundation.Bundle.main.bundleIdentifier ?? "").\(self)"
@@ -53,5 +54,14 @@ extension UserDefaultsManager {
             return UserDefaults.standard.integer(forKey: Key.unit.name)
         }
         set { synchronizeAfterSet(newValue, forKey: .unit) }
+    }
+    var maxCoinBuyAmmount: Int {
+        get {
+            if UserDefaults.standard.integer(forKey: Key.maxCoinBuyAmmount.name) == 0 {
+                return oncePrice * 30
+            }
+            return UserDefaults.standard.integer(forKey: Key.maxCoinBuyAmmount.name)
+        }
+        set { synchronizeAfterSet(newValue, forKey: .maxCoinBuyAmmount) }
     }
 }
