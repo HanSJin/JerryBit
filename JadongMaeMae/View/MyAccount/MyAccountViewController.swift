@@ -119,8 +119,7 @@ extension MyAccountViewController {
             switch $0 {
             case .success(let accountModels):
                 self?.krwAccountModel = accountModels.filter { $0.currency == "KRW" }.first
-                completion(accountModels
-                            .filter { $0.currency != "KRW" }
+                completion(accountModels.filter { $0.currency != "KRW" }
                             .filter { $0.currency != "PTOY" }
                             .filter { $0.currency != "PSG" }
                             .filter { $0.currency != "JUV" })
