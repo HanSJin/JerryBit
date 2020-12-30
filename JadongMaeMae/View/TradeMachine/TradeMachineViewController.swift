@@ -253,7 +253,16 @@ extension TradeMachineViewController {
             })
         }
         optionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(optionAlert, animated: true)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if let popoverController = optionAlert.popoverPresentationController {
+                popoverController.sourceView = view
+                popoverController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
+                present(optionAlert, animated: true, completion: nil)
+            }
+        } else {
+            present(optionAlert, animated: true)
+        }
     }
     
     @IBAction func tappedBuyButton(_ sender: UIButton) {
