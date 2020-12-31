@@ -13,7 +13,10 @@ protocol OrderService {
     func requestSell(market: String, volume: String, price: String) -> RestAPISingleResult<OrderModel>
     
     // 주문 내역
-    func reuqestOrders(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]>
+    func requestOrders(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]>
+    
+    // 주문 취소
+    func requestCancelOrder(uuid: String) -> RestAPISingleResult<OrderModel>
 }
 
 class OrderServiceImp: OrderService {
@@ -53,7 +56,7 @@ class OrderServiceImp: OrderService {
         return RestAPIClient.shared.request(request: request, type: OrderModel.self)
     }
     
-    func reuqestOrders(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]> {
+    func requestOrders(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]> {
         let path = "/v1/orders"
         let request = RestAPIClientBuilder(path: path, method: .get, headers: [:], needAuth: true)
             .set(queryName: "market", queryValue: market)
@@ -64,5 +67,13 @@ class OrderServiceImp: OrderService {
             .set(queryName: "limit", queryValue: "\(limit)")
             .build()
         return RestAPIClient.shared.request(request: request, type: [OrderModel].self)
+    }
+    
+    func requestCancelOrder(uuid: String) -> RestAPISingleResult<OrderModel> {
+        let path = "/v1/order"
+        let request = RestAPIClientBuilder(path: path, method: .delete, headers: [:], needAuth: true)
+            .set(queryName: "uuid", queryValue: uuid)
+            .build()
+        return RestAPIClient.shared.request(request: request, type: OrderModel.self)
     }
 }

@@ -56,7 +56,6 @@ class TradeMachineViewController: UIViewController {
     private var tradeAccount: AccountModel?
     private var krwAccount: AccountModel?
     private var tickerModel: QuoteTickerModel?
-    private var tradeOrders: [OrderModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,8 +165,8 @@ extension TradeMachineViewController {
     private func updateTradePoints() {
         autoTradeMaPoinLabelt.text = "\(String(format: "%.2f", TradeManager.shared.maJudgementPoint.rounded))"
         autoTradeBandWidthPointLabel.text = "\(String(format: "%.2f", TradeManager.shared.bandWidthPoint.rounded))"
-        autoTradeBuyCountLabel.text = "\(TradeManager.shared.buyRequestCount)회"
-        autoTradeSellCountLabel.text = "\(TradeManager.shared.sellRequestCount)회"
+        autoTradeBuyCountLabel.text = "\(TradeManager.shared.buyOrderIds.count)회"
+        autoTradeSellCountLabel.text = "\(TradeManager.shared.sellOrderIds.count)회"
     }
     
     private func loadData() { }
@@ -190,14 +189,11 @@ extension TradeMachineViewController: GlobalRunLoop {
     var secondaryFps: Double { 1 }
     func secondaryRunLoop() {
         guard enableCoin else { return }
-        TradeManager.shared.syncCandles()
-        updateChartData()
-        TradeManager.shared.requestOrders { [weak self] in
-            self?.tradeOrders = $0
-            self?.tableView.reloadData()
+        TradeManager.shared.requestCandles { [weak self] in
+            self?.updateChartData()
         }
-        if TradeManager.shared.runningTrade {
-            TradeManager.shared.tradeJudgement()
+        TradeManager.shared.requestOrders() { [weak self] in
+            self?.tableView.reloadData()
         }
     }
 }
@@ -206,12 +202,12 @@ extension TradeMachineViewController: GlobalRunLoop {
 extension TradeMachineViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tradeOrders.count
+        return TradeManager.shared.tradeOrders.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: TradeOrderCell = tableView.dequeueReusableCell(for: indexPath),
-              let orderModel = tradeOrders[safe: indexPath.row] else { return tableView.emptyCell }
+              let orderModel = TradeManager.shared.tradeOrders[safe: indexPath.row] else { return tableView.emptyCell }
         cell.updateView(orderModel)
         return cell
     }
@@ -222,6 +218,15 @@ extension TradeMachineViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let orderModel = TradeManager.shared.tradeOrders[safe: indexPath.row] else { return }
+        guard orderModel.state == "wait" else { return }
+        
+        let alert = UIAlertController(title: "주문 삭제", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "삭제", style: .default) { _ in
+            TradeManager.shared.requestCancelOrder(uuid: orderModel.uuid)
+        })
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        present(alert, animated: true)
     }
 }
 
