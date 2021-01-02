@@ -215,12 +215,23 @@ extension TradeManager {
                 completion()
                 
                 // 체결 대기중인 주문 중 완료된 주문이 있는지
+                for (index, wait) in TradeManager.shared.waitSellOrders.enumerated() {
+                    for order in orders {
+                        if wait.uuid == order.uuid, order.state == "done" {
+                            self?.updateEstimatedProfit(orderModel: order)
+                            TradeManager.shared.waitSellOrders.remove(at: index)
+                            break
+                        }
+                    }
+                }
+                /*
                 TradeManager.shared.waitSellOrders.forEach { [weak self] wait in
                     guard let matched = orders.filter({ $0.uuid == wait.uuid }).first else { return }
                     guard matched.state == "done" else { return }
                     self?.updateEstimatedProfit(orderModel: matched)
-                    TradeManager.shared.waitSellOrders.removeAll { $0.uuid == wait.uuid }
+                    TradeManager.shared.waitSellOrders.removeAll { $0.uuid == matched.uuid }
                 }
+                */
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
@@ -292,7 +303,6 @@ extension TradeManager {
         orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: { [weak self] in
             switch $0 {
             case .success(let orderModel):
-                TradeManager.shared.sellOrderIds.append(orderModel.uuid)
                 if orderModel.state == "done" {
                     self?.updateEstimatedProfit(orderModel: orderModel)
                 } else if orderModel.state == "wait" {
@@ -309,8 +319,10 @@ extension TradeManager {
     }
     
     private func updateEstimatedProfit(orderModel: OrderModel) {
+        TradeManager.shared.sellOrderIds.append(orderModel.uuid)
         let profit = (orderModel.priceDouble - TradeManager.shared.avgBuyPrice) * orderModel.volumeDouble
         TradeManager.shared.estimatedTradeProfit += profit
+        print("error catch", profit, orderModel.priceDouble, TradeManager.shared.avgBuyPrice, orderModel.volumeDouble)
     }
 }
 
@@ -323,7 +335,7 @@ extension TradeManager {
         let maPoint = maJudgementPoint
         print("[Trade Judgement] 현재가: \(currentPrice), MAPoint: \(maPoint)", "BandWidthPoint: \(bandWidthPoint)")
 
-        if maPoint >= 1.0 {
+        if maPoint >= 0.7 {
             // bandWidthPoint 가 0.1 미만의 횡보 구간에서 의미없는 매도 Block (현재가 3,000원 일때 bandWidth 가 3원 미만인 경우)
             guard bandWidthPoint > 0.1 else { return }
             
@@ -331,7 +343,7 @@ extension TradeManager {
             guard recordTime() else { return }
             print("[Trade Judgement] 매도 요청! \(currentPrice)")
             requestSell()
-        } else if maPoint <= -1.0 {
+        } else if maPoint <= -0.7 {
             // 매수 판단
             guard recordTime() else { return }
             print("[Trade Judgement] 매수 요청! \(currentPrice)")
