@@ -212,16 +212,15 @@ extension TradeManager {
             switch $0 {
             case .success(let orders):
                 TradeManager.shared.tradeOrders = orders
-                // 대기중인 주문이 있다면
-                if !TradeManager.shared.waitSellOrders.isEmpty {
-                    // 체결된 주문 중,
-                    orders.filter { $0.state == "done" }.forEach { order in
-                        // waitSellOrders 의 주문과 동일한 uuid 의 주문이 존재한다면
-                        guard let matched = TradeManager.shared.waitSellOrders.filter { $0.uuid == order.uuid }.first else { return }
-                        self?.updateEstimatedProfit(orderModel: matched)
-                    }
-                }
                 completion()
+                
+                // 체결 대기중인 주문 중 완료된 주문이 있는지
+                TradeManager.shared.waitSellOrders.forEach { [weak self] wait in
+                    guard let matched = orders.filter({ $0.uuid == wait.uuid }).first else { return }
+                    guard matched.state == "done" else { return }
+                    self?.updateEstimatedProfit(orderModel: matched)
+                    TradeManager.shared.waitSellOrders.removeAll { $0.uuid == wait.uuid }
+                }
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
