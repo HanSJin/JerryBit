@@ -100,6 +100,7 @@ extension OrderModel {
     var remainingVolumeDouble: Double { Double(remaining_volume ?? "0") ?? 0.0 }
     var priceDouble: Double { Double(price ?? "0") ?? 0.0 }
     var amountValue: Double { volumeDouble * priceDouble }
+    var lockedDouble: Double { Double(locked ?? "0") ?? 0.0 }
 }
 
 // MARK: - Equatable

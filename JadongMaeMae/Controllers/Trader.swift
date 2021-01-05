@@ -73,8 +73,13 @@ class Trader {
     var timerTick = 0
     
     // 매매 시작 원화 계산 / 기록
-    var totalKRW: Double { krwBalance + krwLocked + evaluationAmount }
-    var recordedTotalKRW = Double(0.0)
+    var totalAmount: Double {
+        guard let tradeAccount = tradeAccount else { return 0.0 }
+        let buyWaiting = tradeOrders.filter { $0.state == "wait" && $0.side == "bid" }.map { $0.lockedDouble }.reduce(0.0, +)
+        let sellWaiting = tradeAccount.lockedDouble * tradeAccount.avgBuyPriceDouble
+        return krwBalance + evaluationAmount + buyWaiting + sellWaiting
+    }
+    var recordedTotalAmount = Double(0.0)
     
     // 매수 주문 카운트
     var buyOrderIds = [String]()
@@ -106,6 +111,8 @@ extension Trader {
     var avgBuyPrice: Double { tradeAccount?.avgBuyPriceDouble ?? 0.0 }
     // 코인 보유량
     var coinBalance: Double { tradeAccount?.balanceDouble ?? 0.0 }
+    // 매수 예약된 코인 갯수
+    var coinLocked: Double { tradeAccount?.lockedDouble ?? 0.0 }
     // 총 매수 금액
     var coinBuyAmmount: Double { avgBuyPrice * coinBalance }
     // 평가 금액
@@ -162,7 +169,7 @@ extension Trader {
         cancelOrderIds.removeAll()
         DispatchQueue.main.asyncAfter(wallDeadline: .now() + .seconds(1)) { [weak self] in
             guard let self = self else { return }
-            self.recordedTotalKRW = self.totalKRW
+            self.recordedTotalAmount = self.totalAmount
         }
     }
     
@@ -270,7 +277,7 @@ extension Trader {
         
         let volume = Double(oncePrice) / currentPrice
         guard volume > 0.0 else { return }
-        orderService.requestBuy(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {
+        orderService.requestBuy(market: market, volume: "\(volume)", price: "\(currentPrice - 1)").subscribe(onSuccess: {
             switch $0 {
             case .success(let orderModel):
                 Trader.shared.buyOrderIds.append(orderModel.uuid)
@@ -288,7 +295,7 @@ extension Trader {
         guard evaluationAmount >= 500.0 else { return } // 최소 주문 금액
         let volume = Double(oncePrice) < evaluationAmount ? (Double(oncePrice) / currentPrice) : tradeAccount.balanceDouble
         
-        orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {
+        orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice + 1)").subscribe(onSuccess: {
             switch $0 {
             case .success(let orderModel):
                 Trader.shared.sellOrderIds.append(orderModel.uuid)
@@ -311,7 +318,20 @@ extension Trader {
         
         let maPoint = maJudgementPoint
         print("[Trade Judgement] 현재가: \(currentPrice), MAPoint: \(maPoint)", "BandWidthPoint: \(bandWidthPoint)")
-
+        
+        var limitTop = 1.0
+        var limitBottom = -1.0
+        let max = Double(UserDefaultsManager.shared.maxCoinBuyAmmount)
+        let maxPoint = (max - krwBalance) / max
+        if maxPoint > 0.8 { // 원화 비율이 80% 이상일 때
+            limitTop = 0.9
+        } else if maxPoint < 0.2 { // 원화 비율이 20% 이하일 떄
+            
+        }
+        
+        // 100(max) - 0(krw) / 100(max) = 1 -> 원화 최저 -> 매도 권장
+        // 100(max) - 100(krw) / 100(max) = 0 -> 원화 최대 -> 매수 권장
+        
         if maPoint >= 1.0 {
             // bandWidthPoint 가 0.1 미만의 횡보 구간에서 의미없는 매도 Block (현재가 3,000원 일때 bandWidth 가 3원 미만인 경우)
             guard bandWidthPoint > 0.1 else { return }

@@ -161,8 +161,8 @@ extension TradeMachineViewController {
     }
     
     private func updateTradeEstimatedProfit() {
-        guard Trader.shared.totalKRW != 0 else { return }
-        let estimatedTradeProfit = Trader.shared.totalKRW - Trader.shared.recordedTotalKRW
+        guard Trader.shared.totalAmount != 0 else { return }
+        let estimatedTradeProfit = Trader.shared.totalAmount - Trader.shared.recordedTotalAmount
         autoTradeResultLabel.text = "\(estimatedTradeProfit > 0 ? "+" : "")\(estimatedTradeProfit.numberForm(add: " KRW"))"
     }
     
