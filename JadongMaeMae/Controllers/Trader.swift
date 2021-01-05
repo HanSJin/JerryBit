@@ -277,10 +277,11 @@ extension Trader {
         
         let volume = Double(oncePrice) / currentPrice
         guard volume > 0.0 else { return }
-        orderService.requestBuy(market: market, volume: "\(volume)", price: "\(currentPrice - 1)").subscribe(onSuccess: {
+        orderService.requestBuy(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {
             switch $0 {
             case .success(let orderModel):
                 Trader.shared.buyOrderIds.append(orderModel.uuid)
+                UIAlertController.simpleAlert(message: "매수 요청: \(Int(volume * Trader.shared.currentPrice)) KRW")
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
@@ -295,10 +296,11 @@ extension Trader {
         guard evaluationAmount >= 500.0 else { return } // 최소 주문 금액
         let volume = Double(oncePrice) < evaluationAmount ? (Double(oncePrice) / currentPrice) : tradeAccount.balanceDouble
         
-        orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice + 1)").subscribe(onSuccess: {
+        orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {
             switch $0 {
             case .success(let orderModel):
                 Trader.shared.sellOrderIds.append(orderModel.uuid)
+                UIAlertController.simpleAlert(message: "매도 요청: \(Int(volume * Trader.shared.currentPrice)) KRW")
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
