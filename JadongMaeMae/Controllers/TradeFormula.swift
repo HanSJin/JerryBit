@@ -29,12 +29,12 @@ class TradeFormula {
         case exponential
     }
     
-    static func getBollingerBands(period: Int = TradeManager.numberOfSkipCandleForMALine, type: MovingAverageType = .normal) -> [BollingerBand] {
+    static func getBollingerBands(period: Int = Trader.numberOfSkipCandleForMALine, type: MovingAverageType = .normal) -> [BollingerBand] {
         guard period > 0 else { return [] }
-        let tradePrices = TradeManager.shared.fullCandles.map { $0.trade_price }
+        let tradePrices = Trader.shared.fullCandles.map { $0.trade_price }
         
         var bollingerBands: [BollingerBand] = []
-        for index in 0..<TradeManager.candleCount {
+        for index in 0..<Trader.candleCount {
             let periodTradePrices = tradePrices[index...(index+(period-1))] // SubArray - skipCount 개의 tradePrice
             
             // 이동평균선

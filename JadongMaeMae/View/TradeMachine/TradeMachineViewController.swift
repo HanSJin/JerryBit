@@ -39,6 +39,7 @@ class TradeMachineViewController: UIViewController {
     @IBOutlet private weak var autoTradeTimeLabel: UILabel!
     @IBOutlet private weak var autoTradeBuyCountLabel: UILabel!
     @IBOutlet private weak var autoTradeSellCountLabel: UILabel!
+    @IBOutlet private weak var autoTradeCancelCountLabel: UILabel!
     
     // Outlets - Chart
     @IBOutlet weak var chartView: CombinedChartView!
@@ -57,19 +58,21 @@ class TradeMachineViewController: UIViewController {
     private var krwAccount: AccountModel?
     private var tickerModel: QuoteTickerModel?
     
+    private let tableHeaderSize = CGFloat(423)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         guard let tradeCoin = UserDefaultsManager.shared.tradeCoin, !tradeCoin.isEmpty else { return }
         enableCoin = true
-        TradeManager.shared.install(market: "KRW-\(tradeCoin)")
+        Trader.shared.install(market: "KRW-\(tradeCoin)")
         setUpView()
         loadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        TradeManager.shared.runningTrade = false
+        Trader.shared.runningTrade = false
     }
     
     deinit {
@@ -81,13 +84,13 @@ class TradeMachineViewController: UIViewController {
 extension TradeMachineViewController {
     
     func setUpView() {
-        navigationItem.title = TradeManager.shared.market
+        navigationItem.title = Trader.shared.market
         updateRunningButton()
         updateAutoTradeView()
         
         setUpChart()
         updateChartData()
-        tradePriceTF.text = "\(TradeManager.shared.oncePrice)"
+        tradePriceTF.text = "\(Trader.shared.oncePrice)"
         
         buyButton.backgroundColor = .myRed
         buyButton.layer.cornerRadius = 10
@@ -96,7 +99,7 @@ extension TradeMachineViewController {
     }
     
     func syncronizeView() {
-        let trade = TradeManager.shared
+        let trade = Trader.shared
         coinCurrentPriceLabel?.text = trade.currentPrice.numberForm(add: "KRW") + " (" + trade.profitSign + trade.profitPercent.numberForm(add: "") + "%)"
         
         coinCurrentAvgPriceLabel?.text = trade.avgBuyPrice.numberForm(add: " KRW")
@@ -113,7 +116,7 @@ extension TradeMachineViewController {
     }
     
     private func updateRunningButton() {
-        if TradeManager.shared.runningTrade {
+        if Trader.shared.runningTrade {
             if #available(iOS 13.0, *) {
                 tradeRunButton.image = UIImage(systemName: "pause.fill")
             } else {
@@ -129,11 +132,11 @@ extension TradeMachineViewController {
     }
     
     private func updateAutoTradeView() {
-        if TradeManager.shared.runningTrade {
+        if Trader.shared.runningTrade {
             autoTradeHeightConstraint.constant = 40
             autoTradeTopConstraint.constant = 2
             autoTradeView.isHidden = false
-            tableHeaderView.frame.size.height = 403
+            tableHeaderView.frame.size.height = tableHeaderSize
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [.autoreverse, .repeat]) {
                 self.autoTradeLabel.alpha = 0.2
             } completion: { _ in }
@@ -141,14 +144,14 @@ extension TradeMachineViewController {
             autoTradeHeightConstraint.constant = 0
             autoTradeTopConstraint.constant = 0
             autoTradeView.isHidden = true
-            tableHeaderView.frame.size.height = 403 - 40 - 2
+            tableHeaderView.frame.size.height = tableHeaderSize - 40 - 2
         }
         view.layoutSubviews()
         tableView.reloadData()
     }
     
     private func updateTradeTimerTick() {
-        let time = secondsToHoursMinutesSeconds(seconds: TradeManager.shared.timerTick)
+        let time = secondsToHoursMinutesSeconds(seconds: Trader.shared.timerTick)
         autoTradeTimerLabel.text = "\(String(format: "%02d", time.0)):\(String(format: "%02d", time.1)):\(String(format: "%02d", time.2))"
         autoTradeTimeLabel.text = Date().toStringWithFormat(to: "HH:mm:ss")
     }
@@ -158,15 +161,17 @@ extension TradeMachineViewController {
     }
     
     private func updateTradeEstimatedProfit() {
-        let estimatedTradeProfit = TradeManager.shared.estimatedTradeProfit
+        guard Trader.shared.totalKRW != 0 else { return }
+        let estimatedTradeProfit = Trader.shared.totalKRW - Trader.shared.recordedTotalKRW
         autoTradeResultLabel.text = "\(estimatedTradeProfit > 0 ? "+" : "")\(estimatedTradeProfit.numberForm(add: " KRW"))"
     }
     
     private func updateTradePoints() {
-        autoTradeMaPoinLabelt.text = "\(String(format: "%.2f", TradeManager.shared.maJudgementPoint.rounded))"
-        autoTradeBandWidthPointLabel.text = "\(String(format: "%.2f", TradeManager.shared.bandWidthPoint.rounded))"
-        autoTradeBuyCountLabel.text = "\(TradeManager.shared.buyOrderIds.count)회"
-        autoTradeSellCountLabel.text = "\(TradeManager.shared.sellOrderIds.count)회"
+        autoTradeMaPoinLabelt.text = "\(String(format: "%.2f", Trader.shared.maJudgementPoint.rounded))"
+        autoTradeBandWidthPointLabel.text = "\(String(format: "%.2f", Trader.shared.bandWidthPoint.rounded))"
+        autoTradeBuyCountLabel.text = "\(Trader.shared.buyOrderIds.count)회"
+        autoTradeSellCountLabel.text = "\(Trader.shared.sellOrderIds.count)회"
+        autoTradeCancelCountLabel.text = "\(Trader.shared.cancelOrderIds.count)회"
     }
     
     private func loadData() { }
@@ -178,21 +183,24 @@ extension TradeMachineViewController: GlobalRunLoop {
     var fps: Double { 2 }
     func runLoop() {
         guard enableCoin else { return }
-        TradeManager.shared.syncModels()
+        Trader.shared.syncModels()
         unitLabel.text = "\(UserDefaultsManager.shared.unit)분"
         syncronizeView()
-        updateTradeTimerTick()
-        updateTradeEstimatedProfit()
-        updateTradePoints()
+        
+        if Trader.shared.runningTrade {
+            updateTradeTimerTick()
+            updateTradeEstimatedProfit()
+            updateTradePoints()
+        }
     }
     
     var secondaryFps: Double { 1 }
     func secondaryRunLoop() {
         guard enableCoin else { return }
-        TradeManager.shared.requestCandles { [weak self] in
+        Trader.shared.requestCandles { [weak self] in
             self?.updateChartData()
         }
-        TradeManager.shared.requestOrders() { [weak self] in
+        Trader.shared.requestOrders() { [weak self] in
             self?.tableView.reloadData()
         }
     }
@@ -202,12 +210,12 @@ extension TradeMachineViewController: GlobalRunLoop {
 extension TradeMachineViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TradeManager.shared.tradeOrders.count
+        return Trader.shared.tradeOrders.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: TradeOrderCell = tableView.dequeueReusableCell(for: indexPath),
-              let orderModel = TradeManager.shared.tradeOrders[safe: indexPath.row] else { return tableView.emptyCell }
+              let orderModel = Trader.shared.tradeOrders[safe: indexPath.row] else { return tableView.emptyCell }
         cell.updateView(orderModel)
         return cell
     }
@@ -218,12 +226,12 @@ extension TradeMachineViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let orderModel = TradeManager.shared.tradeOrders[safe: indexPath.row] else { return }
+        guard let orderModel = Trader.shared.tradeOrders[safe: indexPath.row] else { return }
         guard orderModel.state == "wait" else { return }
         
         let alert = UIAlertController(title: "주문 삭제", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "삭제", style: .default) { _ in
-            TradeManager.shared.requestCancelOrder(uuid: orderModel.uuid)
+            Trader.shared.requestCancelOrder(uuid: orderModel.uuid)
         })
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         present(alert, animated: true)
@@ -234,7 +242,7 @@ extension TradeMachineViewController: UITableViewDelegate {
 extension TradeMachineViewController {
     
     @objc func tappedTradeRunningButton(_ sender: UIBarButtonItem) {
-        TradeManager.shared.runningTrade = !TradeManager.shared.runningTrade
+        Trader.shared.runningTrade = !Trader.shared.runningTrade
         updateRunningButton()
         updateAutoTradeView()
     }
@@ -271,10 +279,10 @@ extension TradeMachineViewController {
     }
     
     @IBAction func tappedBuyButton(_ sender: UIButton) {
-        TradeManager.shared.requestBuy()
+        Trader.shared.requestBuy()
     }
     
     @IBAction func tappedSellButton(_ sender: UIButton) {
-        TradeManager.shared.requestSell()
+        Trader.shared.requestSell()
     }
 }

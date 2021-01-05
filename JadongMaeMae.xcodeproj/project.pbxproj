@@ -14,7 +14,7 @@
 		CE2151E9257FF761005A47D5 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151E8257FF761005A47D5 /* ErrorModel.swift */; };
 		CE2151ED257FF962005A47D5 /* Error+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151EC257FF962005A47D5 /* Error+Ext.swift */; };
 		CE489EBE25811EED009AFAC0 /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489EBD25811EED009AFAC0 /* Double+Ext.swift */; };
-		CE489EC1258125D9009AFAC0 /* TradeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489EC0258125D9009AFAC0 /* TradeManager.swift */; };
+		CE489EC1258125D9009AFAC0 /* Trader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489EC0258125D9009AFAC0 /* Trader.swift */; };
 		CE489ECA25813162009AFAC0 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489EC925813162009AFAC0 /* Int+Ext.swift */; };
 		CE489F8A25814E7C009AFAC0 /* DataApproximator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489EEF25814E7B009AFAC0 /* DataApproximator.swift */; };
 		CE489F8B25814E7C009AFAC0 /* DataApproximator+N.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489EF025814E7B009AFAC0 /* DataApproximator+N.swift */; };
@@ -216,7 +216,7 @@
 		CE2151E8257FF761005A47D5 /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		CE2151EC257FF962005A47D5 /* Error+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Ext.swift"; sourceTree = "<group>"; };
 		CE489EBD25811EED009AFAC0 /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
-		CE489EC0258125D9009AFAC0 /* TradeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeManager.swift; sourceTree = "<group>"; };
+		CE489EC0258125D9009AFAC0 /* Trader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trader.swift; sourceTree = "<group>"; };
 		CE489EC925813162009AFAC0 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		CE489EEF25814E7B009AFAC0 /* DataApproximator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataApproximator.swift; sourceTree = "<group>"; };
 		CE489EF025814E7B009AFAC0 /* DataApproximator+N.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DataApproximator+N.swift"; sourceTree = "<group>"; };
@@ -756,7 +756,7 @@
 		CE4A6AB9257D32C9007A2C65 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				CE489EC0258125D9009AFAC0 /* TradeManager.swift */,
+				CE489EC0258125D9009AFAC0 /* Trader.swift */,
 				CE664A8725828780008F7AB2 /* TradeFormula.swift */,
 				CE964FCE257E526D00C1AFC6 /* GlobalTimer.swift */,
 				CE4A6ABA257D32D9007A2C65 /* FileController.swift */,
@@ -1179,7 +1179,7 @@
 				CED3EA99257FC10500CC6F91 /* TradeMachineViewController.swift in Sources */,
 				CE964FDF257E595000C1AFC6 /* QuoteService.swift in Sources */,
 				CE489FE025814E7C009AFAC0 /* ComponentBase.swift in Sources */,
-				CE489EC1258125D9009AFAC0 /* TradeManager.swift in Sources */,
+				CE489EC1258125D9009AFAC0 /* Trader.swift in Sources */,
 				CE489F9825814E7C009AFAC0 /* LineRadarRenderer.swift in Sources */,
 				CE489FAF25814E7C009AFAC0 /* HorizontalBarHighlighter.swift in Sources */,
 				CE489F8A25814E7C009AFAC0 /* DataApproximator.swift in Sources */,

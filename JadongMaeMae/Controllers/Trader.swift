@@ -1,5 +1,5 @@
 //
-//  TradeManager.swift
+//  Trader.swift
 //  JadongMaeMae
 //
 //  Created by HanSJin on 2020/12/10.
@@ -11,9 +11,9 @@ import RxSwift
 
 typealias Completion = () -> Void
 
-class TradeManager {
+class Trader {
     
-    static let shared = TradeManager()
+    static let shared = Trader()
     
     // MARK: - Private
     
@@ -71,13 +71,17 @@ class TradeManager {
     // Timer - 경과 시간 기록 & 주문 취소 추적
     private var timer: Timer!
     var timerTick = 0
-    var estimatedTradeProfit: Double = 0.0
+    
+    // 매매 시작 원화 계산 / 기록
+    var totalKRW: Double { krwBalance + krwLocked + evaluationAmount }
+    var recordedTotalKRW = Double(0.0)
     
     // 매수 주문 카운트
     var buyOrderIds = [String]()
     // 매도 주문 카운트
     var sellOrderIds = [String]()
-    var waitSellOrders = [OrderModel]()
+    // 주문 취소 카운트
+    var cancelOrderIds = [String]()
     
     init() {
         timer?.invalidate()
@@ -87,7 +91,7 @@ class TradeManager {
 }
 
 // MARK: - Coin & Price Infomation
-extension TradeManager {
+extension Trader {
     
     enum CoinChangeSign: String {
         case EVEN // 보합
@@ -134,7 +138,7 @@ extension TradeManager {
 
 // MARK: - SetUp
 
-extension TradeManager {
+extension Trader {
     
     func install(market: String) {
         if self.market != market {
@@ -150,13 +154,16 @@ extension TradeManager {
         krwAccount = nil
         tickerModel = nil
         timerTick = 0
-        estimatedTradeProfit = 0.0
         candles.removeAll()
         fullCandles.removeAll()
         bollingerBands.removeAll()
         buyOrderIds.removeAll()
         sellOrderIds.removeAll()
-        waitSellOrders.removeAll()
+        cancelOrderIds.removeAll()
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + .seconds(1)) { [weak self] in
+            guard let self = self else { return }
+            self.recordedTotalKRW = self.totalKRW
+        }
     }
     
     @objc private func timerTicked() {
@@ -168,7 +175,7 @@ extension TradeManager {
 }
 
 // MARK: - Services Syncronize
-extension TradeManager {
+extension Trader {
     
     func syncModels() {
         requestMyAccount()
@@ -196,7 +203,7 @@ extension TradeManager {
         quoteService.getCurrentPrice(markets: [market]).subscribe(onSuccess: {
             switch $0 {
             case .success(let tickerModels):
-                TradeManager.shared.tickerModel = tickerModels.first
+                Trader.shared.tickerModel = tickerModels.first
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
@@ -208,30 +215,11 @@ extension TradeManager {
     }
     
     func requestOrders(completion: @escaping Completion) {
-        orderService.requestOrders(market: market, page: 1, limit: 30).subscribe(onSuccess: { [weak self] in
+        orderService.requestOrders(market: market, page: 1, limit: 30).subscribe(onSuccess: {
             switch $0 {
             case .success(let orders):
-                TradeManager.shared.tradeOrders = orders
+                Trader.shared.tradeOrders = orders
                 completion()
-                
-                // 체결 대기중인 주문 중 완료된 주문이 있는지
-                for (index, wait) in TradeManager.shared.waitSellOrders.enumerated() {
-                    for order in orders {
-                        if wait.uuid == order.uuid, order.state == "done" {
-                            self?.updateEstimatedProfit(orderModel: order)
-                            TradeManager.shared.waitSellOrders.remove(at: index)
-                            break
-                        }
-                    }
-                }
-                /*
-                TradeManager.shared.waitSellOrders.forEach { [weak self] wait in
-                    guard let matched = orders.filter({ $0.uuid == wait.uuid }).first else { return }
-                    guard matched.state == "done" else { return }
-                    self?.updateEstimatedProfit(orderModel: matched)
-                    TradeManager.shared.waitSellOrders.removeAll { $0.uuid == matched.uuid }
-                }
-                */
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
@@ -244,17 +232,17 @@ extension TradeManager {
 }
 
 // MARK: - Services Candle
-extension TradeManager {
+extension Trader {
     
     func requestCandles(completion: @escaping Completion) {
         let unit = UserDefaultsManager.shared.unit
-        quoteService.getMinuteCandle(market: market, unit: unit, count: TradeManager.fullCandleCount).subscribe(onSuccess: {
+        quoteService.getMinuteCandle(market: market, unit: unit, count: Trader.fullCandleCount).subscribe(onSuccess: {
             switch $0 {
             case .success(let candleModels):
                 // print("start", Date().toStringWithDefaultFormat())
-                TradeManager.shared.fullCandles = candleModels
-                TradeManager.shared.candles = Array(candleModels[...(TradeManager.candleCount - 1)])
-                TradeManager.shared.bollingerBands = TradeFormula.getBollingerBands(period: TradeManager.numberOfSkipCandleForMALine, type: .normal)
+                Trader.shared.fullCandles = candleModels
+                Trader.shared.candles = Array(candleModels[...(Trader.candleCount - 1)])
+                Trader.shared.bollingerBands = TradeFormula.getBollingerBands(period: Trader.numberOfSkipCandleForMALine, type: .normal)
                 // print("end", Date().toStringWithDefaultFormat())
                 completion()
             case .failure(let error):
@@ -269,7 +257,7 @@ extension TradeManager {
 }
 
 // MARK: - Services Trade
-extension TradeManager {
+extension Trader {
     
     func requestBuy() {
         guard krwBalance >= Double(oncePrice) else { return }
@@ -285,7 +273,7 @@ extension TradeManager {
         orderService.requestBuy(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {
             switch $0 {
             case .success(let orderModel):
-                TradeManager.shared.buyOrderIds.append(orderModel.uuid)
+                Trader.shared.buyOrderIds.append(orderModel.uuid)
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
@@ -300,14 +288,10 @@ extension TradeManager {
         guard evaluationAmount >= 500.0 else { return } // 최소 주문 금액
         let volume = Double(oncePrice) < evaluationAmount ? (Double(oncePrice) / currentPrice) : tradeAccount.balanceDouble
         
-        orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: { [weak self] in
+        orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {
             switch $0 {
             case .success(let orderModel):
-                if orderModel.state == "done" {
-                    self?.updateEstimatedProfit(orderModel: orderModel)
-                } else if orderModel.state == "wait" {
-                    TradeManager.shared.waitSellOrders.append(orderModel)
-                }
+                Trader.shared.sellOrderIds.append(orderModel.uuid)
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
@@ -317,17 +301,10 @@ extension TradeManager {
             // Addtional Handling
         }.disposed(by: disposeBag)
     }
-    
-    private func updateEstimatedProfit(orderModel: OrderModel) {
-        TradeManager.shared.sellOrderIds.append(orderModel.uuid)
-        let profit = (orderModel.priceDouble - TradeManager.shared.avgBuyPrice) * orderModel.volumeDouble
-        TradeManager.shared.estimatedTradeProfit += profit
-        print("error catch", profit, orderModel.priceDouble, TradeManager.shared.avgBuyPrice, orderModel.volumeDouble)
-    }
 }
 
 // MARK: - Trade Judgement
-extension TradeManager {
+extension Trader {
     
     func tradeJudgement() {
         guard runningTrade else { return }
@@ -335,7 +312,7 @@ extension TradeManager {
         let maPoint = maJudgementPoint
         print("[Trade Judgement] 현재가: \(currentPrice), MAPoint: \(maPoint)", "BandWidthPoint: \(bandWidthPoint)")
 
-        if maPoint >= 0.7 {
+        if maPoint >= 1.0 {
             // bandWidthPoint 가 0.1 미만의 횡보 구간에서 의미없는 매도 Block (현재가 3,000원 일때 bandWidth 가 3원 미만인 경우)
             guard bandWidthPoint > 0.1 else { return }
             
@@ -343,7 +320,7 @@ extension TradeManager {
             guard recordTime() else { return }
             print("[Trade Judgement] 매도 요청! \(currentPrice)")
             requestSell()
-        } else if maPoint <= -0.7 {
+        } else if maPoint <= -1.0 {
             // 매수 판단
             guard recordTime() else { return }
             print("[Trade Judgement] 매수 요청! \(currentPrice)")
@@ -364,7 +341,7 @@ extension TradeManager {
 }
 
 // MARK: - Cancel Order
-extension TradeManager {
+extension Trader {
     
     private func findCancelableOrder() {
         let _ = tradeOrders.filter { $0.state == "wait" }
@@ -377,7 +354,7 @@ extension TradeManager {
     
     func requestCancelOrder(uuid: String) {
         orderService.requestCancelOrder(uuid: uuid).subscribe(onSuccess: { _ in
-            // Do Nothing
+            Trader.shared.cancelOrderIds.append(uuid)
         }) { error in
             if error.globalHandling() { return }
             // Addtional Handling
