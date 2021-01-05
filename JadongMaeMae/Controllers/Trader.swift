@@ -317,34 +317,36 @@ extension Trader {
         guard runningTrade else { return }
         
         let maPoint = maJudgementPoint
+        let limit = Double(oncePrice * 6)
+        
         print("[Trade Judgement] 현재가: \(currentPrice), MAPoint: \(maPoint)", "BandWidthPoint: \(bandWidthPoint)")
         
-        var limitTop = 1.0
-        var limitBottom = -1.0
-        let max = Double(UserDefaultsManager.shared.maxCoinBuyAmmount)
-        let maxPoint = (max - krwBalance) / max
-        if maxPoint > 0.8 { // 원화 비율이 80% 이상일 때
-            limitTop = 0.9
-        } else if maxPoint < 0.2 { // 원화 비율이 20% 이하일 떄
-            
-        }
-        
-        // 100(max) - 0(krw) / 100(max) = 1 -> 원화 최저 -> 매도 권장
-        // 100(max) - 100(krw) / 100(max) = 0 -> 원화 최대 -> 매수 권장
-        
-        if maPoint >= 1.0 {
-            // bandWidthPoint 가 0.1 미만의 횡보 구간에서 의미없는 매도 Block (현재가 3,000원 일때 bandWidth 가 3원 미만인 경우)
-            guard bandWidthPoint > 0.1 else { return }
-            
-            // 매도 판단
-            guard recordTime() else { return }
-            print("[Trade Judgement] 매도 요청! \(currentPrice)")
-            requestSell()
-        } else if maPoint <= -1.0 {
-            // 매수 판단
+        let buy = { [unowned self] in
             guard recordTime() else { return }
             print("[Trade Judgement] 매수 요청! \(currentPrice)")
             requestBuy()
+        }
+        let sell = { [unowned self] in
+            guard recordTime() else { return }
+            print("[Trade Judgement] 매도 요청! \(currentPrice)")
+            requestSell()
+        }
+        
+        // 적극 매수
+        if evaluationAmount < limit, maPoint <= -0.8 {
+            buy() // 보유 코인이 limit 보다 적으면 적극 매수
+        }
+        // 매수
+        else if maPoint <= -1.0 {
+            buy()
+        }
+        // 적극 매도
+        else if krwBalance < limit, maPoint >= 0.8 {
+            sell() // 보유 원화가 limit 보다 적으면 적극 매도
+        }
+        // 매도
+        else if maPoint >= 1.0 {
+            sell()
         }
     }
     
