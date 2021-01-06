@@ -279,10 +279,14 @@ extension TradeMachineViewController {
     }
     
     @IBAction func tappedBuyButton(_ sender: UIButton) {
-        Trader.shared.requestBuy()
+        Trader.shared.requestBuy() {
+            UIAlertController.simpleAlert(message: "매수 요청: \($0) KRW")
+        }
     }
     
     @IBAction func tappedSellButton(_ sender: UIButton) {
-        Trader.shared.requestSell()
+        Trader.shared.requestSell() {
+            UIAlertController.simpleAlert(message: "매도 요청: \($0) KRW")
+        }
     }
 }

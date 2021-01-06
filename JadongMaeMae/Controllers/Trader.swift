@@ -149,6 +149,9 @@ extension Trader {
     
     func install(market: String) {
         if self.market != market {
+            DispatchQueue.main.asyncAfter(wallDeadline: .now() + .milliseconds(200)) { [weak self] in
+                self?.clear()
+            }
             clear()
         }
         self.market = market
@@ -156,7 +159,6 @@ extension Trader {
     }
     
     private func clear() {
-        market = ""
         tradeAccount = nil
         krwAccount = nil
         tickerModel = nil
@@ -167,10 +169,7 @@ extension Trader {
         buyOrderIds.removeAll()
         sellOrderIds.removeAll()
         cancelOrderIds.removeAll()
-        DispatchQueue.main.asyncAfter(wallDeadline: .now() + .seconds(1)) { [weak self] in
-            guard let self = self else { return }
-            self.recordedTotalAmount = self.totalAmount
-        }
+        recordedTotalAmount = 0.0
     }
     
     @objc private func timerTicked() {
@@ -178,6 +177,13 @@ extension Trader {
         timerTick += 1
         tradeJudgement()
         findCancelableOrder()
+        setRecorededTotalAmount()
+    }
+    
+    private func setRecorededTotalAmount() {
+        guard recordedTotalAmount == 0.0 else { return }
+        guard tradeAccount != nil, krwAccount != nil, tickerModel != nil, !tradeOrders.isEmpty else { return }
+        recordedTotalAmount = totalAmount
     }
 }
 
@@ -265,8 +271,9 @@ extension Trader {
 
 // MARK: - Services Trade
 extension Trader {
+    typealias IntCompletion = (Int) -> Void
     
-    func requestBuy() {
+    func requestBuy(completion: IntCompletion? = nil) {
         guard krwBalance >= Double(oncePrice) else { return }
         guard currentPrice > 0.0 else { return }
         
@@ -281,7 +288,7 @@ extension Trader {
             switch $0 {
             case .success(let orderModel):
                 Trader.shared.buyOrderIds.append(orderModel.uuid)
-                UIAlertController.simpleAlert(message: "매수 요청: \(Int(volume * Trader.shared.currentPrice)) KRW")
+                completion?(Int(volume * Trader.shared.currentPrice))
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
@@ -292,7 +299,7 @@ extension Trader {
         }.disposed(by: disposeBag)
     }
     
-    func requestSell() {
+    func requestSell(completion: IntCompletion? = nil) {
         guard evaluationAmount >= 500.0 else { return } // 최소 주문 금액
         let volume = Double(oncePrice) < evaluationAmount ? (Double(oncePrice) / currentPrice) : tradeAccount.balanceDouble
         
@@ -300,7 +307,7 @@ extension Trader {
             switch $0 {
             case .success(let orderModel):
                 Trader.shared.sellOrderIds.append(orderModel.uuid)
-                UIAlertController.simpleAlert(message: "매도 요청: \(Int(volume * Trader.shared.currentPrice)) KRW")
+                completion?(Int(volume * Trader.shared.currentPrice))
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
