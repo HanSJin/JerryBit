@@ -960,6 +960,7 @@
 				CE4A6A64257D2A32007A2C65 /* Frameworks */,
 				CE4A6A65257D2A32007A2C65 /* Resources */,
 				4D3C252C2ED43F11F61B1CE9 /* [CP] Embed Pods Frameworks */,
+				49AD069B25B0846F00F25B76 /* Remove CommonCrypto */,
 			);
 			buildRules = (
 			);
@@ -1044,6 +1045,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		49AD069B25B0846F00F25B76 /* Remove CommonCrypto */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Remove CommonCrypto";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nrm -rf \"${SRCROOT}/JSONWebToken/CommonCrypto\"\n";
 		};
 		4D3C252C2ED43F11F61B1CE9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1408,7 +1427,7 @@
 				DEVELOPMENT_TEAM = Z7BMLJLG67;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = JadongMaeMae/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1435,7 +1454,7 @@
 				DEVELOPMENT_TEAM = Z7BMLJLG67;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = JadongMaeMae/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

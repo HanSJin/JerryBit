@@ -137,9 +137,9 @@ extension TradeMachineViewController {
             autoTradeTopConstraint.constant = 2
             autoTradeView.isHidden = false
             tableHeaderView.frame.size.height = tableHeaderSize
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.autoreverse, .repeat]) {
-                self.autoTradeLabel.alpha = 0.2
-            } completion: { _ in }
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.autoreverse, .repeat], animations: { [weak self] in
+                self?.autoTradeLabel.alpha = 0.2
+            }) { _ in }
         } else {
             autoTradeHeightConstraint.constant = 0
             autoTradeTopConstraint.constant = 0

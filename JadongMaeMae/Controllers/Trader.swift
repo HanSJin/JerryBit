@@ -331,14 +331,14 @@ extension Trader {
         print("[Trade Judgement] 현재가: \(currentPrice), MAPoint: \(maPoint)", "BandWidthPoint: \(bandWidthPoint)")
         
         let buy = { [unowned self] in
-            guard recordTime() else { return }
-            print("[Trade Judgement] 매수 요청! \(currentPrice)")
-            requestBuy()
+            guard self.recordTime() else { return }
+            print("[Trade Judgement] 매수 요청! \(self.currentPrice)")
+            self.requestBuy()
         }
         let sell = { [unowned self] in
-            guard recordTime() else { return }
-            print("[Trade Judgement] 매도 요청! \(currentPrice)")
-            requestSell()
+            guard self.recordTime() else { return }
+            print("[Trade Judgement] 매도 요청! \(self.currentPrice)")
+            self.requestSell()
         }
         
         // 적극 매수
