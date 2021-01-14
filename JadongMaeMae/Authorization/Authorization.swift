@@ -21,8 +21,8 @@ class Authorization {
     static let shared = Authorization()
     
     func jwtToken(query: String?) -> String {
-        guard let accessKey = FileController().readFile(name: "accessKey"),
-              let secretKey = FileController().readFile(name: "secretKey") else {
+        guard let accessKey = FileController().readFile(name: "accessKey")?.replacingOccurrences(of: "\n", with: ""),
+              let secretKey = FileController().readFile(name: "secretKey")?.replacingOccurrences(of: "\n", with: "") else {
             fatalError("'accessKey' and 'secretKey' file is required in proj root.")
         }
         
