@@ -32,6 +32,8 @@ class MyAccountViewController: UIViewController {
     private var accountModels: [AccountModel] = []
     private var krwAccountModel: AccountModel?
     
+    private var excludedCoins: [String] = ["KRW", "PTOY", "PSG", "JUV", "FIL", "PICA"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
@@ -157,10 +159,10 @@ extension MyAccountViewController {
             switch $0 {
             case .success(let accountModels):
                 self?.krwAccountModel = accountModels.filter { $0.currency == "KRW" }.first
-                completion(accountModels.filter { $0.currency != "KRW" }
-                            .filter { $0.currency != "PTOY" }
-                            .filter { $0.currency != "PSG" }
-                            .filter { $0.currency != "JUV" })
+                let filteredAccountModels = accountModels.filter { [weak self] accountModel -> Bool in
+                    return !(self?.excludedCoins.contains(accountModel.currency) ?? true)
+                }
+                completion(filteredAccountModels)
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling

@@ -342,7 +342,7 @@ extension Trader {
         }
         
         // 적극 매수
-        if evaluationAmount < limit, maPoint <= -0.8 {
+        if evaluationAmount < limit, maPoint <= -0.9 {
             buy() // 보유 코인이 limit 보다 적으면 적극 매수
         }
         // 매수
@@ -350,7 +350,7 @@ extension Trader {
             buy()
         }
         // 적극 매도
-        else if krwBalance < limit, maPoint >= 0.8 {
+        else if krwBalance < limit, maPoint >= 0.9 {
             sell() // 보유 원화가 limit 보다 적으면 적극 매도
         }
         // 매도

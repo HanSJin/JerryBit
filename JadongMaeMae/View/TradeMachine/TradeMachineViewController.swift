@@ -242,6 +242,7 @@ extension TradeMachineViewController: UITableViewDelegate {
 extension TradeMachineViewController {
     
     @objc func tappedTradeRunningButton(_ sender: UIBarButtonItem) {
+        guard checkBlockCoin() else { return }
         Trader.shared.runningTrade = !Trader.shared.runningTrade
         updateRunningButton()
         updateAutoTradeView()
@@ -279,14 +280,25 @@ extension TradeMachineViewController {
     }
     
     @IBAction func tappedBuyButton(_ sender: UIButton) {
+        guard checkBlockCoin() else { return }
         Trader.shared.requestBuy() {
             UIAlertController.simpleAlert(message: "매수 요청: \($0) KRW")
         }
     }
     
     @IBAction func tappedSellButton(_ sender: UIButton) {
+        guard checkBlockCoin() else { return }
         Trader.shared.requestSell() {
             UIAlertController.simpleAlert(message: "매도 요청: \($0) KRW")
+        }
+    }
+    
+    private func checkBlockCoin() -> Bool {
+        if UserDefaultsManager.shared.tradeCoin == "BTC" {
+            UIAlertController.simpleAlert(message: "매매 금지된 마켓: \(UserDefaultsManager.shared.tradeCoin ?? "")")
+            return false
+        } else {
+            return true
         }
     }
 }

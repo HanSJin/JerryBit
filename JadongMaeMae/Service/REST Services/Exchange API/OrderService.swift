@@ -39,7 +39,7 @@ class OrderServiceImp: OrderService {
         let priceDouble = Double(price) ?? 0.0
         
         // 혹시라도 너무 큰 금액은 일단 방어
-        guard volumeDouble * priceDouble < 100000 else {
+        guard volumeDouble * priceDouble < 500000 else {
             UIAlertController.simpleAlert(message: "너무 큰 거래 금액: \(volumeDouble * priceDouble)")
             return .error(OrderError.largePrice)
         }

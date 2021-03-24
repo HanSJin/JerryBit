@@ -76,7 +76,7 @@ class RestAPIClient {
                         print("✅ [RestAPI Response]", response.response?.statusCode ?? "-1")//, "\(responseString)", "\n")
                         return singleEvent(.success(successResult))
                     case Alamofire.Result.failure(let error):
-                        print("🆘 [RestAPI Response]", response.response?.statusCode ?? "-1", "\(responseString)...", "\n")
+                        print("🆘 [RestAPI Response]", response.response?.statusCode ?? "-1", "\(responseString)...\n\(String(describing: request.url))", "\n")
                         
                         if let decodedError = try? JSONDecoder().decode(ErrorModel.self, from: response.data!) as ErrorModel {
                             return singleEvent(.success(.failure(ResponseError.serverMessage(decodedError))))
