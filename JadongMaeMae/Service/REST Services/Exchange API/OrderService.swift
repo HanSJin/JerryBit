@@ -61,7 +61,7 @@ class OrderServiceImp: OrderService {
         let request = RestAPIClientBuilder(path: path, method: .get, headers: [:], needAuth: true)
             .set(queryName: "market", queryValue: market)
             .set(queryName: "states[]", queryValue: "done")
-            .set(queryName: "states[]", queryValue: "wait")
+//            .set(queryName: "states[]", queryValue: "wait")
             /*.set(queryName: "states[]", queryValue: "cancel")*/
             .set(queryName: "page", queryValue: "\(page)")
             .set(queryName: "limit", queryValue: "\(limit)")

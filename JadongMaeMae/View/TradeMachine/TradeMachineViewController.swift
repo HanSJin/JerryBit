@@ -242,10 +242,13 @@ extension TradeMachineViewController: UITableViewDelegate {
 extension TradeMachineViewController {
     
     @objc func tappedTradeRunningButton(_ sender: UIBarButtonItem) {
-        guard checkBlockCoin() else { return }
+//        guard checkBlockCoin() else { return }
         Trader.shared.runningTrade = !Trader.shared.runningTrade
         updateRunningButton()
         updateAutoTradeView()
+        if Trader.shared.runningTrade {
+            UIAlertController.simpleAlert(message: "업비트 API 정책 변경으로 체결 대기중인 주문 내역은 조회되지 않습니다.")
+        }
     }
     
     @IBAction func tappedSaveOncePriceButton(_ sender: UIButton) {
@@ -293,6 +296,7 @@ extension TradeMachineViewController {
         }
     }
     
+    /*
     private func checkBlockCoin() -> Bool {
         if UserDefaultsManager.shared.tradeCoin == "BTC" {
             UIAlertController.simpleAlert(message: "매매 금지된 마켓: \(UserDefaultsManager.shared.tradeCoin ?? "")")
@@ -301,4 +305,5 @@ extension TradeMachineViewController {
             return true
         }
     }
+     */
 }

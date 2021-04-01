@@ -70,14 +70,14 @@ extension MyAccountViewController {
 // MARK: - GlobalRunLoop
 extension MyAccountViewController: GlobalRunLoop {
     
-    var fps: Double { 3 }
+    var fps: Double { 2 }
     func runLoop() {
         guard !MarketAll.shared.coins.isEmpty else { return }
         requestMyAccount { [weak self] accountModels in
             self?.requestCurrentPrice(accountModels: accountModels)
         }
         totalAccount.text = NumberFormatter.decimal(Int(accountModels.map { $0.currentTotalPrice }.reduce(0.0) { Double($0) + Double($1) })) + " KRW"
-        krwBalanceLabel.text = String(format: "%.2f KRW", krwAccountModel?.balanceDouble ?? 0)
+        krwBalanceLabel.text = krwAccountModel?.balanceDouble.numberForm(add: "KRW")
     }
 }
 
@@ -181,11 +181,13 @@ extension MyAccountViewController {
         accountsService.getMyAccounts().subscribe(onSuccess: { [weak self] in
             switch $0 {
             case .success(let accountModels):
-                self?.krwAccountModel = accountModels.filter { $0.currency == "KRW" }.first
-                for model in accountModels {
-                    model.coinMarketInfo = MarketAll.shared.getCoin(currency: model.currency)
+                DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+                    self?.krwAccountModel = accountModels.filter { $0.currency == "KRW" }.first
+                    for model in accountModels {
+                        model.coinMarketInfo = MarketAll.shared.getCoin(currency: model.currency)
+                    }
+                    completion(accountModels.filter { $0.coinMarketInfo != nil })
                 }
-                completion(accountModels.filter { $0.coinMarketInfo != nil })
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
@@ -207,13 +209,18 @@ extension MyAccountViewController {
         quoteService.getCurrentPrice(markets: coins).subscribe(onSuccess: { [weak self] in
             switch $0 {
             case .success(let tickerModels):
-                MarketAll.shared.btcPrice = tickerModels.filter { $0.market == "KRW-BTC" }.first?.trade_price ?? 0.0
-                for accountModel in accountModels {
-                    accountModel.quoteTickerModel = tickerModels.filter { $0.market == accountModel.fullCurrencyName }.first
+                DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+                    MarketAll.shared.btcPrice = tickerModels.filter { $0.market == "KRW-BTC" }.first?.trade_price ?? 0.0
+                    for accountModel in accountModels {
+                        accountModel.quoteTickerModel = tickerModels.filter { $0.market == accountModel.fullCurrencyName }.first
+                    }
+                    let sortedAccoutModels = accountModels.sorted { $0.currentTotalPrice > $1.currentTotalPrice }
+                    self?.accountModels = sortedAccoutModels
+                    
+                    DispatchQueue.main.async { [weak self] in
+                        self?.tableView.reloadData()
+                    }
                 }
-                let sortedAccoutModels = accountModels.sorted { $0.currentTotalPrice > $1.currentTotalPrice }
-                self?.accountModels = sortedAccoutModels
-                self?.tableView.reloadData()
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
