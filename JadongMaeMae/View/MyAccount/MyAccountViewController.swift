@@ -32,11 +32,10 @@ class MyAccountViewController: UIViewController {
     private var accountModels: [AccountModel] = []
     private var krwAccountModel: AccountModel?
     
-    private var excludedCoins: [String] = ["KRW", "PTOY", "PSG", "JUV", "FIL", "PICA"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        setUpMarketAll()
     }
 }
 
@@ -60,11 +59,20 @@ extension MyAccountViewController {
     }
 }
 
+// MARK: - Setup Market
+extension MyAccountViewController {
+
+    func setUpMarketAll() {
+        requestMarketAll()
+    }
+}
+
 // MARK: - GlobalRunLoop
 extension MyAccountViewController: GlobalRunLoop {
     
     var fps: Double { 3 }
     func runLoop() {
+        guard !MarketAll.shared.coins.isEmpty else { return }
         requestMyAccount { [weak self] accountModels in
             self?.requestCurrentPrice(accountModels: accountModels)
         }
@@ -154,15 +162,30 @@ extension MyAccountViewController {
 // MARK: - Request
 extension MyAccountViewController {
     
+    private func requestMarketAll() {
+        quoteService.getMarketAllCoins().subscribe(onSuccess: {
+            switch $0 {
+            case .success(let coinModels):
+                MarketAll.shared.coins = coinModels
+            case .failure(let error):
+                if error.globalHandling() { return }
+                // Addtional Handling
+            }
+        }) { error in
+            if error.globalHandling() { return }
+            // Addtional Handling
+        }.disposed(by: self.disposeBag)
+    }
+    
     private func requestMyAccount(completion: @escaping ([AccountModel]) -> Void) {
         accountsService.getMyAccounts().subscribe(onSuccess: { [weak self] in
             switch $0 {
             case .success(let accountModels):
                 self?.krwAccountModel = accountModels.filter { $0.currency == "KRW" }.first
-                let filteredAccountModels = accountModels.filter { [weak self] accountModel -> Bool in
-                    return !(self?.excludedCoins.contains(accountModel.currency) ?? true)
+                for model in accountModels {
+                    model.coinMarketInfo = MarketAll.shared.getCoin(currency: model.currency)
                 }
-                completion(filteredAccountModels)
+                completion(accountModels.filter { $0.coinMarketInfo != nil })
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
@@ -174,11 +197,19 @@ extension MyAccountViewController {
     }
     
     private func requestCurrentPrice(accountModels: [AccountModel]) {
-        quoteService.getCurrentPrice(markets: accountModels.map { "KRW-\($0.currency)" }).subscribe(onSuccess: { [weak self] in
+        var coins = accountModels.map { $0.fullCurrencyName }
+        
+        // BTC 마켓 코인들을 위해 BTC 시세를 항상 확인함
+        if !coins.contains("KRW-BTC") {
+            coins.append("KRW-BTC")
+        }
+        
+        quoteService.getCurrentPrice(markets: coins).subscribe(onSuccess: { [weak self] in
             switch $0 {
             case .success(let tickerModels):
+                MarketAll.shared.btcPrice = tickerModels.filter { $0.market == "KRW-BTC" }.first?.trade_price ?? 0.0
                 for accountModel in accountModels {
-                    accountModel.quoteTickerModel = tickerModels.filter { $0.market == "KRW-\(accountModel.currency)" }.first
+                    accountModel.quoteTickerModel = tickerModels.filter { $0.market == accountModel.fullCurrencyName }.first
                 }
                 let sortedAccoutModels = accountModels.sorted { $0.currentTotalPrice > $1.currentTotalPrice }
                 self?.accountModels = sortedAccoutModels

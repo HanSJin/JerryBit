@@ -36,15 +36,20 @@ class MyAccountCell: UITableViewCell {
 extension MyAccountCell {
     
     func updateView(_ account: AccountModel) {
-        coinNameLabel.text = account.currency
+        var krName = account.coinMarketInfo?.korean_name ?? ""
+        if krName.count > 3 {
+            let endIdx: String.Index = krName.index(krName.startIndex, offsetBy: 3)
+            krName = String(krName[...endIdx])
+        }
+        coinNameLabel.text = krName + " " + account.currency
         balanceLabel.text = "보유 \(account.balanceDouble + account.lockedDouble)"
         coinUnitLabel.text = account.currency
-        avgPriceLabel.text = "평단가 \(NumberFormatter.decimal(account.avgBuyPriceDouble)) \(account.unitCurrencyString)"
+        avgPriceLabel.text = "평단 \(NumberFormatter.decimal(account.avgBuyPriceDouble)) \(account.unitCurrencyString)"
         currencyLabel.text = account.unit_currency
         
         guard let quoteTickerModel = account.quoteTickerModel else { return }
         
-        currentPriceLabel.text = "현재가 " + quoteTickerModel.trade_price.numberForm(add: account.unitCurrencyString)
+        currentPriceLabel.text = "(현재 " + quoteTickerModel.trade_price.numberForm(add: ")")
         
         switch quoteTickerModel.changeType {
         case .EVEN: currentPriceLabel.textColor = .black

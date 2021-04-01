@@ -47,19 +47,21 @@ class AccountModel: Decodable {
     var unitCurrencyString: String { unit_currency }
     var quoteTickerModel: QuoteTickerModel?
     
-    var tradePrice: Double { quoteTickerModel?.trade_price ?? 0 }
+    var tradePrice: Double {
+        let price = quoteTickerModel?.trade_price ?? 0
+        if coinMarketInfo?.marketKind == "BTC" {
+            return price * MarketAll.shared.btcPrice
+        }
+        return price
+    }
     var currentTotalPrice: Double {
         return tradePrice * (balanceDouble + lockedDouble)
     }
-//    private enum CodingKeys: String, CodingKey {
-//        case currency
-//    }
-//    init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        let currency = try container.decodeIfPresent(String.self, forKey: .currency)
-//        self.init(currency: currency)
-//    }
-//    init(currency: String?) {
-//        self.currency = currency
-//    }
+    
+    // MARK: - Coin Detail
+    var coinMarketInfo: QuoteCoinModel?
+    var fullCurrencyName: String {
+        guard let coinMarketInfo = coinMarketInfo, !coinMarketInfo.marketKind.isEmpty else { return "" }
+        return coinMarketInfo.marketKind + "-" + currency
+    }
 }

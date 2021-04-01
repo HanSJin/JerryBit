@@ -36,7 +36,7 @@ class RestAPIClient {
         request: URLRequest,
         type: Response.Type) -> RestAPISingleResult<Response>
     {
-        print("🚀 [RestAPI Request]", request.httpMethod!, request.url!)
+        print("🚀 [RestAPI Request]", request.httpMethod!, request.url!, "/ Response:", Response.self)
         if let method = request.httpMethod, method == "POST", let body = request.httpBody {
             print("🚀 [RestAPI Request Body]", String(data: body, encoding: .utf8) ?? "")
         }

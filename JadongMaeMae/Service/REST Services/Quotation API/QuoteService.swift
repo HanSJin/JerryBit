@@ -8,12 +8,21 @@
 import Foundation
 
 protocol QuoteService {
+    func getMarketAllCoins() -> RestAPISingleResult<[QuoteCoinModel]>
     func getMinuteCandle(market: String, unit: Int, count: Int) -> RestAPISingleResult<[QuoteCandleModel]>
     func getCurrentPrice(markets: [String]) -> RestAPISingleResult<[QuoteTickerModel]>
 }
 
 class QuoteServiceImp: QuoteService {
 
+    /// https://docs.upbit.com/reference#마켓-코드-조회
+    func getMarketAllCoins() -> RestAPISingleResult<[QuoteCoinModel]> {
+        let path = "/v1/market/all"
+        let request = RestAPIClientBuilder(path: path, method: .get, headers: [:])
+            .build()
+        return RestAPIClient.shared.request(request: request, type: [QuoteCoinModel].self)
+    }
+    
     /// https://docs.upbit.com/reference#분minute-캔들-1
     func getMinuteCandle(market: String, unit: Int, count: Int) -> RestAPISingleResult<[QuoteCandleModel]> {
         let path = "/v1/candles/minutes/\(unit)"

@@ -175,6 +175,8 @@
 		CE4A6B11257D3FD6007A2C65 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B10257D3FD6007A2C65 /* AccountModel.swift */; };
 		CE4A6B19257D40BC007A2C65 /* RestAPIClientBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B18257D40BC007A2C65 /* RestAPIClientBuilder.swift */; };
 		CE4A6B1C257D40F7007A2C65 /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */; };
+		CE4D3B9826163363007CDDCC /* QuoteCoinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D3B9726163363007CDDCC /* QuoteCoinModel.swift */; };
+		CE4D3B9C2616351B007CDDCC /* MarketAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D3B9B2616351B007CDDCC /* MarketAll.swift */; };
 		CE664A8025827C73008F7AB2 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE664A7F25827C73008F7AB2 /* UserDefaultsManager.swift */; };
 		CE664A8525828268008F7AB2 /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE664A8425828268008F7AB2 /* Charts.swift */; };
 		CE664A8825828780008F7AB2 /* TradeFormula.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE664A8725828780008F7AB2 /* TradeFormula.swift */; };
@@ -379,6 +381,8 @@
 		CE4A6B10257D3FD6007A2C65 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		CE4A6B18257D40BC007A2C65 /* RestAPIClientBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPIClientBuilder.swift; sourceTree = "<group>"; };
 		CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ext.swift"; sourceTree = "<group>"; };
+		CE4D3B9726163363007CDDCC /* QuoteCoinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCoinModel.swift; sourceTree = "<group>"; };
+		CE4D3B9B2616351B007CDDCC /* MarketAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketAll.swift; sourceTree = "<group>"; };
 		CE664A7F25827C73008F7AB2 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		CE664A8425828268008F7AB2 /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
 		CE664A8725828780008F7AB2 /* TradeFormula.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeFormula.swift; sourceTree = "<group>"; };
@@ -761,6 +765,7 @@
 				CE964FCE257E526D00C1AFC6 /* GlobalTimer.swift */,
 				CE4A6ABA257D32D9007A2C65 /* FileController.swift */,
 				CE664A7F25827C73008F7AB2 /* UserDefaultsManager.swift */,
+				CE4D3B9B2616351B007CDDCC /* MarketAll.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -903,6 +908,7 @@
 		CE964FE3257E598000C1AFC6 /* Quote Models */ = {
 			isa = PBXGroup;
 			children = (
+				CE4D3B9726163363007CDDCC /* QuoteCoinModel.swift */,
 				CE965020257E92E800C1AFC6 /* QuoteTickerModel.swift */,
 				CE964FE4257E599100C1AFC6 /* QuoteCandleModel.swift */,
 			);
@@ -1117,6 +1123,7 @@
 				CE96501D257E69B400C1AFC6 /* UITableView+Ext.swift in Sources */,
 				CE489FBB25814E7C009AFAC0 /* ChartViewBase.swift in Sources */,
 				CE664A8B25828E4B008F7AB2 /* Date+Ext.swift in Sources */,
+				CE4D3B9C2616351B007CDDCC /* MarketAll.swift in Sources */,
 				CE48A00625814E7C009AFAC0 /* LineRadarChartDataSetProtocol.swift in Sources */,
 				CE489FBD25814E7C009AFAC0 /* PieRadarChartViewBase.swift in Sources */,
 				CE489FD325814E7C009AFAC0 /* TransformerHorizontalBarChart.swift in Sources */,
@@ -1150,6 +1157,7 @@
 				CE489FDF25814E7C009AFAC0 /* Marker.swift in Sources */,
 				CE489FED25814E7C009AFAC0 /* CandleChartDataEntry.swift in Sources */,
 				CE489FD225814E7C009AFAC0 /* ChartColorTemplates.swift in Sources */,
+				CE4D3B9826163363007CDDCC /* QuoteCoinModel.swift in Sources */,
 				CE489FA825814E7C009AFAC0 /* PieChartRenderer.swift in Sources */,
 				CE489FA925814E7C009AFAC0 /* Renderer.swift in Sources */,
 				CE489FD625814E7C009AFAC0 /* Description.swift in Sources */,
@@ -1427,7 +1435,7 @@
 				DEVELOPMENT_TEAM = Z7BMLJLG67;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = JadongMaeMae/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1454,7 +1462,7 @@
 				DEVELOPMENT_TEAM = Z7BMLJLG67;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = JadongMaeMae/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
