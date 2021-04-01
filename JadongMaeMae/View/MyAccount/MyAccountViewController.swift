@@ -43,7 +43,7 @@ class MyAccountViewController: UIViewController {
 extension MyAccountViewController {
     
     func setUpView() {
-        navigationItem.title = "내 계좌"
+        title = "내 계좌"
         updateIpAddress()
         tradeNameTF.text = UserDefaultsManager.shared.tradeCoin
         requestMyAccount { [weak self] accountModels in

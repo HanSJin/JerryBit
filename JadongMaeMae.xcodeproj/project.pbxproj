@@ -177,6 +177,10 @@
 		CE4A6B1C257D40F7007A2C65 /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */; };
 		CE4D3B9826163363007CDDCC /* QuoteCoinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D3B9726163363007CDDCC /* QuoteCoinModel.swift */; };
 		CE4D3B9C2616351B007CDDCC /* MarketAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D3B9B2616351B007CDDCC /* MarketAll.swift */; };
+		CE4D3BD0261647EB007CDDCC /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4D3BCF261647EB007CDDCC /* TabBar.storyboard */; };
+		CE4D3BD426164820007CDDCC /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D3BD326164820007CDDCC /* TabBarViewController.swift */; };
+		CE4D3BD926164F19007CDDCC /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4D3BD826164F19007CDDCC /* Setting.storyboard */; };
+		CE4D3BDC26164F24007CDDCC /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D3BDB26164F24007CDDCC /* SettingViewController.swift */; };
 		CE664A8025827C73008F7AB2 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE664A7F25827C73008F7AB2 /* UserDefaultsManager.swift */; };
 		CE664A8525828268008F7AB2 /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE664A8425828268008F7AB2 /* Charts.swift */; };
 		CE664A8825828780008F7AB2 /* TradeFormula.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE664A8725828780008F7AB2 /* TradeFormula.swift */; };
@@ -383,6 +387,10 @@
 		CE4A6B1B257D40F7007A2C65 /* Dictionary+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ext.swift"; sourceTree = "<group>"; };
 		CE4D3B9726163363007CDDCC /* QuoteCoinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCoinModel.swift; sourceTree = "<group>"; };
 		CE4D3B9B2616351B007CDDCC /* MarketAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketAll.swift; sourceTree = "<group>"; };
+		CE4D3BCF261647EB007CDDCC /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
+		CE4D3BD326164820007CDDCC /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		CE4D3BD826164F19007CDDCC /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		CE4D3BDB26164F24007CDDCC /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		CE664A7F25827C73008F7AB2 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		CE664A8425828268008F7AB2 /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
 		CE664A8725828780008F7AB2 /* TradeFormula.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeFormula.swift; sourceTree = "<group>"; };
@@ -832,8 +840,10 @@
 			isa = PBXGroup;
 			children = (
 				CE4A6B1F257D420E007A2C65 /* Main */,
+				CE4D3B9F261647B4007CDDCC /* Tab */,
 				CE965001257E667B00C1AFC6 /* MyAccount */,
 				CED3EA97257FC0E600CC6F91 /* TradeMachine */,
+				CE4D3BD726164F09007CDDCC /* Setting */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -854,6 +864,24 @@
 				CE4A6A75257D2A34007A2C65 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		CE4D3B9F261647B4007CDDCC /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				CE4D3BCF261647EB007CDDCC /* TabBar.storyboard */,
+				CE4D3BD326164820007CDDCC /* TabBarViewController.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
+		CE4D3BD726164F09007CDDCC /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				CE4D3BD826164F19007CDDCC /* Setting.storyboard */,
+				CE4D3BDB26164F24007CDDCC /* SettingViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		CE964FD5257E52C600C1AFC6 /* Extensions */ = {
@@ -1015,6 +1043,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE4D3BD0261647EB007CDDCC /* TabBar.storyboard in Resources */,
 				CE4A6ACC257D34D6007A2C65 /* secretKey in Resources */,
 				CE96500C257E67C500C1AFC6 /* MyAccountCell.xib in Resources */,
 				CE4A6A77257D2A34007A2C65 /* LaunchScreen.storyboard in Resources */,
@@ -1023,6 +1052,7 @@
 				CE9E9C8D258F42AA001CB3D3 /* TradeOrderCell.xib in Resources */,
 				CE965003257E668A00C1AFC6 /* Main.storyboard in Resources */,
 				CE4A6A72257D2A32007A2C65 /* MyAccount.storyboard in Resources */,
+				CE4D3BD926164F19007CDDCC /* Setting.storyboard in Resources */,
 				CE4A6ACD257D34D6007A2C65 /* accessKey in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1098,6 +1128,7 @@
 				CE2151E3257FF2BC005A47D5 /* Data+Ext.swift in Sources */,
 				CE489FB725814E7C009AFAC0 /* BarLineChartViewBase.swift in Sources */,
 				CE48A01625814E7C009AFAC0 /* BubbleChartDataProvider.swift in Sources */,
+				CE4D3BD426164820007CDDCC /* TabBarViewController.swift in Sources */,
 				CE664A8525828268008F7AB2 /* Charts.swift in Sources */,
 				CE489F9125814E7C009AFAC0 /* AxisRendererBase.swift in Sources */,
 				CE964FD9257E53B900C1AFC6 /* UIApplication+Ext.swift in Sources */,
@@ -1128,6 +1159,7 @@
 				CE489FBD25814E7C009AFAC0 /* PieRadarChartViewBase.swift in Sources */,
 				CE489FD325814E7C009AFAC0 /* TransformerHorizontalBarChart.swift in Sources */,
 				CE489FC125814E7C009AFAC0 /* ChartAnimationEasing.swift in Sources */,
+				CE4D3BDC26164F24007CDDCC /* SettingViewController.swift in Sources */,
 				CE489F9625814E7C009AFAC0 /* BarChartRenderer.swift in Sources */,
 				CE489FFE25814E7C009AFAC0 /* LineChartDataSet.swift in Sources */,
 				CE4A6AFB257D3EAE007A2C65 /* AccountsService.swift in Sources */,

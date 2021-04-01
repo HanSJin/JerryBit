@@ -85,6 +85,8 @@ extension TradeMachineViewController {
     
     func setUpView() {
         navigationItem.title = Trader.shared.market
+        
+        updateUnitButtonTitle()
         updateRunningButton()
         updateAutoTradeView()
         
@@ -129,6 +131,12 @@ extension TradeMachineViewController {
                 tradeRunButton.title = "Play"
             }
         }
+    }
+    
+    private func updateUnitButtonTitle() {
+        let unit = UserDefaultsManager.shared.unit
+        let unitText = unit >= 60 ? "\(unit / 60)시간" : "\(unit)분"
+        composeButton.title = "\(unitText) 봉"
     }
     
     private func updateAutoTradeView() {
@@ -247,13 +255,15 @@ extension TradeMachineViewController {
         updateRunningButton()
         updateAutoTradeView()
         if Trader.shared.runningTrade {
-            UIAlertController.simpleAlert(message: "업비트 API 정책 변경으로 체결 대기중인 주문 내역은 조회되지 않습니다.")
+            UIAlertController.simpleAlert(message: "자동매매를 시작합니다. 앱을 켜둔 상태로 유지해주세요.\n(업비트 API 정책 변경으로 체결 대기중인 주문 내역은 조회되지 않습니다.)")
+        } else {
+            UIAlertController.simpleAlert(message: "자동매매를 종료합니다.")
         }
     }
     
     @IBAction func tappedSaveOncePriceButton(_ sender: UIButton) {
-        guard let oncePriceText = tradePriceTF.text, let oncePrice = Int(oncePriceText), oncePrice >= 500 else {
-            UIAlertController.simpleAlert(message: "최저 거래 대금 500원 이상을 입력해주세요.")
+        guard let oncePriceText = tradePriceTF.text, let oncePrice = Int(oncePriceText), oncePrice >= 5000 else {
+            UIAlertController.simpleAlert(message: "최저 거래 대금 5000원 이상을 입력해주세요.")
             return
         }
         UserDefaultsManager.shared.oncePrice = oncePrice
@@ -265,8 +275,9 @@ extension TradeMachineViewController {
         let units = [1, 3, 5, 10, 15, 30, 60, 240]
         units.forEach { unit in
             let unitText = unit >= 60 ? "\(unit / 60)시간" : "\(unit)분"
-            optionAlert.addAction(UIAlertAction(title: unitText, style: .default) { _ in
+            optionAlert.addAction(UIAlertAction(title: unitText, style: .default) { [weak self] _ in
                 UserDefaultsManager.shared.unit = unit
+                self?.updateUnitButtonTitle()
             })
         }
         optionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -283,14 +294,14 @@ extension TradeMachineViewController {
     }
     
     @IBAction func tappedBuyButton(_ sender: UIButton) {
-        guard checkBlockCoin() else { return }
+//        guard checkBlockCoin() else { return }
         Trader.shared.requestBuy() {
             UIAlertController.simpleAlert(message: "매수 요청: \($0) KRW")
         }
     }
     
     @IBAction func tappedSellButton(_ sender: UIButton) {
-        guard checkBlockCoin() else { return }
+//        guard checkBlockCoin() else { return }
         Trader.shared.requestSell() {
             UIAlertController.simpleAlert(message: "매도 요청: \($0) KRW")
         }

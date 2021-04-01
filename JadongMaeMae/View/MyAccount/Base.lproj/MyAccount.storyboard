@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Ug-6f-oy2">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Title-->
+        <!--My Account View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MyAccountViewController" customModule="JadongMaeMae" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XHf-2P-glP">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="fZJ-0q-sKg">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
@@ -119,14 +118,13 @@
                             <constraint firstItem="XHf-2P-glP" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="toq-Md-pKm"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="n3R-t0-dzJ">
+                    <navigationItem key="navigationItem" id="n3R-t0-dzJ">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="moon.stars" catalog="system" id="IX6-PU-jEr">
                             <connections>
                                 <action selector="tappedSettingBarButton:" destination="BYZ-38-t0r" id="Szc-NJ-oJX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="ipLabel" destination="KSQ-7S-vss" id="X5o-Ny-Bu0"/>
                         <outlet property="krwBalanceLabel" destination="sJV-WE-xWr" id="u0B-Xr-PrG"/>
@@ -139,11 +137,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="279.71014492753625" y="105.80357142857143"/>
+            <point key="canvasLocation" x="-58" y="-200"/>
+        </scene>
+        <!--내 계좌-->
+        <scene sceneID="9RO-Pv-Czx">
+            <objects>
+                <navigationController id="4Ug-6f-oy2" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="내 계좌" image="wallet-off" selectedImage="wallet-on" id="WP7-tP-29p"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="AnC-Xf-wkb">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="rB2-1G-IZY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OCw-Db-Q6o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-797" y="-200"/>
         </scene>
     </scenes>
     <resources>
         <image name="moon.stars" catalog="system" width="128" height="124"/>
+        <image name="wallet-off" width="24" height="24"/>
+        <image name="wallet-on" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

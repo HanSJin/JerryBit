@@ -24,14 +24,8 @@ extension MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let myAccountVC = UIStoryboard(name: "MyAccount", bundle: nil).instantiateInitialViewController() as! MyAccountViewController
-        let naviCon = UINavigationController(rootViewController: myAccountVC)
-        open(to: naviCon)
-        
-//        let tradeMachineVC = UIStoryboard(name: "TradeMachine", bundle: nil).instantiateInitialViewController() as! TradeMachineViewController
-//        let naviCon = UINavigationController(rootViewController: tradeMachineVC)
-//        open(to: naviCon)
-        
+        let tabBarVC = UIStoryboard(name: "TabBar", bundle: nil).instantiateInitialViewController() as! TabBarViewController
+        open(to: tabBarVC)
     }
 }
 

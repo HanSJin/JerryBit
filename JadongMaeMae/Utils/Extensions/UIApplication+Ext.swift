@@ -14,6 +14,9 @@ extension UIApplication {
     }
 
     class func topViewController(_ viewController: UIViewController? = UIApplication.shared.keyWindowInConnectedScenes?.rootViewController) -> UIViewController? {
+        if let appMain = viewController as? MainViewController, let firstChildVC = appMain.children.first {
+            return topViewController(firstChildVC)
+        }
         if let nav = viewController as? UINavigationController {
             return topViewController(nav.visibleViewController)
         }

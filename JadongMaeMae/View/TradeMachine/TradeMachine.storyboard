@@ -416,7 +416,7 @@
                                     <action selector="tappedTradeRunningButton:" destination="owC-oe-YOw" id="Y61-Ti-kXR"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="compose" id="QB6-GN-sZE">
+                            <barButtonItem title="1분봉" id="QB6-GN-sZE">
                                 <connections>
                                     <action selector="tappedComposeButton:" destination="owC-oe-YOw" id="ewf-v1-e0x"/>
                                 </connections>
