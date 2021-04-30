@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class TradeMachineViewController: UIViewController {
+class TradeMachineViewController: BaseViewController {
     
     // Outlets
     @IBOutlet private weak var composeButton: UIBarButtonItem!

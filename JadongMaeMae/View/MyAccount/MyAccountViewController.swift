@@ -9,7 +9,7 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-class MyAccountViewController: UIViewController {
+class MyAccountViewController: BaseViewController {
 
     // Outelts
     @IBOutlet private weak var settingBarButton: UIBarButtonItem!

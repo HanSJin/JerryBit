@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A6927993263BFC1700210B76 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6927992263BFC1700210B76 /* AppData.swift */; };
+		A6BDD472263BA37300E9054B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BDD471263BA37300E9054B /* BaseViewController.swift */; };
 		CE2151DD257FEFE4005A47D5 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151DC257FEFE4005A47D5 /* OrderService.swift */; };
 		CE2151E0257FF02B005A47D5 /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151DF257FF02B005A47D5 /* OrderModel.swift */; };
 		CE2151E3257FF2BC005A47D5 /* Data+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151E2257FF2BC005A47D5 /* Data+Ext.swift */; };
@@ -214,6 +216,8 @@
 /* Begin PBXFileReference section */
 		40DA192589D7EFF202ADE4E3 /* Pods-JadongMaeMae.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JadongMaeMae.release.xcconfig"; path = "Target Support Files/Pods-JadongMaeMae/Pods-JadongMaeMae.release.xcconfig"; sourceTree = "<group>"; };
 		A4B312E03543165026DAE562 /* Pods_JadongMaeMae.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JadongMaeMae.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6927992263BFC1700210B76 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		A6BDD471263BA37300E9054B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		B50E94A1455BA046D84B36CA /* Pods-JadongMaeMae.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JadongMaeMae.debug.xcconfig"; path = "Target Support Files/Pods-JadongMaeMae/Pods-JadongMaeMae.debug.xcconfig"; sourceTree = "<group>"; };
 		CE2151DC257FEFE4005A47D5 /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
 		CE2151DF257FF02B005A47D5 /* OrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
@@ -440,6 +444,22 @@
 				40DA192589D7EFF202ADE4E3 /* Pods-JadongMaeMae.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A6927991263BFBDD00210B76 /* UserDefault */ = {
+			isa = PBXGroup;
+			children = (
+				A6927992263BFC1700210B76 /* AppData.swift */,
+			);
+			path = UserDefault;
+			sourceTree = "<group>";
+		};
+		A6BDD470263BA36C00E9054B /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				A6BDD471263BA37300E9054B /* BaseViewController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		BE4238407156F3F63E987F87 /* Frameworks */ = {
@@ -756,6 +776,7 @@
 		CE4A6AB1257D328D007A2C65 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A6927991263BFBDD00210B76 /* UserDefault */,
 				CE489EED25814E7B009AFAC0 /* Charts */,
 				CE964FD5257E52C600C1AFC6 /* Extensions */,
 				CE4A6AD0257D3912007A2C65 /* Print.swift */,
@@ -839,6 +860,7 @@
 		CE4A6B1E257D4206007A2C65 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A6BDD470263BA36C00E9054B /* Base */,
 				CE4A6B1F257D420E007A2C65 /* Main */,
 				CE4D3B9F261647B4007CDDCC /* Tab */,
 				CE965001257E667B00C1AFC6 /* MyAccount */,
@@ -1196,6 +1218,7 @@
 				CE489FE125814E7C009AFAC0 /* AnimatedZoomViewJob.swift in Sources */,
 				CE4A6AB6257D32C4007A2C65 /* Device+Ext.swift in Sources */,
 				CE664A8825828780008F7AB2 /* TradeFormula.swift in Sources */,
+				A6BDD472263BA37300E9054B /* BaseViewController.swift in Sources */,
 				CE489EBE25811EED009AFAC0 /* Double+Ext.swift in Sources */,
 				CE489FC025814E7C009AFAC0 /* PieChartView.swift in Sources */,
 				CE489FC225814E7C009AFAC0 /* Animator.swift in Sources */,
@@ -1254,6 +1277,7 @@
 				CE489FA425814E7C009AFAC0 /* XAxisRendererRadarChart.swift in Sources */,
 				CE965016257E695400C1AFC6 /* Collection+Ext.swift in Sources */,
 				CE489FC425814E7C009AFAC0 /* AxisValueFormatter.swift in Sources */,
+				A6927993263BFC1700210B76 /* AppData.swift in Sources */,
 				CE48A01125814E7C009AFAC0 /* CandleChartDataProvider.swift in Sources */,
 				CE489FF525814E7C009AFAC0 /* ChartDataEntryBase.swift in Sources */,
 				CE489FFD25814E7C009AFAC0 /* CandleChartData.swift in Sources */,

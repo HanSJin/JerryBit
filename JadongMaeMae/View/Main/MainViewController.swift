@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: BaseViewController {
     
     static var current: MainViewController? {
         var appMain = UIApplication.shared.keyWindowInConnectedScenes?.rootViewController as? MainViewController
