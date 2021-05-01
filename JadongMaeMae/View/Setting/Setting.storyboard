@@ -171,6 +171,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <state key="normal" title="인증"/>
+                                        <connections>
+                                            <action selector="tappedVerifyButton:" destination="RFn-dP-4gW" eventType="touchUpInside" id="Biv-ri-wK3"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I8e-qo-lXI">
                                         <rect key="frame" x="20" y="403" width="335" height="40"/>
@@ -181,6 +184,9 @@
                                         <state key="normal" title="인증 정보 삭제">
                                             <color key="titleColor" systemColor="systemRedColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="tappedClearVerifyButton:" destination="RFn-dP-4gW" eventType="touchUpInside" id="SKl-iu-Yhw"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

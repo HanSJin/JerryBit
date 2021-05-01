@@ -23,11 +23,14 @@ extension GlobalRunLoop {
 }
 
 class GlobalTimer {
+
+    static var enable = true
     
     // MARK: Lifecycle
     private let frequencyPerSeconds = Double(60)
     private var tick = 0
 
+    
     init() {
         fire()
     }
@@ -46,6 +49,9 @@ class GlobalTimer {
     
     @objc private func timerTick() {
         tick += 1
+        
+        guard GlobalTimer.enable else { return }
+        
         // guard tick < 10000 else { return }
         guard let topVC = UIApplication.topViewController(), let runLooper = topVC as? GlobalRunLoop else { return }
         guard runLooper.fps > 0 else { return }

@@ -14,6 +14,10 @@ extension Error {
         
         if let responseError = self as? RestAPIClient.ResponseError, case .serverMessage(let errorModel) = responseError {
             UIAlertController.simpleAlert(message: errorModel.error.message + "\ncode: " + errorModel.error.name)
+            
+            if errorModel.error.name == "invalid_access_key" {
+                GlobalTimer.enable = false
+            }
             return true
         }
         return false

@@ -5,6 +5,8 @@
 //  Created by HanSJin on 2021/04/02.
 //
 
+import RxCocoa
+import RxSwift
 import UIKit
 
 enum InputMode {
@@ -18,6 +20,7 @@ enum InputMode {
 }
 class SettingViewController: BaseViewController {
 
+    // Outlets
     @IBOutlet weak var funnyImageView: UIImageView!
     @IBOutlet weak var upbitLinkButton: UIButton!
     @IBOutlet weak var accessKeyTF: UILabel!
@@ -36,6 +39,13 @@ class SettingViewController: BaseViewController {
             clearVerifyButton.layer.borderColor = UIColor.systemRed.cgColor
         }
     }
+    
+    // Variables
+    private let accountsService: AccountsService = ServiceContainer.shared.getService(key: .accounts)
+    private var disposeBag = DisposeBag()
+    
+    private var accessKey: String?
+    private var secretKey: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +67,10 @@ class SettingViewController: BaseViewController {
             }
         }
     }
+}
+
+// MARK: UI Touch Events
+extension SettingViewController {
     
     @IBAction func tappedUpbitLinkButton(_ sender: UIButton) {
         guard let url = URL(string: "https://www.upbit.com/service_center/open_api_guide") else { return }
@@ -73,12 +87,13 @@ class SettingViewController: BaseViewController {
     
     private func inputTextAlert(mode: InputMode) {
         let alert = UIAlertController(title: nil, message: mode.inputDescription, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "확인", style: .default) { _ in
+        let ok = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
             guard let inputKey = alert.textFields?[0].text, !inputKey.isEmpty else { return }
             switch mode {
-            case .accessKey: AppData.accessKey = inputKey
-            case .secretKey: AppData.secretKey = inputKey
+            case .accessKey: self?.accessKey = inputKey
+            case .secretKey: self?.secretKey = inputKey
             }
+            self?.updateUpbitKeys()
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel) { _ in }
         alert.addTextField { _ in }
@@ -86,29 +101,88 @@ class SettingViewController: BaseViewController {
         alert.addAction(ok)
         present(alert, animated: true, completion: nil)
     }
+    
+    @IBAction func tappedVerifyButton(_ sender: UIButton) {
+        let accessKey = self.accessKey ?? AppData.accessKey
+        let secretKey = self.secretKey ?? AppData.secretKey
+        
+        guard accessKey != "" else {
+            UIAlertController.simpleAlert(message: "저장된 AccessKey 가 없습니다.")
+            return
+        }
+        guard secretKey != "" else {
+            UIAlertController.simpleAlert(message: "저장된 SecretKey 가 없습니다.")
+            return
+        }
+        AppData.accessKey = accessKey
+        AppData.secretKey = secretKey
+        
+        requestVerifyAccess(authKey: .init(accessKey: accessKey, secretKey: secretKey)) { [weak self] result in
+            GlobalTimer.enable = true
+            
+            if result {
+                UIAlertController.simpleAlert(message: "Verified!")
+                self?.clearAuthInInstance()
+            }
+        }
+    }
+    
+    @IBAction func tappedClearVerifyButton(_ sender: UIButton) {
+        AppData.clear()
+        clearAuthInInstance()
+    }
 }
 
 // MARK: - Setup View
 extension SettingViewController {
     
-    func setUpView() {
+    private func setUpView() {
         title = "설정"
     }
     
-    func updateCuteImage() {
+    private func updateCuteImage() {
         funnyImageView.image = UIImage(named: "cute\(Int.random(in: 0...12))")
     }
     
-    func updateUpbitKeys() {
-        if !AppData.accessKey.isEmpty {
-            accessKeyTF.text = AppData.accessKey
+    private func updateUpbitKeys() {
+        let accessKey = self.accessKey ?? AppData.accessKey
+        if !accessKey.isEmpty {
+            accessKeyTF.text = accessKey
         } else {
             accessKeyTF.text = "-"
         }
-        if !AppData.secretKey.isEmpty {
-            secretKeyTF.text = AppData.secretKey
+        
+        let secretKey = self.secretKey ?? AppData.secretKey
+        if !secretKey.isEmpty {
+            secretKeyTF.text = secretKey
         } else {
             secretKeyTF.text = "-"
         }
+    }
+    
+    private func clearAuthInInstance() {
+        accessKey = nil
+        secretKey = nil
+    }
+}
+
+// MARK: - Request
+extension SettingViewController {
+    
+    private func requestVerifyAccess(authKey: Authorization.AuthKey, completion: @escaping (Bool) -> Void) {
+        accountsService.verifyAccess(authKey: authKey).subscribe(onSuccess: {
+            switch $0 {
+            case .success:
+                completion(true)
+            case .failure(let error):
+                if error.globalHandling() { return }
+                completion(false)
+                // Addtional Handling
+            }
+        }) { error in
+            if error.globalHandling() { return }
+            completion(false)
+            // Addtional Handling
+        }.disposed(by: self.disposeBag)
     }
 }

@@ -31,6 +31,9 @@ class RestAPIClientBuilder {
     private var httpBodyParameters = [String: Any]()
     private let needAuth: Bool
     
+    // AccessKey, SecretKey 유효성 검증
+    private var verifyAuthKey: Authorization.AuthKey?
+    
     // MARK: Lifecycle
 
     init(/*endPoint: String, */path: String, method: HTTPMethod, headers: HTTPHeaders? = nil, needAuth: Bool = false) {
@@ -74,6 +77,11 @@ class RestAPIClientBuilder {
         queryItems.append(URLQueryItem(name: queryName, value: queryValue))
         return self
     }
+    
+    func set(authKey: Authorization.AuthKey) -> Self {
+        self.verifyAuthKey = authKey
+        return self
+    }
 
     func build(headerType: HeaderType = .json) -> URLRequest {
         var defaultHeaders: [String: String] = [:]
@@ -81,20 +89,20 @@ class RestAPIClientBuilder {
         if needAuth {
             if !queryItems.isEmpty {
                 let queryString = queryItems.map { "\($0.name)=\($0.value!)" }.joined(separator: "&")
-                defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: queryString)
+                defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: queryString, verifyAuth: verifyAuthKey)
             } else if !httpBodyParameters.isEmpty {
-                defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: httpBodyParameters.queryString)
+                defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: httpBodyParameters.queryString, verifyAuth: verifyAuthKey)
             } else {
-                defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: nil)
+                defaultHeaders["Authorization"] = Authorization.shared.jwtToken(query: nil, verifyAuth: verifyAuthKey)
             }
         }
-
+        
         let url = URL(string: endPoint)!.appendingPathComponent(path)
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         if !queryItems.isEmpty {
             components.queryItems = queryItems
         }
-
+        
         var header: HTTPHeaders = headers ?? [:]
 
         switch headerType {
