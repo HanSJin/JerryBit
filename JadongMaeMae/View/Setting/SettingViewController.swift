@@ -128,8 +128,16 @@ extension SettingViewController {
     }
     
     @IBAction func tappedClearVerifyButton(_ sender: UIButton) {
-        AppData.clear()
-        clearAuthInInstance()
+        let alert = UIAlertController(title: nil, message: "계정 정보를 진짜 삭제해요?", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+            AppData.clear()
+            self?.clearAuthInInstance()
+            self?.updateUpbitKeys()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel) { _ in }
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -175,12 +183,12 @@ extension SettingViewController {
             case .success:
                 completion(true)
             case .failure(let error):
-                if error.globalHandling() { return }
+                error.globalHandling()
                 completion(false)
                 // Addtional Handling
             }
         }) { error in
-            if error.globalHandling() { return }
+            error.globalHandling()
             completion(false)
             // Addtional Handling
         }.disposed(by: self.disposeBag)

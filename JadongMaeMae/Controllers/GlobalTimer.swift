@@ -29,7 +29,6 @@ class GlobalTimer {
     // MARK: Lifecycle
     private let frequencyPerSeconds = Double(60)
     private var tick = 0
-
     
     init() {
         fire()
