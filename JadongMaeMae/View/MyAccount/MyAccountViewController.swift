@@ -19,6 +19,7 @@ class MyAccountViewController: BaseViewController {
     @IBOutlet weak var ipLabel: UILabel!
     @IBOutlet weak var totalAccount: UILabel!
     @IBOutlet weak var krwBalanceLabel: UILabel!
+    @IBOutlet weak var totalMoneyLabel: UILabel!
     @IBOutlet weak var tradeMachineButton: UIButton! {
         didSet { tradeMachineButton.layer.cornerRadius = 8.0 }
     }
@@ -63,6 +64,7 @@ extension MyAccountViewController {
 extension MyAccountViewController {
 
     func setUpMarketAll() {
+        guard MarketAll.shared.coins.isEmpty else { return }
         requestMarketAll()
     }
 }
@@ -76,8 +78,11 @@ extension MyAccountViewController: GlobalRunLoop {
         requestMyAccount { [weak self] accountModels in
             self?.requestCurrentPrice(accountModels: accountModels)
         }
-        totalAccount.text = NumberFormatter.decimal(Int(accountModels.map { $0.currentTotalPrice }.reduce(0.0) { Double($0) + Double($1) })) + " KRW"
-        krwBalanceLabel.text = krwAccountModel?.balanceDouble.numberForm(add: "KRW")
+        let totalAccountAmount = Int(accountModels.map { $0.currentTotalPrice }.reduce(0.0) { Double($0) + Double($1) })
+        totalAccount.text = NumberFormatter.decimal(totalAccountAmount) + " 원"
+        krwBalanceLabel.text = krwAccountModel?.balanceDouble.numberForm(add: " 원")
+        let totalMoney = Double(totalAccountAmount) + (krwAccountModel?.balanceDouble ?? 0)
+        totalMoneyLabel.text = totalMoney.numberForm(add: " 원")
     }
 }
 

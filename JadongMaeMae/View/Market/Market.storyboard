@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AOI-h0-8bZ">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Market View Controller-->
+        <scene sceneID="M1D-yL-jtS">
+            <objects>
+                <viewController id="VBK-Jg-yR5" customClass="MarketViewController" customModule="째리비트_" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ojE-rR-kAn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4lT-an-NNa">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="VBK-Jg-yR5" id="Lfx-ja-Bg2"/>
+                                    <outlet property="delegate" destination="VBK-Jg-yR5" id="XBv-uh-xeg"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="94V-G6-EfF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="4lT-an-NNa" firstAttribute="trailing" secondItem="94V-G6-EfF" secondAttribute="trailing" id="1H9-Az-Qja"/>
+                            <constraint firstItem="4lT-an-NNa" firstAttribute="top" secondItem="ojE-rR-kAn" secondAttribute="top" id="S0v-mi-P37"/>
+                            <constraint firstAttribute="bottom" secondItem="4lT-an-NNa" secondAttribute="bottom" id="V7B-3c-WTt"/>
+                            <constraint firstItem="4lT-an-NNa" firstAttribute="leading" secondItem="94V-G6-EfF" secondAttribute="leading" id="d8n-Dd-4tW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="2cY-6w-HbK"/>
+                    <connections>
+                        <outlet property="tableView" destination="4lT-an-NNa" id="NCs-u3-FUB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aHG-Qy-mJJ" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-58" y="-200"/>
+        </scene>
+        <!--마켓-->
+        <scene sceneID="5uY-6U-yOx">
+            <objects>
+                <navigationController id="AOI-h0-8bZ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="마켓" image="market-off" selectedImage="market-on" id="zja-C1-WIo"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="hWt-23-eux">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="VBK-Jg-yR5" kind="relationship" relationship="rootViewController" id="m9h-xh-fgX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="quk-l8-dPY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-797" y="-200"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="market-off" width="24" height="24"/>
+        <image name="market-on" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -11,7 +11,7 @@
         <!--My Account View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MyAccountViewController" customModule="JadongMaeMae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MyAccountViewController" customModule="째리비트_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,37 +24,49 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cq-s0-bXO">
-                                            <rect key="frame" x="20" y="12" width="12.5" height="17"/>
+                                            <rect key="frame" x="20" y="8" width="12.5" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="127.0.0.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSQ-7S-vss">
-                                            <rect key="frame" x="40.5" y="12" width="54" height="17"/>
+                                            <rect key="frame" x="40.5" y="8" width="54" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총 매수" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wzs-1C-BA7">
-                                            <rect key="frame" x="20" y="33" width="40.5" height="17"/>
+                                            <rect key="frame" x="20" y="27" width="40.5" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyF-yr-mpU">
-                                            <rect key="frame" x="64.5" y="33" width="9" height="17"/>
+                                            <rect key="frame" x="64.5" y="27" width="9" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJV-WE-xWr">
-                                            <rect key="frame" x="49" y="54" width="9" height="17"/>
+                                            <rect key="frame" x="77" y="46" width="9" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="보유" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHO-3H-eWE">
-                                            <rect key="frame" x="20" y="54" width="25" height="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="보유 원화" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHO-3H-eWE">
+                                            <rect key="frame" x="20" y="46" width="53" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총 평가자산" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2v-8d-5YZ">
+                                            <rect key="frame" x="20" y="65" width="65" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3i-fd-dWM">
+                                            <rect key="frame" x="91" y="65" width="9" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -86,21 +98,25 @@
                                     <color key="backgroundColor" systemColor="systemFillColor"/>
                                     <constraints>
                                         <constraint firstItem="KSQ-7S-vss" firstAttribute="leading" secondItem="7cq-s0-bXO" secondAttribute="trailing" constant="8" id="3sq-hY-cCI"/>
+                                        <constraint firstItem="J2v-8d-5YZ" firstAttribute="top" secondItem="RHO-3H-eWE" secondAttribute="bottom" constant="2" id="A7d-4E-gzB"/>
                                         <constraint firstAttribute="trailing" secondItem="mQO-rG-XZc" secondAttribute="trailing" constant="20" symbolic="YES" id="AP4-wU-XD5"/>
                                         <constraint firstAttribute="trailing" secondItem="tIh-GJ-4Hc" secondAttribute="trailing" constant="20" id="EQx-dR-GHf"/>
+                                        <constraint firstItem="L3i-fd-dWM" firstAttribute="centerY" secondItem="J2v-8d-5YZ" secondAttribute="centerY" id="HMV-1C-nN7"/>
                                         <constraint firstItem="RHO-3H-eWE" firstAttribute="leading" secondItem="fZJ-0q-sKg" secondAttribute="leading" constant="20" id="KGQ-LU-7S8"/>
-                                        <constraint firstItem="RHO-3H-eWE" firstAttribute="top" secondItem="Wzs-1C-BA7" secondAttribute="bottom" constant="4" id="LGx-At-I1A"/>
+                                        <constraint firstItem="RHO-3H-eWE" firstAttribute="top" secondItem="Wzs-1C-BA7" secondAttribute="bottom" constant="2" id="LGx-At-I1A"/>
                                         <constraint firstItem="Wzs-1C-BA7" firstAttribute="leading" secondItem="fZJ-0q-sKg" secondAttribute="leading" constant="20" symbolic="YES" id="Qfo-3R-U2V"/>
                                         <constraint firstItem="HyF-yr-mpU" firstAttribute="leading" secondItem="Wzs-1C-BA7" secondAttribute="trailing" constant="4" id="WWa-HE-Gxa"/>
                                         <constraint firstItem="KSQ-7S-vss" firstAttribute="centerY" secondItem="7cq-s0-bXO" secondAttribute="centerY" id="YIq-xH-rYz"/>
                                         <constraint firstItem="HyF-yr-mpU" firstAttribute="centerY" secondItem="Wzs-1C-BA7" secondAttribute="centerY" id="eRT-Y7-h8q"/>
                                         <constraint firstItem="sJV-WE-xWr" firstAttribute="leading" secondItem="RHO-3H-eWE" secondAttribute="trailing" constant="4" id="fsz-bh-QaH"/>
                                         <constraint firstItem="sJV-WE-xWr" firstAttribute="centerY" secondItem="RHO-3H-eWE" secondAttribute="centerY" id="m4C-LV-hQM"/>
-                                        <constraint firstItem="7cq-s0-bXO" firstAttribute="top" secondItem="fZJ-0q-sKg" secondAttribute="top" constant="12" id="o8O-Aq-uLd"/>
+                                        <constraint firstItem="7cq-s0-bXO" firstAttribute="top" secondItem="fZJ-0q-sKg" secondAttribute="top" constant="8" id="o8O-Aq-uLd"/>
+                                        <constraint firstItem="J2v-8d-5YZ" firstAttribute="leading" secondItem="fZJ-0q-sKg" secondAttribute="leading" constant="20" symbolic="YES" id="p7K-RK-eVa"/>
                                         <constraint firstItem="tIh-GJ-4Hc" firstAttribute="top" secondItem="mQO-rG-XZc" secondAttribute="bottom" constant="4" id="qti-ka-k6b"/>
                                         <constraint firstItem="mQO-rG-XZc" firstAttribute="top" secondItem="fZJ-0q-sKg" secondAttribute="top" constant="10" id="rAy-8X-D0C"/>
                                         <constraint firstItem="7cq-s0-bXO" firstAttribute="leading" secondItem="fZJ-0q-sKg" secondAttribute="leading" constant="20" id="siS-pB-pdS"/>
-                                        <constraint firstItem="Wzs-1C-BA7" firstAttribute="top" secondItem="7cq-s0-bXO" secondAttribute="bottom" constant="4" id="wiT-X3-2oM"/>
+                                        <constraint firstItem="L3i-fd-dWM" firstAttribute="leading" secondItem="J2v-8d-5YZ" secondAttribute="trailing" constant="6" id="sw1-8F-QGB"/>
+                                        <constraint firstItem="Wzs-1C-BA7" firstAttribute="top" secondItem="7cq-s0-bXO" secondAttribute="bottom" constant="2" id="wiT-X3-2oM"/>
                                     </constraints>
                                 </view>
                                 <connections>
@@ -131,6 +147,7 @@
                         <outlet property="settingBarButton" destination="IX6-PU-jEr" id="dHd-Dl-2Rb"/>
                         <outlet property="tableView" destination="XHf-2P-glP" id="0YA-v5-jbu"/>
                         <outlet property="totalAccount" destination="HyF-yr-mpU" id="AAO-Vn-iNa"/>
+                        <outlet property="totalMoneyLabel" destination="L3i-fd-dWM" id="6Uu-yb-e0X"/>
                         <outlet property="tradeMachineButton" destination="tIh-GJ-4Hc" id="E2h-Jp-A6I"/>
                         <outlet property="tradeNameTF" destination="mQO-rG-XZc" id="9ex-J9-8sI"/>
                     </connections>

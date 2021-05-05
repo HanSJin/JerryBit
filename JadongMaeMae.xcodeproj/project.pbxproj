@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A65F303426426B4C0088BFE7 /* MarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65F303326426B4C0088BFE7 /* MarketViewController.swift */; };
+		A65F303726426B520088BFE7 /* Market.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A65F303626426B520088BFE7 /* Market.storyboard */; };
+		A65F303C26426F0E0088BFE7 /* MarketCoinCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A65F303B26426F0E0088BFE7 /* MarketCoinCell.xib */; };
+		A65F303F26426F2D0088BFE7 /* MarketCoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65F303E26426F2D0088BFE7 /* MarketCoinCell.swift */; };
 		A6927993263BFC1700210B76 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6927992263BFC1700210B76 /* AppData.swift */; };
 		A6BDD472263BA37300E9054B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BDD471263BA37300E9054B /* BaseViewController.swift */; };
 		CE2151DD257FEFE4005A47D5 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2151DC257FEFE4005A47D5 /* OrderService.swift */; };
@@ -216,6 +220,10 @@
 /* Begin PBXFileReference section */
 		40DA192589D7EFF202ADE4E3 /* Pods-JadongMaeMae.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JadongMaeMae.release.xcconfig"; path = "Target Support Files/Pods-JadongMaeMae/Pods-JadongMaeMae.release.xcconfig"; sourceTree = "<group>"; };
 		A4B312E03543165026DAE562 /* Pods_JadongMaeMae.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JadongMaeMae.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A65F303326426B4C0088BFE7 /* MarketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewController.swift; sourceTree = "<group>"; };
+		A65F303626426B520088BFE7 /* Market.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Market.storyboard; sourceTree = "<group>"; };
+		A65F303B26426F0E0088BFE7 /* MarketCoinCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketCoinCell.xib; sourceTree = "<group>"; };
+		A65F303E26426F2D0088BFE7 /* MarketCoinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketCoinCell.swift; sourceTree = "<group>"; };
 		A6927992263BFC1700210B76 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		A6BDD471263BA37300E9054B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		B50E94A1455BA046D84B36CA /* Pods-JadongMaeMae.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JadongMaeMae.debug.xcconfig"; path = "Target Support Files/Pods-JadongMaeMae/Pods-JadongMaeMae.debug.xcconfig"; sourceTree = "<group>"; };
@@ -369,7 +377,7 @@
 		CE489F8725814E7C009AFAC0 /* BarLineScatterCandleBubbleChartDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarLineScatterCandleBubbleChartDataProvider.swift; sourceTree = "<group>"; };
 		CE489F8825814E7C009AFAC0 /* ScatterChartDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScatterChartDataProvider.swift; sourceTree = "<group>"; };
 		CE489F8925814E7C009AFAC0 /* BubbleChartDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleChartDataProvider.swift; sourceTree = "<group>"; };
-		CE4A6A67257D2A32007A2C65 /* JadongMaeMae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JadongMaeMae.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE4A6A67257D2A32007A2C65 /* 째리비트.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "째리비트.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4A6A6A257D2A32007A2C65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4A6A6E257D2A32007A2C65 /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		CE4A6A71257D2A32007A2C65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MyAccount.storyboard; sourceTree = "<group>"; };
@@ -444,6 +452,25 @@
 				40DA192589D7EFF202ADE4E3 /* Pods-JadongMaeMae.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A65F303226426B3B0088BFE7 /* Market */ = {
+			isa = PBXGroup;
+			children = (
+				A65F303626426B520088BFE7 /* Market.storyboard */,
+				A65F303326426B4C0088BFE7 /* MarketViewController.swift */,
+				A65F303A26426EE10088BFE7 /* Cell */,
+			);
+			path = Market;
+			sourceTree = "<group>";
+		};
+		A65F303A26426EE10088BFE7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A65F303B26426F0E0088BFE7 /* MarketCoinCell.xib */,
+				A65F303E26426F2D0088BFE7 /* MarketCoinCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		A6927991263BFBDD00210B76 /* UserDefault */ = {
@@ -752,7 +779,7 @@
 		CE4A6A68257D2A32007A2C65 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CE4A6A67257D2A32007A2C65 /* JadongMaeMae.app */,
+				CE4A6A67257D2A32007A2C65 /* 째리비트.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -863,6 +890,7 @@
 				A6BDD470263BA36C00E9054B /* Base */,
 				CE4A6B1F257D420E007A2C65 /* Main */,
 				CE4D3B9F261647B4007CDDCC /* Tab */,
+				A65F303226426B3B0088BFE7 /* Market */,
 				CE965001257E667B00C1AFC6 /* MyAccount */,
 				CED3EA97257FC0E600CC6F91 /* TradeMachine */,
 				CE4D3BD726164F09007CDDCC /* Setting */,
@@ -1024,7 +1052,7 @@
 			);
 			name = JadongMaeMae;
 			productName = JadongMaeMae;
-			productReference = CE4A6A67257D2A32007A2C65 /* JadongMaeMae.app */;
+			productReference = CE4A6A67257D2A32007A2C65 /* 째리비트.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1069,12 +1097,14 @@
 				CE4A6ACC257D34D6007A2C65 /* secretKey in Resources */,
 				CE96500C257E67C500C1AFC6 /* MyAccountCell.xib in Resources */,
 				CE4A6A77257D2A34007A2C65 /* LaunchScreen.storyboard in Resources */,
+				A65F303726426B520088BFE7 /* Market.storyboard in Resources */,
 				CED3EA9B257FC11000CC6F91 /* TradeMachine.storyboard in Resources */,
 				CE4A6A74257D2A34007A2C65 /* Assets.xcassets in Resources */,
 				CE9E9C8D258F42AA001CB3D3 /* TradeOrderCell.xib in Resources */,
 				CE965003257E668A00C1AFC6 /* Main.storyboard in Resources */,
 				CE4A6A72257D2A32007A2C65 /* MyAccount.storyboard in Resources */,
 				CE4D3BD926164F19007CDDCC /* Setting.storyboard in Resources */,
+				A65F303C26426F0E0088BFE7 /* MarketCoinCell.xib in Resources */,
 				CE4A6ACD257D34D6007A2C65 /* accessKey in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1220,6 +1250,7 @@
 				CE664A8825828780008F7AB2 /* TradeFormula.swift in Sources */,
 				A6BDD472263BA37300E9054B /* BaseViewController.swift in Sources */,
 				CE489EBE25811EED009AFAC0 /* Double+Ext.swift in Sources */,
+				A65F303426426B4C0088BFE7 /* MarketViewController.swift in Sources */,
 				CE489FC025814E7C009AFAC0 /* PieChartView.swift in Sources */,
 				CE489FC225814E7C009AFAC0 /* Animator.swift in Sources */,
 				CE48A00D25814E7C009AFAC0 /* ScatterChartDataSetProtocol.swift in Sources */,
@@ -1327,6 +1358,7 @@
 				CE48A01025814E7C009AFAC0 /* ChartDataProvider.swift in Sources */,
 				CE489F9B25814E7C009AFAC0 /* SquareShapeRenderer.swift in Sources */,
 				CE489FFC25814E7C009AFAC0 /* PieChartData.swift in Sources */,
+				A65F303F26426F2D0088BFE7 /* MarketCoinCell.swift in Sources */,
 				CE489F9E25814E7C009AFAC0 /* CircleShapeRenderer.swift in Sources */,
 				CE489FF625814E7C009AFAC0 /* ChartDataEntry.swift in Sources */,
 				CE489FA025814E7C009AFAC0 /* TriangleShapeRenderer.swift in Sources */,
@@ -1497,8 +1529,8 @@
 					"@executable_path/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hansjin.JadongMaeMae;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hansjin.jerrybit;
+				PRODUCT_NAME = "째리비트";
 				SWIFT_OBJC_BRIDGING_HEADER = "JadongMaeMae/JadongMaeMae-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1524,8 +1556,8 @@
 					"@executable_path/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hansjin.JadongMaeMae;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hansjin.jerrybit;
+				PRODUCT_NAME = "째리비트";
 				SWIFT_OBJC_BRIDGING_HEADER = "JadongMaeMae/JadongMaeMae-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

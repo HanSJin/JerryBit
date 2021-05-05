@@ -14,7 +14,7 @@ struct QuoteCoinModel: Decodable {
     let korean_name: String // 비트코인
     let english_name: String // Bitcoin
     
-    private var marketCoinSeparated: [String] { market.components(separatedBy: "-") }
+    private var marketCoinSeparated: [String] { market.components(separatedBy: "-") } // ["KRW", "BTC"]
     var marketKind: String {
         guard marketCoinSeparated.count == 2 else { return "" }
         return marketCoinSeparated.first ?? ""
