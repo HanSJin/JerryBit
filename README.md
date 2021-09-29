@@ -9,7 +9,7 @@ API Reference https://docs.upbit.com
 
 ## 업비트 계정 연동을 통해 내 계좌 조회
 
-설정 탭의 가이드를 따라 AccessKey, SecretKey 를 앱에 입력하여 계정을 연동할 수 있습니다.
+설정 탭의 가이드를 따라 AccessKey, SecretKey 를 업비트에서 발급받은 후 째리비트 앱에 입력하여 계정을 연동할 수 있습니다.
 
 ## 자동매매기능 
 
