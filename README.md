@@ -1,4 +1,4 @@
-# JaDong-MaeMae
+# 째리비트
 To be Rich
 
 <img width="250" src="capture2.png"> <img width="250" src="capture1.png">
