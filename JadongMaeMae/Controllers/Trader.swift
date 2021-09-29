@@ -228,11 +228,26 @@ extension Trader {
     }
     
     func requestOrders(completion: @escaping Completion) {
-        orderService.requestOrders(market: market, page: 1, limit: 30).subscribe(onSuccess: {
+        orderService.requestOrdersWithDone(market: market, page: 1, limit: 30).subscribe(onSuccess: { [unowned self] in
             switch $0 {
-            case .success(let orders):
-                Trader.shared.tradeOrders = orders
-                completion()
+            case .success(let doneOrders):
+                orderService.requestOrdersWithNotAssigned(market: market, page: 1, limit: 30).subscribe(onSuccess: {
+                    switch $0 {
+                    case .success(let notAssignedOrders):
+                        var orders = doneOrders + notAssignedOrders
+                        orders.sort {
+                            $0.created_at.toDateWithDefaultFormat()! > $1.created_at.toDateWithDefaultFormat()!
+                        }
+                        Trader.shared.tradeOrders = orders
+                        completion()
+                    case .failure(let error):
+                        if error.globalHandling() { return }
+                        // Addtional Handling
+                    }
+                }) { error in
+                    if error.globalHandling() { return }
+                    // Addtional Handling
+                }.disposed(by: self.disposeBag)
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling

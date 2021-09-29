@@ -49,7 +49,7 @@ extension MyAccountCell {
         
         guard let quoteTickerModel = account.quoteTickerModel else { return }
         
-        currentPriceLabel.text = "(현재 " + account.tradePrice.numberForm(add: "KRW)")
+        currentPriceLabel.text = account.tradePrice.numberForm(add: "KRW")
         
         switch quoteTickerModel.changeType {
         case .EVEN: currentPriceLabel.textColor = .black

@@ -255,7 +255,7 @@ extension TradeMachineViewController {
         updateRunningButton()
         updateAutoTradeView()
         if Trader.shared.runningTrade {
-            UIAlertController.simpleAlert(message: "자동매매를 시작합니다. 앱을 켜둔 상태로 유지해주세요.\n(업비트 API 정책 변경으로 체결 대기중인 주문 내역은 조회되지 않습니다.)")
+            UIAlertController.simpleAlert(message: "자동매매를 시작합니다. 앱을 켜둔 상태로 유지해주세요.")
         } else {
             UIAlertController.simpleAlert(message: "자동매매를 종료합니다.")
         }

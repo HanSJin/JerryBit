@@ -16,7 +16,6 @@ class MyAccountViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView! {
         didSet { tableView.registerNib(cellIdentifier: MyAccountCell.identifier) }
     }
-    @IBOutlet weak var ipLabel: UILabel!
     @IBOutlet weak var totalAccount: UILabel!
     @IBOutlet weak var krwBalanceLabel: UILabel!
     @IBOutlet weak var totalMoneyLabel: UILabel!
@@ -45,18 +44,10 @@ extension MyAccountViewController {
     
     func setUpView() {
         title = "내 계좌"
-        updateIpAddress()
         tradeNameTF.text = UserDefaultsManager.shared.tradeCoin
         requestMyAccount { [weak self] accountModels in
             self?.requestCurrentPrice(accountModels: accountModels)
         }
-    }
-    
-    private func updateIpAddress() {
-        guard let url = URL(string: "https://api.ipify.org") else { return }
-        let ipAddress = try? String(contentsOf: url)
-        ipLabel.text = ipAddress
-        print("My public IP address is: " + (ipAddress ?? "Unknown"))
     }
 }
 
@@ -117,7 +108,7 @@ extension MyAccountViewController {
     
     @IBAction func tappedTradeMachineButton(_ sender: UIButton) {
         guard let currency = tradeNameTF.text, !currency.isEmpty else { return }
-        moveToTradeMachine(currency: currency)
+        moveToTradeMachine(currency: currency.uppercased())
     }
     
     private func moveToTradeMachine(currency: String) {

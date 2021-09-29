@@ -13,7 +13,8 @@ protocol OrderService {
     func requestSell(market: String, volume: String, price: String) -> RestAPISingleResult<OrderModel>
     
     // 주문 내역
-    func requestOrders(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]>
+    func requestOrdersWithDone(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]> // 완료 주문
+    func requestOrdersWithNotAssigned(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]> // 대기 주문
     
     // 주문 취소
     func requestCancelOrder(uuid: String) -> RestAPISingleResult<OrderModel>
@@ -56,13 +57,24 @@ class OrderServiceImp: OrderService {
         return RestAPIClient.shared.request(request: request, type: OrderModel.self)
     }
     
-    func requestOrders(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]> {
+    func requestOrdersWithDone(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]> {
         let path = "/v1/orders"
         let request = RestAPIClientBuilder(path: path, method: .get, headers: [:], needAuth: true)
             .set(queryName: "market", queryValue: market)
             .set(queryName: "states[]", queryValue: "done")
-//            .set(queryName: "states[]", queryValue: "wait")
-            /*.set(queryName: "states[]", queryValue: "cancel")*/
+            .set(queryName: "states[]", queryValue: "cancel")
+            .set(queryName: "page", queryValue: "\(page)")
+            .set(queryName: "limit", queryValue: "\(limit)")
+            .build()
+        return RestAPIClient.shared.request(request: request, type: [OrderModel].self)
+    }
+    
+    func requestOrdersWithNotAssigned(market: String, page: Int, limit: Int) -> RestAPISingleResult<[OrderModel]> {
+        let path = "/v1/orders"
+        let request = RestAPIClientBuilder(path: path, method: .get, headers: [:], needAuth: true)
+            .set(queryName: "market", queryValue: market)
+            .set(queryName: "states[]", queryValue: "wait")
+            .set(queryName: "states[]", queryValue: "watch")
             .set(queryName: "page", queryValue: "\(page)")
             .set(queryName: "limit", queryValue: "\(limit)")
             .build()
