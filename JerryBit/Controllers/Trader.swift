@@ -339,9 +339,10 @@ extension Trader {
     
     func tradeJudgement() {
         guard runningTrade else { return }
+        guard bandWidthPoint > 0.2 else { return }
         
         let maPoint = maJudgementPoint
-        let limit = Double(oncePrice * 6)
+        let limit = Double(oncePrice * 30)
         
         print("[Trade Judgement] 현재가: \(currentPrice), MAPoint: \(maPoint)", "BandWidthPoint: \(bandWidthPoint)")
         
@@ -357,7 +358,7 @@ extension Trader {
         }
         
         // 적극 매수
-        if evaluationAmount < limit, maPoint <= -0.9 {
+        if evaluationAmount < limit, maPoint <= -0.95 {
             buy() // 보유 코인이 limit 보다 적으면 적극 매수
         }
         // 매수
@@ -365,7 +366,7 @@ extension Trader {
             buy()
         }
         // 적극 매도
-        else if krwBalance < limit, maPoint >= 0.9 {
+        else if krwBalance < limit * 1.5, maPoint >= 0.95 {
             sell() // 보유 원화가 limit 보다 적으면 적극 매도
         }
         // 매도
