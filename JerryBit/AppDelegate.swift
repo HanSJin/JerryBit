@@ -16,13 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = GlobalTimer()
         
         #if DEBUG
-        guard AppData.accessKey == "", AppData.secretKey == "" else { return true }
-        guard let accessKey = FileController().readFile(name: "accessKey")?.replacingOccurrences(of: "\n", with: ""),
-              let secretKey = FileController().readFile(name: "secretKey")?.replacingOccurrences(of: "\n", with: "") else {
-            fatalError("'accessKey' and 'secretKey' file is required in proj root.")
-        }
-        AppData.accessKey = accessKey
-        AppData.secretKey = secretKey
+//        guard AppData.accessKey == "", AppData.secretKey == "" else { return true }
+//        guard let accessKey = FileController().readFile(name: "accessKey")?.replacingOccurrences(of: "\n", with: ""),
+//              let secretKey = FileController().readFile(name: "secretKey")?.replacingOccurrences(of: "\n", with: "") else {
+//            fatalError("'accessKey' and 'secretKey' file is required in proj root.")
+//        }
+//        AppData.accessKey = accessKey
+//        AppData.secretKey = secretKey
         #endif
         
         return true

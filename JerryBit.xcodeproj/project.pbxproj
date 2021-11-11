@@ -172,8 +172,6 @@
 		CE4A6AB6257D32C4007A2C65 /* Device+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6AB5257D32C4007A2C65 /* Device+Ext.swift */; };
 		CE4A6ABB257D32D9007A2C65 /* FileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6ABA257D32D9007A2C65 /* FileController.swift */; };
 		CE4A6AC0257D3392007A2C65 /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6ABF257D3392007A2C65 /* Authorization.swift */; };
-		CE4A6ACC257D34D6007A2C65 /* secretKey in Resources */ = {isa = PBXBuildFile; fileRef = CE4A6ACA257D34D6007A2C65 /* secretKey */; };
-		CE4A6ACD257D34D6007A2C65 /* accessKey in Resources */ = {isa = PBXBuildFile; fileRef = CE4A6ACB257D34D6007A2C65 /* accessKey */; };
 		CE4A6AD1257D3912007A2C65 /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6AD0257D3912007A2C65 /* Print.swift */; };
 		CE4A6AD6257D3C49007A2C65 /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6AD5257D3C49007A2C65 /* ServiceContainer.swift */; };
 		CE4A6AD9257D3C90007A2C65 /* ServicePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6AD8257D3C90007A2C65 /* ServicePool.swift */; };
@@ -389,8 +387,6 @@
 		CE4A6AB5257D32C4007A2C65 /* Device+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+Ext.swift"; sourceTree = "<group>"; };
 		CE4A6ABA257D32D9007A2C65 /* FileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileController.swift; sourceTree = "<group>"; };
 		CE4A6ABF257D3392007A2C65 /* Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorization.swift; sourceTree = "<group>"; };
-		CE4A6ACA257D34D6007A2C65 /* secretKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = secretKey; sourceTree = SOURCE_ROOT; };
-		CE4A6ACB257D34D6007A2C65 /* accessKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = accessKey; sourceTree = SOURCE_ROOT; };
 		CE4A6AD0257D3912007A2C65 /* Print.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Print.swift; sourceTree = "<group>"; };
 		CE4A6AD5257D3C49007A2C65 /* ServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
 		CE4A6AD8257D3C90007A2C65 /* ServicePool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePool.swift; sourceTree = "<group>"; };
@@ -832,8 +828,6 @@
 			isa = PBXGroup;
 			children = (
 				CE4A6ABF257D3392007A2C65 /* Authorization.swift */,
-				CE4A6ACB257D34D6007A2C65 /* accessKey */,
-				CE4A6ACA257D34D6007A2C65 /* secretKey */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -1042,6 +1036,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE4A6A7B257D2A34007A2C65 /* Build configuration list for PBXNativeTarget "JerryBit" */;
 			buildPhases = (
+				A60C3761273CEB5300AE0BE8 /* ShellScript */,
 				2200A877F234B05237FDF2A6 /* [CP] Check Pods Manifest.lock */,
 				CE4A6A63257D2A32007A2C65 /* Sources */,
 				CE4A6A64257D2A32007A2C65 /* Frameworks */,
@@ -1097,7 +1092,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE4D3BD0261647EB007CDDCC /* TabBar.storyboard in Resources */,
-				CE4A6ACC257D34D6007A2C65 /* secretKey in Resources */,
 				CE96500C257E67C500C1AFC6 /* MyAccountCell.xib in Resources */,
 				CE4A6A77257D2A34007A2C65 /* LaunchScreen.storyboard in Resources */,
 				A65F303726426B520088BFE7 /* Market.storyboard in Resources */,
@@ -1108,7 +1102,6 @@
 				CE4A6A72257D2A32007A2C65 /* MyAccount.storyboard in Resources */,
 				CE4D3BD926164F19007CDDCC /* Setting.storyboard in Resources */,
 				A65F303C26426F0E0088BFE7 /* MarketCoinCell.xib in Resources */,
-				CE4A6ACD257D34D6007A2C65 /* accessKey in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1171,6 +1164,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JerryBit/Pods-JerryBit-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		A60C3761273CEB5300AE0BE8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nrm -rf ${SRCROOT}/Pods/JSONWebToken/CommonCrypto\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

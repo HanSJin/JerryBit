@@ -88,6 +88,9 @@ class Trader {
     // 주문 취소 카운트
     var cancelOrderIds = [String]()
     
+    // NEW 평가손익
+    var newProfit: Double = 0.0
+    
     init() {
         timer?.invalidate()
         timer = Timer(timeInterval: 1.0, target: self, selector: #selector(timerTicked), userInfo: nil, repeats: true)
@@ -315,14 +318,16 @@ extension Trader {
     }
     
     func requestSell(completion: IntCompletion? = nil) {
-        guard evaluationAmount >= 500.0 else { return } // 최소 주문 금액
+        guard evaluationAmount >= 5000.0 else { return } // 최소 주문 금액
         let volume = Double(oncePrice) < evaluationAmount ? (Double(oncePrice) / currentPrice) : tradeAccount.balanceDouble
         
-        orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: {
+        orderService.requestSell(market: market, volume: "\(volume)", price: "\(currentPrice)").subscribe(onSuccess: { [weak self] in
             switch $0 {
             case .success(let orderModel):
                 Trader.shared.sellOrderIds.append(orderModel.uuid)
                 completion?(Int(volume * Trader.shared.currentPrice))
+                self?.calculateProfit(volume: volume)
+                
             case .failure(let error):
                 if error.globalHandling() { return }
                 // Addtional Handling
@@ -331,6 +336,16 @@ extension Trader {
             if error.globalHandling() { return }
             // Addtional Handling
         }.disposed(by: disposeBag)
+    }
+    
+    private func calculateProfit(volume: Double) {
+        guard avgBuyPrice > 5000 else { return }
+        let profit = (currentPrice - avgBuyPrice) * volume
+        newProfit += profit
+    }
+    
+    private func calculateProfitCancel(canceledProfit: Double) {
+        newProfit -= canceledProfit
     }
 }
 
@@ -396,12 +411,15 @@ extension Trader {
                 guard let createdDate = $0.created_at.toDateWithDefaultFormat() else { return false }
                 return Date().timeIntervalSince(createdDate) > (60 * 5)
             }
-            .map { [weak self] in self?.requestCancelOrder(uuid: $0.uuid) }
+            .map { [weak self] in self?.requestCancelOrder($0) }
     }
     
-    func requestCancelOrder(uuid: String) {
-        orderService.requestCancelOrder(uuid: uuid).subscribe(onSuccess: { _ in
-            Trader.shared.cancelOrderIds.append(uuid)
+    func requestCancelOrder(_ order: OrderModel) {
+        let canceledProfit = (order.priceDouble - avgBuyPrice ) * order.volumeDouble
+        calculateProfitCancel(canceledProfit: canceledProfit)
+        
+        orderService.requestCancelOrder(uuid: order.uuid).subscribe(onSuccess: { _ in
+            Trader.shared.cancelOrderIds.append(order.uuid)
         }) { error in
             if error.globalHandling() { return }
             // Addtional Handling

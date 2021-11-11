@@ -170,8 +170,7 @@ extension TradeMachineViewController {
     
     private func updateTradeEstimatedProfit() {
         guard Trader.shared.totalAmount != 0 else { return }
-        let estimatedTradeProfit = Trader.shared.totalAmount - Trader.shared.recordedTotalAmount
-        autoTradeResultLabel.text = "\(estimatedTradeProfit > 0 ? "+" : "")\(estimatedTradeProfit.numberForm(add: " KRW"))"
+        autoTradeResultLabel.text = "\(Trader.shared.newProfit > 0 ? "+" : "")\(Trader.shared.newProfit.numberForm(add: " KRW"))"
     }
     
     private func updateTradePoints() {
@@ -239,7 +238,7 @@ extension TradeMachineViewController: UITableViewDelegate {
         
         let alert = UIAlertController(title: "주문 삭제", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "삭제", style: .default) { _ in
-            Trader.shared.requestCancelOrder(uuid: orderModel.uuid)
+            Trader.shared.requestCancelOrder(orderModel)
         })
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         present(alert, animated: true)
