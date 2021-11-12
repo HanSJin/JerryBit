@@ -180,7 +180,10 @@ extension TradeMachineViewController {
     
     private func updateTradeEstimatedProfit() {
         guard Trader.shared.totalAmount != 0 else { return }
-        autoTradeResultLabel.text = "\(Trader.shared.newProfit > 0 ? "+" : "")\(Trader.shared.newProfit.numberForm(add: " KRW"))"
+        
+        let trade = Trader.shared
+        autoTradeResultLabel.text = (trade.krwBalance + trade.krwLocked + trade.evaluationAmount).numberForm(add: "")
+//        autoTradeResultLabel.text = "\(Trader.shared.newProfit > 0 ? "+" : "")\(Trader.shared.newProfit.numberForm(add: " KRW"))"
     }
     
     private func updateTradePoints() {
