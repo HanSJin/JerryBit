@@ -52,6 +52,15 @@ extension TradeMachineViewController: ChartViewDelegate {
         // print("end", Date().toStringWithDefaultFormat())
     }
     
+    func clearChart() {
+        chartView.data = nil
+        let data = CombinedChartData()
+        data.lineData = LineChartData(dataSets: [])
+        data.candleData = CandleChartData(dataSet: CandleChartDataSet(entries: [], label: "Candle Data Set"))
+        chartView.xAxis.axisMaximum = data.xMax + 0.25
+        chartView.data = data
+    }
+    
     private func setDataCount() {
         let data = CombinedChartData()
         data.lineData = generateLineData()

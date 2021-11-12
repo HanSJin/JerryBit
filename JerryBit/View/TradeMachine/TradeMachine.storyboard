@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="owC-oe-YOw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="owC-oe-YOw">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,7 +11,7 @@
         <!--Title-->
         <scene sceneID="twk-1o-iN5">
             <objects>
-                <viewController id="owC-oe-YOw" customClass="TradeMachineViewController" customModule="JerryBit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="owC-oe-YOw" customClass="TradeMachineViewController" customModule="째리비트" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OpD-QK-UX3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -229,7 +229,7 @@
                                                 <constraint firstItem="IQH-3t-3hH" firstAttribute="leading" secondItem="ybE-BS-YAy" secondAttribute="trailing" constant="4" id="yMm-BJ-7oj"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZNS-2a-Ad0" customClass="CombinedChartView" customModule="JerryBit" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZNS-2a-Ad0" customClass="CombinedChartView" customModule="째리비트" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="114" width="414" height="230"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2X-nB-zkU">
@@ -239,12 +239,28 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1y0-Ac-ezJ">
+                                                    <rect key="frame" x="12" y="189" width="30" height="24"/>
+                                                    <color key="backgroundColor" systemColor="systemGrayColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="SnP-6p-Lcz"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <state key="normal" title="On">
+                                                        <color key="titleColor" systemColor="labelColor"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="tappedChartOnOffButton:" destination="owC-oe-YOw" eventType="touchUpInside" id="otK-6N-Zm8"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemFillColor"/>
                                             <constraints>
+                                                <constraint firstItem="1y0-Ac-ezJ" firstAttribute="leading" secondItem="ZNS-2a-Ad0" secondAttribute="leading" constant="12" id="JP0-qq-FRm"/>
                                                 <constraint firstAttribute="height" constant="230" id="Jlu-uR-EBg"/>
                                                 <constraint firstItem="w2X-nB-zkU" firstAttribute="top" secondItem="ZNS-2a-Ad0" secondAttribute="top" constant="12" id="L7h-P6-uOT"/>
                                                 <constraint firstItem="w2X-nB-zkU" firstAttribute="leading" secondItem="ZNS-2a-Ad0" secondAttribute="leading" constant="12" id="Woe-pT-PhN"/>
+                                                <constraint firstAttribute="bottom" secondItem="1y0-Ac-ezJ" secondAttribute="bottom" constant="17" id="voG-PJ-6lx"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZS3-B4-mGD">
@@ -438,6 +454,7 @@
                         <outlet property="autoTradeTopConstraint" destination="fo5-Sj-D3b" id="rba-7K-79v"/>
                         <outlet property="autoTradeView" destination="m1X-j4-jxS" id="W7a-nJ-Tza"/>
                         <outlet property="buyButton" destination="WK3-gW-RAe" id="kWd-rm-0Kz"/>
+                        <outlet property="chartOnOffButton" destination="1y0-Ac-ezJ" id="SZw-dU-fzN"/>
                         <outlet property="chartView" destination="ZNS-2a-Ad0" id="WEm-Ft-iBI"/>
                         <outlet property="coinCurrentAvgPriceLabel" destination="cZy-FZ-fkh" id="tL2-TG-URi"/>
                         <outlet property="coinCurrentBalanceLabel" destination="vuU-5M-3si" id="iZU-y6-mfw"/>
@@ -460,6 +477,9 @@
     </scenes>
     <resources>
         <image name="pause.fill" catalog="system" width="116" height="128"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -468,6 +488,9 @@
         </systemColor>
         <systemColor name="systemFillColor">
             <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

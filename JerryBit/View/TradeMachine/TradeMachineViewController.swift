@@ -48,6 +48,7 @@ class TradeMachineViewController: BaseViewController {
     @IBOutlet private weak var tradePriceTF: UITextField!
     @IBOutlet private weak var buyButton: UIButton!
     @IBOutlet private weak var sellButton: UIButton!
+    @IBOutlet private weak var chartOnOffButton: UIButton!
     
     // Variables
     private let orderService: OrderService = ServiceContainer.shared.getService(key: .order)
@@ -59,6 +60,8 @@ class TradeMachineViewController: BaseViewController {
     private var tickerModel: QuoteTickerModel?
     
     private let tableHeaderSize = CGFloat(423)
+    
+    private var chartOnOff: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +80,12 @@ class TradeMachineViewController: BaseViewController {
     
     deinit {
         print("DEINIT")
+    }
+    
+    @IBAction func tappedChartOnOffButton(_ sender: UIButton) {
+        chartOnOff = !chartOnOff
+        clearChart()
+        sender.setTitle(chartOnOff ? "On" : "Off", for: .normal)
     }
 }
 
@@ -98,6 +107,7 @@ extension TradeMachineViewController {
         buyButton.layer.cornerRadius = 10
         sellButton.backgroundColor = .myBlue
         sellButton.layer.cornerRadius = 10
+        chartOnOffButton.layer.cornerRadius = 4
     }
     
     func syncronizeView() {
@@ -205,7 +215,8 @@ extension TradeMachineViewController: GlobalRunLoop {
     func secondaryRunLoop() {
         guard enableCoin else { return }
         Trader.shared.requestCandles { [weak self] in
-            self?.updateChartData()
+            guard let self = self, self.chartOnOff else { return }
+            self.updateChartData()
         }
         Trader.shared.requestOrders() { [weak self] in
             self?.tableView.reloadData()
